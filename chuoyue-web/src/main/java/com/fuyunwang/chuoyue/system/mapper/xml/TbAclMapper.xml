@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuyunwang.chuoyue.system.mapper.TbAclMapper">
+    <sql id="Role_Acl_Column_List" >
+    c.id c_id, c.acl_name c_acl_name, c.acl_url c_acl_url,c.operator c_operator, c.acl_remark c_acl_remark, c.status c_status,
+    c.type c_type, c.update_time c_update_time,
+    r.id r_id,r.operator r_operator,r.remark r_remark,r.role_name r_role_name,r.status r_status,r.type r_type,
+    r.update_time r_update_time
+  </sql>
+  <!--<resultMap id="RoleAclResultMap" type="com.fuyunwang.chuoyue.system.entity.TbAcl" >
+      <id column="c_id" property="id" jdbcType="INTEGER" />
+      <result column="c_acl_name" property="aclName" jdbcType="VARCHAR" />
+      <result column="c_acl_url" property="aclUrl" jdbcType="VARCHAR" />
+      <result column="c_operator" property="operator" jdbcType="VARCHAR" />
+      <result column="c_acl_remark" property="aclRemark" jdbcType="VARCHAR" />
+      <result column="c_status" property="status" jdbcType="INTEGER" />
+      <result column="c_type" property="type" jdbcType="INTEGER" />
+      <result column="c_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      <collection property="roleList" ofType="com.fuyunwang.chuoyue.system.entity.TbRole">
+          <id column="r_id" property="id" jdbcType="INTEGER" />
+          <result column="r_operator" property="operator" jdbcType="VARCHAR" />
+          <result column="r_remark" property="remark" jdbcType="VARCHAR" />
+          <result column="r_role_name" property="roleName" jdbcType="VARCHAR" />
+          <result column="r_status" property="status" jdbcType="INTEGER" />
+          <result column="r_type" property="type" jdbcType="INTEGER" />
+          <result column="r_update_time" property="updateTime" jdbcType="TIMESTAMP" />
+      </collection>
+  </resultMap>
+  <select id="findByAclUrl" resultMap="RoleAclResultMap" parameterType="string">
+      select
+      <include refid="Role_Acl_Column_List" />
+      from tb_acl c left join tb_role_acl rc on c.id =rc.acl_id
+      left join tb_role r on rc.role_id = r.id
+      where c.acl_url = #{acl,jdbcType=VARCHAR}
+  </select>
+-->
+
+  <select id="findAclUrlByRole" resultType="com.fuyunwang.chuoyue.system.entity.TbAcl">
+      select acl.* from tb_role role
+          left join tb_role_acl ra  on role.id = ra.role_id
+          left join tb_acl acl on acl.id = ra.acl_id
+      where role.role_name in
+      <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+      </foreach>
+  </select>
+</mapper>
