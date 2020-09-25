@@ -42,6 +42,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -186,7 +187,7 @@ public class ChuoyueSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers()
                 .frameOptions()
-                .disable();
+                .disable().and().cors();
         http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);
         http.addFilterBefore(jwtAuthenticationTokenFilter(),LoginFilter.class);
 //        http.addFilterBefore(smsCodeAuthenticationTokenValidateFilter(),LoginFilter.class);
@@ -227,5 +228,8 @@ public class ChuoyueSecurityConfig extends WebSecurityConfigurerAdapter {
     public AntPathMatcher antPathMatcher(){
         return new AntPathMatcher();
     }
+
+
+
 
 }
