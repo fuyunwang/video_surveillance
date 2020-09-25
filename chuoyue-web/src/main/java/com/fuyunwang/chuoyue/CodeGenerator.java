@@ -32,7 +32,7 @@ public class CodeGenerator {
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
-        dsc.setUrl("jdbc:mysql://localhost:3306/chuoyue?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true");
+        dsc.setUrl("jdbc:mysql://localhost:3306/video_surveillance?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("password");
@@ -75,7 +75,7 @@ public class CodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        strategy.setInclude(new String[]{"tb_agent","tb_student","tb_role","tb_acl","tb_role_acl"});
+        strategy.setInclude(new String[]{"algorithm","department","device","employee","menu_info"});
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setEntityTableFieldAnnotationEnable(true);
         mpg.setStrategy(strategy);

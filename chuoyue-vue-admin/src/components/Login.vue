@@ -68,7 +68,7 @@ export default {
             return ret
           }]
         })
-        if (res.meta.status !== 200) {
+        if (res.status !== 20001) {
           return this.$message.error(res.meta.msg)
         }
         this.$message.success(res.data.username + '登陆成功')
