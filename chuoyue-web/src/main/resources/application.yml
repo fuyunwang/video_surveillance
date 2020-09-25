@@ -1,5 +1,5 @@
 server:
-  port: 8999
+  port: 10086
   servlet:
     context-path: /chuoyue
 
@@ -7,7 +7,7 @@ spring:
   datasource:
     username: root
     password: password
-    url: jdbc:mysql://localhost:3306/chuoyue?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
+    url: jdbc:mysql://localhost:3306/video_surveillance?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&nullCatalogMeansCurrent=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 

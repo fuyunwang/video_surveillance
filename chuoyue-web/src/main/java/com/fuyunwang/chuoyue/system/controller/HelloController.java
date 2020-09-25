@@ -42,7 +42,6 @@ public class HelloController {
 
     @RequestMapping(value = "/index/ju",method = RequestMethod.POST)
     public ResponseResult indexJunior(@AuthenticationPrincipal UserDetails userDetails){
-
         return ResponseResult.createBySuccess("中管、高管、超管才能看到",GlobalUtil.data(userDetails.getUsername()));
     }
 
