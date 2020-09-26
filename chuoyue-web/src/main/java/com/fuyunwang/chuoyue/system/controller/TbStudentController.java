@@ -1,9 +1,17 @@
 package com.fuyunwang.chuoyue.system.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.fuyunwang.chuoyue.common.base.ResponseResult;
 import com.fuyunwang.chuoyue.common.utils.GlobalUtil;
+import com.fuyunwang.chuoyue.system.entity.TbAcl;
+import com.fuyunwang.chuoyue.system.entity.TbAgent;
+import com.fuyunwang.chuoyue.system.entity.TbRole;
+import com.fuyunwang.chuoyue.system.mapper.TbAclMapper;
+import com.fuyunwang.chuoyue.system.mapper.TbRoleMapper;
 import com.fuyunwang.chuoyue.system.service.ITbStudentService;
+import com.google.common.collect.Lists;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpMethod;
@@ -18,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * <p>
@@ -34,6 +43,8 @@ public class TbStudentController {
     @Autowired
     @Qualifier(value = "tbStudentServiceImpl")
     private ITbStudentService iTbStudentService;
+    @Autowired
+    private TbRoleMapper tbRoleMapper;
 
     @PreAuthorize("hasAuthority('administrator')")
     @RequestMapping(value = "/index/ad",method = RequestMethod.POST)
@@ -56,8 +67,9 @@ public class TbStudentController {
     @RequestMapping(value = "/index/lo",method = RequestMethod.POST)
     public ResponseResult indexLogin(@AuthenticationPrincipal UserDetails userDetails){
         String username = userDetails.getUsername();
-        Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-        return ResponseResult.createBySuccess("登陆就能看到", GlobalUtil.data(username+authorities.toString()));
+
+
+        return ResponseResult.createBySuccess("登陆就能看到", GlobalUtil.data(username));
     }
 
     @RequestMapping(value = "/index/anon",method = RequestMethod.POST)
