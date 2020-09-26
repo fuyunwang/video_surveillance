@@ -11,7 +11,7 @@
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 26/09/2020 20:47:10
+ Date: 26/09/2020 22:05:14
 */
 
 SET NAMES utf8mb4;
@@ -23,11 +23,11 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `algorithm`;
 CREATE TABLE `algorithm`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `algorithmName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '算法名称',
+  `algorithmName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '算法名称',
   `startTime` datetime(0) NOT NULL COMMENT '算法开始时间',
   `stopTime` datetime(0) NOT NULL COMMENT '算法结束时间',
   `alarmInterval` int(0) NOT NULL COMMENT '报警间隔(秒)',
-  `deviceName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备名称',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `algorithm_ibfk_1`(`deviceName`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
@@ -58,7 +58,7 @@ CREATE TABLE `department`  (
 -- Records of department
 -- ----------------------------
 INSERT INTO `department` VALUES (1, '测试组', '2020-09-26 19:03:22', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
-INSERT INTO `department` VALUES (2, '测试组', '2020-09-26 20:14:47', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597610642996-ae37c2260aea.jpg', 0, '', '');
+INSERT INTO `department` VALUES (2, '测试组', '2020-09-26 20:49:46', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
 INSERT INTO `department` VALUES (3, '测试组', '2020-09-26 20:15:00', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597711002271-db32de5ff02b.jpg', 0, '', '');
 INSERT INTO `department` VALUES (4, '测试组', '2020-09-26 20:15:28', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597750721050-f29f1f1eb2c7.jpg\r\n', 0, '', '');
 INSERT INTO `department` VALUES (5, '测试组', '2020-09-26 19:03:25', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
@@ -70,19 +70,24 @@ INSERT INTO `department` VALUES (6, '测试组', '2020-09-26 19:03:26', '火焰'
 DROP TABLE IF EXISTS `device`;
 CREATE TABLE `device`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `deviceNmae` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备名称',
-  `deviceUserName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备用户名',
-  `deviceIp` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备IP地址',
-  `RTSP` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT 'RTSP端口',
-  `gateway` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '网关',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `deviceUserName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备用户名',
+  `deviceIp` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备IP地址',
+  `RTSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'RTSP端口',
+  `gateway` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '网关',
   `status` int(0) NOT NULL COMMENT '状态（0正常 1异常）',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
   PRIMARY KEY (`id`) USING BTREE,
-  INDEX `deviceNmae`(`deviceNmae`) USING BTREE
+  INDEX `deviceNmae`(`deviceName`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of device
 -- ----------------------------
+INSERT INTO `device` VALUES (1, '工厂1', 'admin', '192.168.1.110', '26101', 'NANO开发测试', 0, '测试组', '门口');
+INSERT INTO `device` VALUES (2, '灰色摄像机', 'admin', '192.168.1.64', '554', 'NANO开发测试', 0, '测试组', '饮水机QQ');
+INSERT INTO `device` VALUES (3, '白色摄像头', 'admin', '192.168.1.65', '554', 'NANO', 0, '中科鸿云', '门口');
 
 -- ----------------------------
 -- Table structure for employee
@@ -90,7 +95,7 @@ CREATE TABLE `device`  (
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE `employee`  (
   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `employeeName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '人员',
+  `employeeName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '人员',
   `phoneNumber` int(0) NOT NULL COMMENT '手机号码',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
@@ -111,7 +116,7 @@ CREATE TABLE `menu_info`  (
   `parent_id` int(0) NULL DEFAULT 0 COMMENT '父级id,为0表示为根父级',
   `auth_type` int(0) NULL DEFAULT 3 COMMENT '权限类型,0是只有超管才能看到,1是高管可以看到,2是中管可以看到,3是所有人都可以看到',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of menu_info
@@ -146,6 +151,7 @@ CREATE TABLE `tb_acl`  (
 -- ----------------------------
 -- Records of tb_acl
 -- ----------------------------
+INSERT INTO `tb_acl` VALUES (24, '获取设备列表', '/chuoyue/device/**', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO `tb_acl` VALUES (5, '测试权限拦截', '/chuoyue/hello/index/**', 'Admin', '所有人能够请求', 1, 1, '2019-04-03 21:52:53');
 INSERT INTO `tb_acl` VALUES (21, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 09:02:51');
 INSERT INTO `tb_acl` VALUES (22, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 20:36:48');
@@ -236,7 +242,10 @@ CREATE TABLE `tb_role_acl`  (
 -- ----------------------------
 INSERT INTO `tb_role_acl` VALUES (3, 5);
 INSERT INTO `tb_role_acl` VALUES (3, 5);
+INSERT INTO `tb_role_acl` VALUES (1, 24);
+INSERT INTO `tb_role_acl` VALUES (2, 24);
 INSERT INTO `tb_role_acl` VALUES (2, 5);
+INSERT INTO `tb_role_acl` VALUES (3, 24);
 INSERT INTO `tb_role_acl` VALUES (1, 21);
 INSERT INTO `tb_role_acl` VALUES (2, 21);
 INSERT INTO `tb_role_acl` VALUES (3, 21);
