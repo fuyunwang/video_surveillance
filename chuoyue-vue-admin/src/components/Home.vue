@@ -22,30 +22,32 @@
             <!--一级菜单的模板区域-->
             <template slot="title">
               <!--图标-->
-              <i :class="iconsObj[item.id]"></i>
+              <i :class="'iconfont icon-tijikongjian'"></i>
               <!--文本-->
-              <span>{{item.authName}}</span>
+              <span>{{item.menuName}}</span>
             </template>
 
-            <!--<el-menu-item-group>
-              <template slot="title">分组一</template>
-              <el-menu-item index="1-1">选项1</el-menu-item>
-              <el-menu-item index="1-2">选项2</el-menu-item>
-            </el-menu-item-group>-->
-<!--            <el-menu-item-group title="分组2">-->
-              <el-menu-item :index="'/' + subItem.path" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/' + subItem.path)">
-                <template slot="title">
-                  <!--图标-->
+           <!-- <el-submenu :index="subItem.id + ''" v-for="subItem in item.children" :key="subItem.id" >
+              <template slot="title">
+                &lt;!&ndash;图标&ndash;&gt;
+                <i class="el-icon-menu"></i>
+                &lt;!&ndash;文本&ndash;&gt;
+                <span>{{subItem.menuName}}</span>
+              </template>
+                <el-menu-item :index="'/' + subsubItem.menuPath" @click="saveNavState('/' + subsubItem.menuPath)" v-for="subsubItem in subItem.children" :key="subsubItem.id">
                   <i class="el-icon-menu"></i>
-                  <!--文本-->
-                  <span>{{subItem.authName}}</span>
-                </template>
-              </el-menu-item>
-<!--            </el-menu-item-group>-->
-           <!-- <el-submenu index="1-4">
-              <template slot="title">选项4</template>
-              <el-menu-item index="1-4-1">选项1</el-menu-item>
+                  &lt;!&ndash;文本&ndash;&gt;
+                  <span>{{subsubItem.menuName}}</span>
+                </el-menu-item>
             </el-submenu>-->
+            <el-menu-item :index="'/' + subItem.menuPath" v-for="subItem in item.children" :key="subItem.id" @click="saveNavState('/' + subItem.menuPath)">
+              <template slot="title">
+                <!--图标-->
+                <i class="el-icon-menu"></i>
+                <!--文本-->
+                <span>{{subItem.menuName}}</span>
+              </template>
+            </el-menu-item>
           </el-submenu>
 
         </el-menu>
@@ -84,12 +86,11 @@ export default {
     },
     async getMenuList() {
       const token = window.sessionStorage.getItem('token')
-      const { data: res } = await this.$http.get('menus', {
-        headers: {
-          Authorization: token
-        }
+      const { data: res } = await this.$http({
+          method: "post",
+          url: "menus/listall"
       })
-      if (res.meta.status !== 200) { return this.$message.error(res.meta.msg) }
+      if (res.status !== 20000) { return this.$message.error(res.meta.msg) }
       this.menuList = res.data
       console.log(res)
     },

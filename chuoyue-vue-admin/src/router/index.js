@@ -32,23 +32,23 @@ const routes = [
         component: Welcome
       },
       {
-        path: '/users',
+        path: '/portal/first',
         component: Users
       },
       {
-        path: '/rights',
+        path: '/portal/second',
         component: Rights
       },
       {
-        path: '/roles',
+        path: '/alert/first',
         component: Roles
       },
       {
-        path: '/users/edit',
+        path: '/settings/first',
         component: UserEdit
       },
       {
-        path: '/reports',
+        path: '/system/first',
         component: ChartFirst
       },
       {
