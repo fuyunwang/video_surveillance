@@ -35,6 +35,7 @@ public class HelloController {
         return ResponseResult.createBySuccess("只有超管才能看到");
     }
 
+    @PreAuthorize("hasAuthority('senior') or hasAuthority('administrator')")
     @RequestMapping(value = "/index/se",method = RequestMethod.POST)
     public ResponseResult indexSenior(){
         return ResponseResult.createBySuccess("高管和超管才能看到");

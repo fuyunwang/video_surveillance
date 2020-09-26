@@ -17,7 +17,7 @@
             </el-input>
           </el-col>
           <el-col :span="4">
-            <el-button type="primary" @click="handleAddDialog">添加用户</el-button>
+            <el-button type="primary" @click="handleAddDialog">添加报警</el-button>
           </el-col>
         </el-row>
         <el-table :data="userList" stripe border>
@@ -26,10 +26,10 @@
           <el-table-column label="报警时间" prop="alarmTime" width="200px"></el-table-column>
           <el-table-column label="事件类型" prop="incidentType" width="120px"></el-table-column>
           <el-table-column label="设备名称" prop="deviceName" width="140px"></el-table-column>
-          <el-table-column show-overflow-tooltip label="抓拍图" >
-            <template slot-scope="">
+          <el-table-column show-overflow-tooltip label="抓拍图" width="200px" height="200px">
+            <template slot-scope="scope">
               <el-image
-                src=""
+                :src="scope.row.screenShot"
               ></el-image>
             </template>
           </el-table-column>
