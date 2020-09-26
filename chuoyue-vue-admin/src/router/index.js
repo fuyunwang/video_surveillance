@@ -11,6 +11,7 @@ import ChartFirst from '../components/chart/ChartFirst'
 import RoleEdit from '../components/power/edit/RoleEdit'
 import Category from '../components/goods/Category'
 import AlertFirstManage from '../components/alert/AlertFirstManage'
+import SettingsFirstManage from '../components/settings/SettingsFirstManage'
 
 Vue.use(VueRouter)
 
@@ -46,7 +47,7 @@ const routes = [
       },
       {
         path: '/settings/first',
-        component: UserEdit
+        component: SettingsFirstManage
       },
       {
         path: '/system/first',

@@ -32,8 +32,8 @@ public class Device implements Serializable {
     /**
      * 设备名称
      */
-    @TableField("deviceNmae")
-    private String deviceNmae;
+    @TableField("deviceName")
+    private String deviceName;
 
     /**
      * 设备用户名
@@ -41,6 +41,11 @@ public class Device implements Serializable {
     @TableField("deviceUserName")
     private String deviceUserName;
 
+    @TableField("departmentName")
+    private String departmentName;
+
+    @TableField("address")
+    private String address;
     /**
      * 设备IP地址
      */

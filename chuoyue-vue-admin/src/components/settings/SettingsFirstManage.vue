@@ -23,27 +23,13 @@
       <el-table :data="userList" stripe border>
         <el-table-column type="index" label="#"></el-table-column>
         <el-table-column label="组织" prop="departmentName" width="110px"></el-table-column>
-        <el-table-column label="报警时间" prop="alarmTime" width="200px"></el-table-column>
-        <el-table-column label="事件类型" prop="incidentType" width="120px"></el-table-column>
-        <el-table-column label="设备名称" prop="deviceName" width="140px"></el-table-column>
-        <el-table-column show-overflow-tooltip label="抓拍图" width="200px" height="200px">
-          <template slot-scope="scope">
-            <el-image
-              :src="scope.row.screenShot"
-            ></el-image>
-          </template>
-        </el-table-column>
-        <el-table-column label="状态" width="150px">
-          <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.state"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              @change="userStateChange(scope.row)">
-            </el-switch>
-            <span style="margin-left: 10px">{{scope.row.state ? '已处理' : '未处理'}}</span>
-          </template>
-        </el-table-column>
+        <el-table-column label="摄像机名称" prop="deviceName" width="120px"></el-table-column>
+        <el-table-column label="设备用户名" prop="deviceUserName" width="120px"></el-table-column>
+        <el-table-column label="位置" prop="address" width="120px"></el-table-column>
+        <el-table-column label="IP地址" prop="deviceIp" width="120px"></el-table-column>
+        <el-table-column label="RTSP端口" prop="rtsp" width="120px"></el-table-column>
+        <el-table-column label="网关" prop="gateway" width="120px"></el-table-column>
+        <el-table-column label="状态" prop="status" width="120px"></el-table-column>
         <el-table-column label="操作" width="251px">
           <template>
 
@@ -103,7 +89,7 @@
 
 <script>
   export default {
-    name: 'AlertFirstManage',
+    name: 'SettingsFirstManage',
     data () {
       // 验证邮箱和手机号的校验规则
       var checkEmail = (rule, value, cb) => {
@@ -174,7 +160,7 @@
         // const token = window.sessionStorage.getItem('token')
         const { data: res } = await this.$http({
           method: 'post',
-          url: 'department/getbypage',
+          url: 'device/getbypage',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },
