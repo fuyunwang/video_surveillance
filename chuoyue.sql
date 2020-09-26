@@ -5,17 +5,127 @@
  Source Server Type    : MySQL
  Source Server Version : 80021
  Source Host           : localhost:3306
- Source Schema         : chuoyue
+ Source Schema         : video_surveillance
 
  Target Server Type    : MySQL
  Target Server Version : 80021
  File Encoding         : 65001
 
- Date: 23/07/2020 22:01:24
+ Date: 26/09/2020 20:47:10
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for algorithm
+-- ----------------------------
+DROP TABLE IF EXISTS `algorithm`;
+CREATE TABLE `algorithm`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `algorithmName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '算法名称',
+  `startTime` datetime(0) NOT NULL COMMENT '算法开始时间',
+  `stopTime` datetime(0) NOT NULL COMMENT '算法结束时间',
+  `alarmInterval` int(0) NOT NULL COMMENT '报警间隔(秒)',
+  `deviceName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备名称',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `algorithm_ibfk_1`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of algorithm
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for department
+-- ----------------------------
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE `department`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
+  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
+  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
+  `status` int(0) NOT NULL COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceName`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of department
+-- ----------------------------
+INSERT INTO `department` VALUES (1, '测试组', '2020-09-26 19:03:22', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
+INSERT INTO `department` VALUES (2, '测试组', '2020-09-26 20:14:47', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597610642996-ae37c2260aea.jpg', 0, '', '');
+INSERT INTO `department` VALUES (3, '测试组', '2020-09-26 20:15:00', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597711002271-db32de5ff02b.jpg', 0, '', '');
+INSERT INTO `department` VALUES (4, '测试组', '2020-09-26 20:15:28', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597750721050-f29f1f1eb2c7.jpg\r\n', 0, '', '');
+INSERT INTO `department` VALUES (5, '测试组', '2020-09-26 19:03:25', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
+INSERT INTO `department` VALUES (6, '测试组', '2020-09-26 19:03:26', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
+
+-- ----------------------------
+-- Table structure for device
+-- ----------------------------
+DROP TABLE IF EXISTS `device`;
+CREATE TABLE `device`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `deviceNmae` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备名称',
+  `deviceUserName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备用户名',
+  `deviceIp` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '设备IP地址',
+  `RTSP` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT 'RTSP端口',
+  `gateway` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '网关',
+  `status` int(0) NOT NULL COMMENT '状态（0正常 1异常）',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceNmae`(`deviceNmae`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of device
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for employee
+-- ----------------------------
+DROP TABLE IF EXISTS `employee`;
+CREATE TABLE `employee`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `employeeName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL COMMENT '人员',
+  `phoneNumber` int(0) NOT NULL COMMENT '手机号码',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of employee
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for menu_info
+-- ----------------------------
+DROP TABLE IF EXISTS `menu_info`;
+CREATE TABLE `menu_info`  (
+  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `menu_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单名称',
+  `menu_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单路径',
+  `orders` int(0) NULL DEFAULT 1 COMMENT '顺序',
+  `parent_id` int(0) NULL DEFAULT 0 COMMENT '父级id,为0表示为根父级',
+  `auth_type` int(0) NULL DEFAULT 3 COMMENT '权限类型,0是只有超管才能看到,1是高管可以看到,2是中管可以看到,3是所有人都可以看到',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of menu_info
+-- ----------------------------
+INSERT INTO `menu_info` VALUES (1, '首页展示', 'portal/lo', 1, 0, 1);
+INSERT INTO `menu_info` VALUES (2, '报警管理', 'alert/lo', 2, 0, 1);
+INSERT INTO `menu_info` VALUES (3, '配置管理', 'settings/lo', 3, 0, 1);
+INSERT INTO `menu_info` VALUES (4, '系统管理', 'system/lo', 4, 0, 1);
+INSERT INTO `menu_info` VALUES (5, '首页展示1', 'portal/first', 1, 1, 3);
+INSERT INTO `menu_info` VALUES (6, '首页展示2', 'portal/second', 2, 1, 3);
+INSERT INTO `menu_info` VALUES (7, '首页展示11', 'portal/first/first', 1, 5, 3);
+INSERT INTO `menu_info` VALUES (8, '报警管理1', 'alert/first', 1, 2, 3);
+INSERT INTO `menu_info` VALUES (9, '配置管理1', 'settings/first', 1, 3, 3);
+INSERT INTO `menu_info` VALUES (10, '系统管理1', 'system/first', 1, 4, 3);
 
 -- ----------------------------
 -- Table structure for tb_acl
@@ -31,16 +141,15 @@ CREATE TABLE `tb_acl`  (
   `type` int(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 20 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 24 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_acl
 -- ----------------------------
-INSERT INTO `tb_acl` VALUES (1, '超管和高管可以看到', '/chuoyue/hello/index/se', 'Admin', '超管和高管可以看到', 1, 1, '2019-04-03 21:29:50');
-INSERT INTO `tb_acl` VALUES (2, '只有超管才能看到', '/chuoyue/hello/index/ad', 'Admin', '只有超管才能看到', 1, 0, '2019-04-03 21:32:58');
-INSERT INTO `tb_acl` VALUES (3, '登陆之后就可以看到', '/chuoyue/hello/index/lo', 'Admin', '登陆之后就可以看到', 1, 2, '2019-04-03 21:48:08');
-INSERT INTO `tb_acl` VALUES (20, NULL, '/chuoyue/hello/index/test1', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `tb_acl` VALUES (5, '超管、中管、高管都可以看', '/chuoyue/hello/index/ju', 'Admin', '超管、中管、高管都可以看', 1, 1, '2019-04-03 21:52:53');
+INSERT INTO `tb_acl` VALUES (5, '测试权限拦截', '/chuoyue/hello/index/**', 'Admin', '所有人能够请求', 1, 1, '2019-04-03 21:52:53');
+INSERT INTO `tb_acl` VALUES (21, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 09:02:51');
+INSERT INTO `tb_acl` VALUES (22, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 20:36:48');
+INSERT INTO `tb_acl` VALUES (23, '获取报警管理信息', '/chuoyue/department/**', 'Admin', '所有人都能请求', 1, 1, '2020-09-26 20:36:50');
 
 -- ----------------------------
 -- Table structure for tb_agent
@@ -61,7 +170,7 @@ CREATE TABLE `tb_agent`  (
   `role_id` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FK87oi6qqndbhjr95l34sq1t7dv`(`role_id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_agent
@@ -87,7 +196,7 @@ INSERT INTO `tb_agent` VALUES (25, 0, 'http://goudao.png', '372330111198888', '6
 INSERT INTO `tb_agent` VALUES (26, 0, 'http://goudao.png', '372330111198888', '6669.5', 'hhh号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
 INSERT INTO `tb_agent` VALUES (27, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
 INSERT INTO `tb_agent` VALUES (28, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号-1', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 27, 0, 3);
-INSERT INTO `tb_agent` VALUES (29, NULL, NULL, NULL, NULL, 'wangww', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 2);
+INSERT INTO `tb_agent` VALUES (29, NULL, NULL, NULL, NULL, 'administrator', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 1);
 INSERT INTO `tb_agent` VALUES (30, NULL, NULL, NULL, NULL, 'lisi', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 4);
 
 -- ----------------------------
@@ -103,15 +212,15 @@ CREATE TABLE `tb_role`  (
   `type` int(0) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_role
 -- ----------------------------
-INSERT INTO `tb_role` VALUES (1, 'Admin', '', 'administrator', 1, 0, '2019-04-03 19:57:05');
-INSERT INTO `tb_role` VALUES (2, 'Admin', '', 'senior', 1, 1, '2019-04-04 10:20:56');
-INSERT INTO `tb_role` VALUES (3, 'Admin', '', 'junior', 1, 2, '2019-04-04 10:23:21');
-INSERT INTO `tb_role` VALUES (4, NULL, NULL, 'test1', NULL, NULL, NULL);
+INSERT INTO `tb_role` VALUES (1, 'Admin', '超管', 'administrator', 1, 10, '2019-04-03 19:57:05');
+INSERT INTO `tb_role` VALUES (2, 'Admin', '高管', 'senior', 1, 5, '2019-04-04 10:20:56');
+INSERT INTO `tb_role` VALUES (3, 'Admin', '中管', 'junior', 1, 3, '2019-04-04 10:23:21');
+INSERT INTO `tb_role` VALUES (5, 'Admin', '用户', 'user', 1, 1, '2020-09-26 09:51:17');
 
 -- ----------------------------
 -- Table structure for tb_role_acl
@@ -125,17 +234,19 @@ CREATE TABLE `tb_role_acl`  (
 -- ----------------------------
 -- Records of tb_role_acl
 -- ----------------------------
-INSERT INTO `tb_role_acl` VALUES (1, 1);
-INSERT INTO `tb_role_acl` VALUES (1, 2);
-INSERT INTO `tb_role_acl` VALUES (1, 3);
 INSERT INTO `tb_role_acl` VALUES (3, 5);
-INSERT INTO `tb_role_acl` VALUES (1, 5);
-INSERT INTO `tb_role_acl` VALUES (2, 1);
-INSERT INTO `tb_role_acl` VALUES (2, 3);
+INSERT INTO `tb_role_acl` VALUES (3, 5);
 INSERT INTO `tb_role_acl` VALUES (2, 5);
-INSERT INTO `tb_role_acl` VALUES (3, 3);
-INSERT INTO `tb_role_acl` VALUES (1, 20);
-INSERT INTO `tb_role_acl` VALUES (2, 20);
+INSERT INTO `tb_role_acl` VALUES (1, 21);
+INSERT INTO `tb_role_acl` VALUES (2, 21);
+INSERT INTO `tb_role_acl` VALUES (3, 21);
+INSERT INTO `tb_role_acl` VALUES (1, 22);
+INSERT INTO `tb_role_acl` VALUES (2, 22);
+INSERT INTO `tb_role_acl` VALUES (3, 22);
+INSERT INTO `tb_role_acl` VALUES (1, 23);
+INSERT INTO `tb_role_acl` VALUES (2, 23);
+INSERT INTO `tb_role_acl` VALUES (3, 23);
+INSERT INTO `tb_role_acl` VALUES (1, 5);
 
 -- ----------------------------
 -- Table structure for tb_student
