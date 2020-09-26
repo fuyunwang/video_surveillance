@@ -52,7 +52,7 @@ export default {
         }
         const { data: res } = await this.$http({
           method: 'post',
-          url: '/cyLogin',
+          url: 'cyLogin',
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded'
           },

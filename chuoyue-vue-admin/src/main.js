@@ -17,7 +17,7 @@ axios.defaults.baseURL = 'http://127.0.0.1:10086/chuoyue/'
 axios.interceptors.request.use(config => {
   NProgress.start()
   // console.log(config)
-  config.headers.Authorization = "Bearer "+window.sessionStorage.getItem('token')
+  config.headers.Authorization = 'Bearer ' + window.sessionStorage.getItem('token')
   // 在最后必须 return config
   return config
 })

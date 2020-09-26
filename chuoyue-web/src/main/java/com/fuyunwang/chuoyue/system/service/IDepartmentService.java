@@ -1,5 +1,6 @@
 package com.fuyunwang.chuoyue.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fuyunwang.chuoyue.system.entity.Department;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IDepartmentService extends IService<Department> {
 
+    IPage<Department> getDepartmentsByPage(Integer pagenum, Integer pagesize);
 }

@@ -22,15 +22,14 @@
         </el-row>
         <el-table :data="userList" stripe border>
           <el-table-column type="index" label="#"></el-table-column>
-          <el-table-column label="姓名" prop="username" width="110px"></el-table-column>
-          <el-table-column label="出生日期" prop="birthday" width="140px"></el-table-column>
-          <el-table-column label="手机号" prop="phone" width="140px"></el-table-column>
-          <el-table-column label="邮箱地址" prop="email"></el-table-column>
-          <el-table-column label="居住地" prop="address" width="180px"></el-table-column>
-          <el-table-column show-overflow-tooltip label="头像">
+          <el-table-column label="组织" prop="departmentName" width="110px"></el-table-column>
+          <el-table-column label="报警时间" prop="alarmTime" width="200px"></el-table-column>
+          <el-table-column label="事件类型" prop="incidentType" width="120px"></el-table-column>
+          <el-table-column label="设备名称" prop="deviceName" width="140px"></el-table-column>
+          <el-table-column show-overflow-tooltip label="抓拍图" >
             <template slot-scope="">
               <el-image
-                :src="'../../../public/favicon.ico'"
+                src=""
               ></el-image>
             </template>
           </el-table-column>
@@ -72,7 +71,7 @@
       </el-card>
 
       <el-dialog
-        title="添加用户"
+        title="添加报警"
         :visible.sync="addDialogVisible"
         width="30%"
         @close="addDialogClosed"
@@ -132,36 +131,9 @@ export default {
     return {
       queryInfo: {
         pagenum: 1,
-        pagesize: 2
+        pagesize: 5
       },
       userList: [
-        {
-          username: '王小灏',
-          sex: '男',
-          birthday: '1997-06-29',
-          phone: '17894523210',
-          email: 'beautifulsoup@163.com',
-          address: '山东省邹平市',
-          state: true
-        },
-        {
-          username: 'FuyunWang',
-          sex: '男',
-          birthday: '1995-03-14',
-          phone: '13294523210',
-          email: '2375872953@qq.com',
-          address: '北京市海淀区',
-          state: false
-        },
-        {
-          username: 'Gopher',
-          sex: '女',
-          birthday: '1996-01-01',
-          phone: '13294523210',
-          email: '2375872953@qq.com',
-          address: '山东省邹平市',
-          state: true
-        }
       ],
       total: 3,
       queryParams: '',
@@ -199,15 +171,26 @@ export default {
   },
   methods: {
     async getUserList() {
-      const token = window.sessionStorage.getItem('token')
-      const { data: res } = await this.$http.get('users', {
+      // const token = window.sessionStorage.getItem('token')
+      const { data: res } = await this.$http({
+        method: 'post',
+        url: 'department/getbypage',
         headers: {
-          Authorization: token
+          'Content-Type': 'application/x-www-form-urlencoded'
         },
-        params: this.queryInfo
+        data: {
+          pagenum: this.queryInfo.pagenum,
+          pagesize: this.queryInfo.pagesize
+        },
+        transformRequest: [function (data) {
+          let ret = ''
+          for (const it in data) {
+            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+          }
+          return ret
+        }]
       })
-      console.log(res.users)
-      this.userList = res.data.users
+      this.userList = res.data.records
       this.total = res.data.total
     },
 
