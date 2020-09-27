@@ -69,7 +69,7 @@ export default {
           }]
         })
         if (res.status !== 20001) {
-          return this.$message.error(res.meta.msg)
+          return this.$message.error(res.data.message)
         }
         this.$message.success(res.data.username + '登陆成功')
         window.sessionStorage.setItem('token', res.data.token)

@@ -12,6 +12,7 @@ import RoleEdit from '../components/power/edit/RoleEdit'
 import Category from '../components/goods/Category'
 import AlertFirstManage from '../components/alert/AlertFirstManage'
 import SettingsFirstManage from '../components/settings/SettingsFirstManage'
+import AlertAllManage from '../components/alert/AlertAllManage'
 
 Vue.use(VueRouter)
 
@@ -31,7 +32,7 @@ const routes = [
     children: [
       {
         path: '/welcome',
-        component: Welcome
+        component: Category
       },
       {
         path: '/portal/first',
@@ -39,11 +40,11 @@ const routes = [
       },
       {
         path: '/portal/second',
-        component: Rights
+        component: AlertAllManage
       },
       {
         path: '/alert/first',
-        component: AlertFirstManage
+        component: AlertAllManage
       },
       {
         path: '/settings/first',
