@@ -47,7 +47,7 @@ public class RbacService {
             List<TbAcl> tbacls = tbAclMapper.findAclUrlByRole(roles);
             try{
                 if (CollectionUtils.isNotEmpty(tbacls)){
-                    List<String> urls = tbacls.stream().map(TbAcl::getAclUrl).collect(Collectors.toList());
+                    List<String> urls = tbacls.stream().filter(tbAcl -> tbAcl!=null).map(TbAcl::getAclUrl).collect(Collectors.toList());
 
                     // 注意这里不能用equal来判断，因为有些URL是有参数的，所以要用AntPathMatcher来比较
                     for (String url : urls) {
