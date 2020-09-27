@@ -63,7 +63,7 @@ export default {
           transformRequest: [function (data) {
             let ret = ''
             for (const it in data) {
-                ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
             }
             return ret
           }]

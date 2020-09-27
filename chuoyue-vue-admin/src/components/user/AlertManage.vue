@@ -44,12 +44,12 @@
               <span style="margin-left: 10px">{{scope.row.state ? '已启用' : '未启用'}}</span>
             </template>
           </el-table-column>
-          <el-table-column label="操作" width="251px">
+          <el-table-column label="操作" width="140px">
             <template>
 
-              <el-button type="primary" icon="el-icon-edit" size="mini" @click="editUser"></el-button>
-              <!--删除-->
-              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser"></el-button>
+           <!--   <el-button type="primary" icon="el-icon-edit" size="mini" @click="editUser"></el-button>
+              &lt;!&ndash;删除&ndash;&gt;
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser"></el-button>-->
               <!--分配角色-->
               <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false">
                 <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>

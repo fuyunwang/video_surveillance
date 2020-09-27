@@ -3,6 +3,7 @@ package com.fuyunwang.chuoyue;
 import lombok.extern.slf4j.Slf4j;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,9 +23,9 @@ public class ChuoyueTestApplication {
     private PasswordEncoder passwordEncoder;
 
 
-//    @Test
+    @Test
     public void generatePassword(){
-        String wangxiaohao = passwordEncoder.encode("wangxiaohao");
+        String wangxiaohao = passwordEncoder.encode("password");
         log.info(wangxiaohao);
     }
 }

@@ -87,8 +87,8 @@ export default {
     async getMenuList() {
       const token = window.sessionStorage.getItem('token')
       const { data: res } = await this.$http({
-          method: "post",
-          url: "menus/listall"
+        method: 'post',
+        url: 'menus/listall'
       })
       if (res.status !== 20000) { return this.$message.error(res.meta.msg) }
       this.menuList = res.data
