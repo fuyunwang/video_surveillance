@@ -10,4 +10,4 @@ Vue全家桶
 SpringBoot+SpringSecurity+MyBatis-Plus
 
 ## 项目原型
-![Chuoyue-SpringBoot](https://github.com/fuyunwang/Chuoyue-SpringBoot)
+[Chuoyue-SpringBoot](https://github.com/fuyunwang/Chuoyue-SpringBoot)
