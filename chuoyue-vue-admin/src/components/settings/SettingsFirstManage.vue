@@ -30,17 +30,21 @@
         <el-table-column label="IP地址" prop="deviceIp"></el-table-column>
         <el-table-column label="RTSP端口" prop="rtsp" ></el-table-column>
         <el-table-column label="网关" prop="gateway"></el-table-column>
-        <el-table-column label="状态" prop="status" width="120px"></el-table-column>
+        <el-table-column label="状态"  width="120px">
+          <template slot-scope="scope">
+            <span v-if="scope.row.status === 0">正常</span>
+            <span v-else>异常</span>
+          </template>
+        </el-table-column>
         <el-table-column label="操作" width="251px">
-          <template>
-
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="editUser"></el-button>
-            <!--删除-->
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser"></el-button>
-            <!--分配角色-->
-            <el-tooltip  effect="dark" content="分配角色" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
-            </el-tooltip>
+          <template slot-scope="scope">
+            <el-switch
+              v-model="scope.row.state === 1"
+              active-color="#13ce66"
+              inactive-color="#ff4949"
+              @change="userStateChange(scope.row)">
+            </el-switch>
+            <span style="margin-left: 10px">{{scope.row.state === 1 ? '已启用' : '未启用'}}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -125,6 +129,7 @@ export default {
       total: 3,
       queryParams: '',
       addDialogVisible: false,
+      switchState: false,
       // 添加用户的表单数据和校验规则
       addUserForm: {
         username: '',
@@ -193,18 +198,19 @@ export default {
       this.getUserList()
     },
     async userStateChange(userInfo) {
-      const token = window.sessionStorage.getItem('token')
       // 监听Switch开关状态的改变
-      const { data: res } = await this.$http.post(`users/${userInfo.id}/state/${userInfo.mg_state}`, {
-        headers: {
-          Authorization: token
-        }
-      })
-      if (res.meta.status !== 200) {
-        userInfo.mg_state = !userInfo.mg_state
-        return this.$message.error('更新用户失败 ' + res.meta.msg)
+      // const { data: res } = await this.$http.post(`users/${userInfo.id}/state/${userInfo.mg_state}`, {
+      // })
+      // if (res.status !== 200) {
+      //   userInfo.mg_state = !userInfo.mg_state
+      //   return this.$message.error('更新用户失败 ' + res.meta.msg)
+      // }
+      userInfo.state = userInfo.state === 0 ? 1 : 0
+      if (userInfo.state === 1){
+        this.$message.success('当前算法启用成功')
+      }else{
+        this.$message.success('当前算法禁用成功')
       }
-      this.$message.success('更新用户状态成功')
     },
     getUserSearchList() {
       this.$message.success(this.queryParams)
