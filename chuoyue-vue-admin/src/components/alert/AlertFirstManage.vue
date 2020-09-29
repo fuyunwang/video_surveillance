@@ -18,10 +18,10 @@
       </el-row>
       <el-table :data="userList" stripe border>
         <el-table-column type="index" label="#"></el-table-column>
-        <el-table-column label="组织" prop="departmentName" width="200px"></el-table-column>
-        <el-table-column label="报警时间" prop="alarmTime" width="200px"></el-table-column>
-        <el-table-column label="事件类型" prop="incidentType" width="150px"></el-table-column>
-        <el-table-column label="设备名称" prop="deviceName" width="168px"></el-table-column>
+        <el-table-column label="组织" prop="departmentName" ></el-table-column>
+        <el-table-column label="报警时间" prop="alarmTime" ></el-table-column>
+        <el-table-column label="事件类型" prop="incidentType" ></el-table-column>
+        <el-table-column label="设备名称" prop="deviceName" ></el-table-column>
         <el-table-column show-overflow-tooltip label="抓拍图" height="160px" width="220px">
           <template slot-scope="scope">
             <el-image

@@ -23,13 +23,13 @@
       </el-row>
       <el-table :data="userList" stripe border>
         <el-table-column type="index" label="#"></el-table-column>
-        <el-table-column label="组织" prop="departmentName" width="110px"></el-table-column>
-        <el-table-column label="摄像机名称" prop="deviceName" width="120px"></el-table-column>
-        <el-table-column label="设备用户名" prop="deviceUserName" width="120px"></el-table-column>
-        <el-table-column label="位置" prop="address" width="120px"></el-table-column>
-        <el-table-column label="IP地址" prop="deviceIp" width="120px"></el-table-column>
-        <el-table-column label="RTSP端口" prop="rtsp" width="120px"></el-table-column>
-        <el-table-column label="网关" prop="gateway" width="120px"></el-table-column>
+        <el-table-column label="组织" prop="departmentName" ></el-table-column>
+        <el-table-column label="摄像机名称" prop="deviceName"></el-table-column>
+        <el-table-column label="设备用户名" prop="deviceUserName" ></el-table-column>
+        <el-table-column label="位置" prop="address"></el-table-column>
+        <el-table-column label="IP地址" prop="deviceIp"></el-table-column>
+        <el-table-column label="RTSP端口" prop="rtsp" ></el-table-column>
+        <el-table-column label="网关" prop="gateway"></el-table-column>
         <el-table-column label="状态" prop="status" width="120px"></el-table-column>
         <el-table-column label="操作" width="251px">
           <template>
@@ -118,7 +118,7 @@ export default {
     return {
       queryInfo: {
         pagenum: 1,
-        pagesize: 5
+        pagesize: 3
       },
       userList: [
       ],
