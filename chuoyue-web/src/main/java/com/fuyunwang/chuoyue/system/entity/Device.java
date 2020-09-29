@@ -70,5 +70,6 @@ public class Device implements Serializable {
     @TableField("status")
     private Integer status;
 
-
+    @TableField("state")
+    private Integer state;
 }
