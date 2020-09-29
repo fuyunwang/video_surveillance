@@ -31,12 +31,6 @@
         </el-table-column>
         <el-table-column label="状态" width="150px">
           <template slot-scope="scope">
-            <el-switch
-              v-model="scope.row.state"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              @change="userStateChange(scope.row)">
-            </el-switch>
             <span style="margin-left: 10px">{{scope.row.state ? '已处理' : '未处理'}}</span>
           </template>
         </el-table-column>
@@ -76,9 +70,8 @@
         <el-col :span="10">
           <template>
             <el-image
-              :src="this.currentScreenShot"
-
-            ></el-image>
+              :src="this.currentScreenShot">
+            </el-image>
           </template>
         </el-col>
         <el-col :span="14" >
