@@ -36,11 +36,11 @@ const routes = [
       },
       {
         path: '/portal/first',
-        component: Users
+        component: Category
       },
       {
         path: '/portal/second',
-        component: AlertAllManage
+        component: UserEdit
       },
       {
         path: '/alert/first',
