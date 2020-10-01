@@ -15,8 +15,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
-@Configuration
-@EnableConfigurationProperties(value = {RabbitmqProperties.class})
+//@Configuration
+//@EnableConfigurationProperties(value = {RabbitmqProperties.class})
 public class RabbitmqConfig {
 
     @Autowired

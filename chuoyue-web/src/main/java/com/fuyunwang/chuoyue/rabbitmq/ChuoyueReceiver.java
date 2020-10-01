@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Slf4j
-@Component
+//@Component
 public class ChuoyueReceiver {
 
     @RabbitListener(queues = GlobalConstant.RabbitMQ.QUEUE_NAME_CHUOYUE)
