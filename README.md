@@ -11,3 +11,6 @@ SpringBoot+SpringSecurity+MyBatis-Plus
 
 ## 项目后端原型
 [Chuoyue-SpringBoot](https://github.com/fuyunwang/Chuoyue-SpringBoot)
+
+## docker hub
+> docker pull beautifulsoup2019/chuoyue_video:1.0.0

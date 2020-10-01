@@ -13,6 +13,9 @@
 
  Date: 28/09/2020 20:47:02
 */
+drop database if exists 'video_surveillance';
+create database video_surveillance;
+use video_surveillance;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
