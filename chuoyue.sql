@@ -13,13 +13,12 @@
 
  Date: 28/09/2020 20:47:02
 */
-drop database if exists 'video_surveillance';
-create database video_surveillance;
-use video_surveillance;
+DROP DATABASE IF EXISTS `video_surveillance`;
+create database `video_surveillance` default character set utf8mb4 collate utf8mb4_general_ci;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
+USE `video_surveillance`;
 -- ----------------------------
 -- Table structure for algorithm
 -- ----------------------------
