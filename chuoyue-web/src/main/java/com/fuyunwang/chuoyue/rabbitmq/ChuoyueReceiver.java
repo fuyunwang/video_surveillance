@@ -11,11 +11,11 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Slf4j
+//@Slf4j
 //@Component
 public class ChuoyueReceiver {
 
-    @RabbitListener(queues = GlobalConstant.RabbitMQ.QUEUE_NAME_CHUOYUE)
+   /* @RabbitListener(queues = GlobalConstant.RabbitMQ.QUEUE_NAME_CHUOYUE)
     public void process(String msg, Message message, Channel channel){
         if (StringUtils.isNotBlank(msg)){
             try{
@@ -28,6 +28,6 @@ public class ChuoyueReceiver {
                 }
             }
         }
-    }
+    }*/
 
 }

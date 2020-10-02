@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  chuoyue-video_surveillance:
+    image: beautifulsoup2019/chuoyue_video:1.0.0 # 指定基础镜像
+    container_name: chuoyue_video # 容器名称
+    volumes:
+      - "/chuoyue/log:/log" #日志挂载
+#    command:
+#      - "--chuoyue_video=192.168.1.100"     # 通过command指定地址变量值
+    ports:
+      - 10086:10086 # 端口映射

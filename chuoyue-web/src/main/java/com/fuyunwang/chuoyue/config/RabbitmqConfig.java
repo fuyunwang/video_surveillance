@@ -19,7 +19,7 @@ import org.springframework.context.annotation.Scope;
 //@EnableConfigurationProperties(value = {RabbitmqProperties.class})
 public class RabbitmqConfig {
 
-    @Autowired
+   /* @Autowired
     private RabbitmqProperties rabbitmqProperties;
 
     @Bean
@@ -30,9 +30,9 @@ public class RabbitmqConfig {
         connectionFactory.setVirtualHost(rabbitmqProperties.getVirtualHost());
         connectionFactory.setPublisherConfirms(true);
         return connectionFactory;
-    }
+    }*/
 
-    @Bean
+   /* @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory());
@@ -41,11 +41,11 @@ public class RabbitmqConfig {
 //        rabbitTemplate.setReturnCallback((message, replyCode, replyText, exchange, routingKey) -> log.info("消息丢失:exchange({}),route({}),replyCode({}),replyText({}),message:{}", exchange, routingKey, replyCode, replyText, message));
         return rabbitTemplate;
     }
-
-    @Bean
+*/
+   /* @Bean
     public RabbitListenerContainerFactory<?> rabbitListenerContainerFactory(){
         SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
-        factory.setConnectionFactory(connectionFactory());
+//        factory.setConnectionFactory(connectionFactory());
 //        factory.setMessageConverter(new Jackson2JsonMessageConverter());
         factory.setAcknowledgeMode(AcknowledgeMode.MANUAL);
         return factory;
@@ -59,10 +59,10 @@ public class RabbitmqConfig {
     @Bean
     public TopicExchange chuoyueTopicExchange(){
         return new TopicExchange(GlobalConstant.RabbitMQ.EXCHANGE_NAME_TOPIC,true,false);
-    }
+    }*/
 
-    @Bean
+/*    @Bean
     Binding bindingExchangeChuoyue(){
         return BindingBuilder.bind(chuoyueQueue()).to(chuoyueTopicExchange()).with("topic.#");
-    }
+    }*/
 }
