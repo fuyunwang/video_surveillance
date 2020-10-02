@@ -14,4 +14,7 @@ SpringBoot+SpringSecurity+MyBatis-Plus
 [Chuoyue-SpringBoot](https://github.com/fuyunwang/Chuoyue-SpringBoot)
 
 ## docker hub
-> docker pull beautifulsoup2019/chuoyue_video:1.0.0
+>docker build -t beautifulsoup2019/chuoyue_video:1.1.0 .
+
+1. cd environment && docker-compose up -d
+2. cd application && docker-compose up -d
