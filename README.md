@@ -16,5 +16,5 @@ SpringBoot+SpringSecurity+MyBatis-Plus
 ## Docker
 >docker build -t beautifulsoup2019/chuoyue_video:1.1.0 .
 
-1. cd environment && docker-compose up -d
-2. cd application && docker-compose up -d
+1. cd docker/environment && docker-compose up -d
+2. cd docker/application && docker-compose up -d
