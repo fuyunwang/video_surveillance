@@ -24,6 +24,10 @@ spring:
       stat-view-servlet:
         login-username: chuoyue
         login-password: password
+#  boot:
+#    admin:
+#      ui:
+#        title: '绰约'
 
 mybatis-plus:
   mapper-locations: classpath*:com/fuyunwang/chuoyue/**/xml/*Mapper.xml
