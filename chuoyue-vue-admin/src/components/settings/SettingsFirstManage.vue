@@ -18,7 +18,7 @@
         </el-col>
 
         <el-col :span="4">
-          <el-button type="primary" @click="handleAddDialog">添加报警</el-button>
+          <el-button type="primary" @click="handleAddDialog">添加检测算法</el-button>
         </el-col>
       </el-row>
       <el-table :data="userList" stripe border>
@@ -42,7 +42,7 @@
               v-model="scope.row.state === 1"
               active-color="#13ce66"
               inactive-color="#ff4949"
-              @change="userStateChange(scope.row)">
+              @change="deviceStateChange(scope.row)">
             </el-switch>
             <span style="margin-left: 10px">{{scope.row.state === 1 ? '已启用' : '未启用'}}</span>
           </template>
@@ -93,6 +93,7 @@
 </template>
 
 <script>
+import NProgress from 'nprogress'
 export default {
   name: 'SettingsFirstManage',
   data () {
@@ -197,20 +198,27 @@ export default {
       this.queryInfo.pagenum = newPage
       this.getUserList()
     },
-    async userStateChange(userInfo) {
-      // 监听Switch开关状态的改变
-      // const { data: res } = await this.$http.post(`users/${userInfo.id}/state/${userInfo.mg_state}`, {
-      // })
-      // if (res.status !== 200) {
-      //   userInfo.mg_state = !userInfo.mg_state
-      //   return this.$message.error('更新用户失败 ' + res.meta.msg)
-      // }
-      userInfo.state = userInfo.state === 0 ? 1 : 0
-      if (userInfo.state === 1){
-        this.$message.success('当前算法启用成功')
-      }else{
-        this.$message.success('当前算法禁用成功')
-      }
+    async deviceStateChange(deviceInfo,event) {
+      // event.currentTarget.
+      console.log(deviceInfo.id)
+      deviceInfo.state = deviceInfo.state === 0 ? 1 : 0
+      const { data: res } = await this.$http({
+        method: 'post',
+        url: 'device/change_state',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8'
+        },
+        data: {
+          id: deviceInfo.id,
+          state: deviceInfo.state
+        }
+      }).catch(error=>{
+        deviceInfo.state=0
+        this.$message.error("请保证同时只选择一种算法")
+        NProgress.done()
+      })
+
+      this.$message.success(res.message)
     },
     getUserSearchList() {
       this.$message.success(this.queryParams)

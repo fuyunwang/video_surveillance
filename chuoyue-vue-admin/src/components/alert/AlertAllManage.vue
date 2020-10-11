@@ -5,7 +5,7 @@
     <el-breadcrumb-item>报警管理</el-breadcrumb-item>
     <el-breadcrumb-item>报警管理1</el-breadcrumb-item>
   </el-breadcrumb>
-  <el-tabs v-model="activeTab">
+  <el-tabs v-model="activeTab" @tab-click="handleClick">
     <el-tab-pane label="未处理" name="activity">
       <alert-first-manage />
     </el-tab-pane>
@@ -20,23 +20,24 @@
 </template>
 
 <script>
-  import AlertFirstManage from './AlertFirstManage'
-  import AlertSecondManage from './AlertSecondManage'
-  import AlertThirdManage from './AlertThirdManage'
-  export default {
-    name: 'AlertAllManage',
-    components: { AlertFirstManage, AlertSecondManage, AlertThirdManage },
-    data() {
-      return {
-        activeTab: 'activity'
-      };
-    },
-    methods: {
-      handleClick(tab, event) {
-        console.log(tab, event)
-      }
+import AlertFirstManage from './AlertFirstManage'
+import AlertSecondManage from './AlertSecondManage'
+import AlertThirdManage from './AlertThirdManage'
+export default {
+  name: 'AlertAllManage',
+  components: { AlertFirstManage, AlertSecondManage, AlertThirdManage },
+  data() {
+    return {
+      activeTab: 'activity'
+    }
+  },
+  methods: {
+    handleClick(tab, event) {
+      console.log(tab)
+      console.log(event.target)
     }
   }
+}
 </script>
 
 <style scoped>

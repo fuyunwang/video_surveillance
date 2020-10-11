@@ -1,7 +1,6 @@
 <template>
   <div>
 
-
     <!--卡片视图-->
     <el-card class="box-card">
 

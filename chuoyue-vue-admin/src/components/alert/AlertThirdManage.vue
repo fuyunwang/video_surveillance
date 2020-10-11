@@ -7,9 +7,9 @@
 </template>
 
 <script>
-  export default {
-    name: 'AlertThirdManage'
-  }
+export default {
+  name: 'AlertThirdManage'
+}
 </script>
 
 <style scoped>

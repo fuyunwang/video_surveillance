@@ -14,4 +14,9 @@ public class GlobalConstant {
         String QUEUE_NAME_CHUOYUE = "chuoyue";
         String EXCHANGE_NAME_TOPIC="topicExchange";
     }
+
+    public interface Algorithm{
+        String SELECTED_ALGORITHM="selected_algorithm";
+        String ALGORITHM_PREFIX="algorithm:";
+    }
 }

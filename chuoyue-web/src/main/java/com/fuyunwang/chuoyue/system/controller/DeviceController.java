@@ -3,14 +3,14 @@ package com.fuyunwang.chuoyue.system.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fuyunwang.chuoyue.common.base.ResponseResult;
+import com.fuyunwang.chuoyue.system.dto.DeviceDto;
 import com.fuyunwang.chuoyue.system.entity.Device;
 import com.fuyunwang.chuoyue.system.service.IDeviceService;
+import com.fuyunwang.chuoyue.system.vo.DeviceVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import javax.validation.Valid;
 
 /**
  * <p>
@@ -31,5 +31,11 @@ public class DeviceController {
     public ResponseResult<IPage<Device>> getDevicesByPage(@RequestParam("pagenum")Integer pagenum, @RequestParam("pagesize")Integer pagesize){
         IPage<Device> deviceIPage=iDeviceService.getDevicesByPage(pagenum,pagesize);
         return ResponseResult.createBySuccess(deviceIPage);
+    }
+
+    @RequestMapping(value = "/change_state",method = RequestMethod.POST)
+    public ResponseResult<DeviceVo> changeAlgorithmState(@Valid @RequestBody DeviceDto deviceDto){
+        DeviceVo deviceVo=iDeviceService.changeAlgorithmState(deviceDto);
+        return ResponseResult.createBySuccess("算法状态修改成功",deviceVo);
     }
 }

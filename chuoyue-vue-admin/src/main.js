@@ -12,7 +12,7 @@ import 'nprogress/nprogress.css'
 
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = 'http://127.0.0.1:10086/chuoyue/'
+axios.defaults.baseURL = 'http://localhost:10086/chuoyue/'
 
 axios.interceptors.request.use(config => {
   NProgress.start()
