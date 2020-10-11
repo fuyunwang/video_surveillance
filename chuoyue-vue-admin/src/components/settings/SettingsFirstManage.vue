@@ -198,7 +198,7 @@ export default {
       this.queryInfo.pagenum = newPage
       this.getUserList()
     },
-    async deviceStateChange(deviceInfo,event) {
+    async deviceStateChange(deviceInfo, event) {
       // event.currentTarget.
       console.log(deviceInfo.id)
       deviceInfo.state = deviceInfo.state === 0 ? 1 : 0
@@ -212,9 +212,9 @@ export default {
           id: deviceInfo.id,
           state: deviceInfo.state
         }
-      }).catch(error=>{
-        deviceInfo.state=0
-        this.$message.error("请保证同时只选择一种算法")
+      }).catch(error => {
+        deviceInfo.state = 0
+        this.$message.error('请保证同时只选择一种算法')
         NProgress.done()
       })
 
