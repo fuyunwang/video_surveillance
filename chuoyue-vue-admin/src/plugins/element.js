@@ -2,7 +2,7 @@ import Vue from 'vue'
 import {
   Button, Form, FormItem, Input, Message, Container, Header, Aside, Main, Menu, Submenu, MenuItemGroup, MenuItem, Breadcrumb, BreadcrumbItem, Card, Row,
   Col, Table, TableColumn, Switch, Tooltip, Pagination, Dialog, MessageBox, Tag, Select, Option, CheckboxGroup, Checkbox, RadioGroup, Radio, TabPane, Tabs,
-  Carousel, CarouselItem, Timeline, TimelineItem, Progress, Image, Divider, Avatar
+  Carousel, CarouselItem, Timeline, TimelineItem, Progress, Image, Divider, Avatar, Loading
 } from 'element-ui'
 
 Vue.use(Button)
@@ -46,5 +46,6 @@ Vue.use(Image)
 Vue.use(Divider)
 Vue.use(Avatar)
 
+Vue.prototype.$loading = Loading
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

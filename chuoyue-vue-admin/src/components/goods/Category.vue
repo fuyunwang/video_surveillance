@@ -85,7 +85,8 @@
 </template>
 
 <script>
-import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+import { Loading } from 'element-ui'
 
 import GoodsThumb from './thumb/index'
 import Account from './content/Account'
@@ -117,10 +118,21 @@ export default {
     ...mapGetters(['showCount'])
   },
   methods: {
-    handleChangeCount(){
+    handleChangeCount() {
+      // const loading = this.$loading({
+      //   lock: true,
+      //   text: 'Loading',
+      //   spinner: 'el-icon-loading',
+      //   background: 'rgba(0, 0, 0, 0.7)'
+      // });
+      // loading.start
+      // setTimeout(() => {
+      //   loading.close();
+      // }, 2000);
+
       this.addAsync()
     },
-    handleChangeCount1(){
+    handleChangeCount1() {
       this.$store.dispatch('addAsync')
     },
     ...mapMutations(['sub']),

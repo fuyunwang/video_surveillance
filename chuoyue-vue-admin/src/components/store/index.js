@@ -4,10 +4,10 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  state:{
+  state: {
     count: 0
   },
-  mutations:{
+  mutations: {
     add(state) {
       state.count++
     },
@@ -18,18 +18,18 @@ export default new Vuex.Store({
       state.count += step
     }
   },
-  actions:{
-    /*延迟操作必须在actions代码块中执行*/
-    addAsync(context){
-      setTimeout(()=>{
+  actions: {
+    /* 延迟操作必须在actions代码块中执行 */
+    addAsync(context) {
+      setTimeout(() => {
         context.commit('add')
-      },1000)
+      }, 1000)
     }
   },
   getters: {
-    showCount(state){
-      return "Count的值:" + state.count;
+    showCount(state) {
+      return 'Count的值:' + state.count
     }
   }
-  }
+}
 )

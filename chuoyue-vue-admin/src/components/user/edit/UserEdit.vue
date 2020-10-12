@@ -141,7 +141,7 @@ export default {
       this.html = html
     },
     handleCountChange() {
-      this.$store.commit('addN',15)
+      this.$store.commit('addN', 15)
     }
   }
 }

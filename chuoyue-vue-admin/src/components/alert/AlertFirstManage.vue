@@ -20,10 +20,6 @@
         <el-table-column label="设备名称" prop="deviceName" ></el-table-column>
         <el-table-column show-overflow-tooltip label="播放视频" >
           <template slot-scope="scope">
-            <!--<el-image
-              :src="scope.row.screenShot"
-            ></el-image>-->
-<!--            <vab-player-mp4 :config="config1" @player="Player1 = $event" />-->
             <el-button @click="handlePlayer(scope.row.screenShot)">点击播放视频{{scope.row.note}}</el-button>
           </template>
         </el-table-column>
@@ -34,11 +30,6 @@
         </el-table-column>
         <el-table-column label="操作" width="100px">
           <template slot-scope="scope">
-
-<!--            <el-button type="primary" icon="el-icon-edit" size="mini" @click="editUser"></el-button>-->
-<!--            &lt;!&ndash;删除&ndash;&gt;-->
-<!--            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser"></el-button>-->
-            <!--分配角色-->
             <el-tooltip  effect="dark" content="报警处置" placement="top" :enterable="false">
               <el-button type="warning" icon="el-icon-setting" size="mini" @click="handleAddDialog(scope.row.screenShot)"></el-button>
             </el-tooltip>
@@ -104,19 +95,13 @@
       width="40%"
       @close="addDialogClosed">
       <el-row :gutter="24" >
-<!--        <el-col :span="20">-->
           <template>
-            <!--<el-image
-              :src="this.currentScreenShot">
-            </el-image>-->
             <vab-player-mp4 :config="config1" @player="Player1 = $event" />
           </template>
-<!--        </el-col>-->
       </el-row>
-
       <span  slot="footer" class="dialog-footer">
     <el-button @click="videoPlayerDialog = false">取 消</el-button>
-    <el-button type="primary" @click="addUser">确 定</el-button>
+    <el-button type="primary" @click="detectPerson">开始检测</el-button>
   </span>
     </el-dialog>
   </div>
@@ -124,6 +109,9 @@
 
 <script>
 import { VabPlayerMp4, VabPlayerHls } from '@/plugins/vabPlayer.js'
+import { Loading } from 'element-ui'
+import axios from 'axios'
+
 export default {
   name: 'AlertFirstManage',
   components: {
@@ -156,8 +144,8 @@ export default {
 
     return {
       config1: {
-        id: 'mse1',
-        url: 'http://qi2c9qbdt.hb-bkt.clouddn.com/test.mp4',
+        id: 'mse12',
+        url: 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4',
         volume: 1,
         autoplay: false
       },
@@ -263,6 +251,7 @@ export default {
       this.currentScreenShot = image
     },
     handlePlayer(url) {
+      this.config1.url = url
       this.videoPlayerDialog = true
     },
     // 监听添加用户对话框的关闭事件
@@ -308,6 +297,36 @@ export default {
           message: '已取消删除'
         })
       })
+    },
+    async detectPerson() {
+      let loading
+      const startLoading = () => {
+        loading = Loading.service({
+          lock: true,
+          text: '检测中……',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)'
+        })
+      }
+      startLoading()
+
+      const { data: res } = await axios({
+        url: 'http://127.0.0.1:5000/video_detect/person',
+        method: 'post',
+        data: {
+          video_url: this.config1.url
+        }
+      })
+
+      this.videoPlayerDialog = false
+      if (res.status !== 20000) {
+        this.$message.error('服务器内部错误,检测失败' + res.message)
+        console.log(res.message)
+        loading.close()
+      }
+
+      this.$message.success(res.message)
+      loading.close()
     }
   }
 }
