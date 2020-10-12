@@ -75,7 +75,7 @@ public class CodeGenerator {
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
         strategy.setEntityLombokModel(true);
         strategy.setRestControllerStyle(true);
-        strategy.setInclude(new String[]{"algorithm","department","device","employee","menu_info"});
+        strategy.setInclude(new String[]{"department_solved"});
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setEntityTableFieldAnnotationEnable(true);
         mpg.setStrategy(strategy);

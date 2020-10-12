@@ -60,12 +60,40 @@ CREATE TABLE `department`  (
 -- ----------------------------
 -- Records of department
 -- ----------------------------
-INSERT INTO `department` VALUES (1, '测试组', '2020-10-12 09:08:21', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', 'video1');
+INSERT INTO `department` VALUES (1, '测试组', '2020-10-12 16:21:07', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 0, '', 'video1');
 INSERT INTO `department` VALUES (2, '测试组', '2020-09-26 20:49:46', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
-INSERT INTO `department` VALUES (3, '测试组', '2020-09-26 20:15:00', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597711002271-db32de5ff02b.jpg', 0, '', '');
+INSERT INTO `department` VALUES (3, '测试组', '2020-10-12 16:33:19', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/test.mp4', 0, '', '');
 INSERT INTO `department` VALUES (4, '测试组', '2020-09-26 20:15:28', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597750721050-f29f1f1eb2c7.jpg\r\n', 0, '', '');
 INSERT INTO `department` VALUES (5, '测试组', '2020-09-26 19:03:25', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
 INSERT INTO `department` VALUES (6, '测试组', '2020-09-26 19:03:26', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
+
+-- ----------------------------
+-- Table structure for department_solved
+-- ----------------------------
+DROP TABLE IF EXISTS `department_solved`;
+CREATE TABLE `department_solved`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
+  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
+  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
+  `status` int(11) NOT NULL COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceName`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of department_solved
+-- ----------------------------
+INSERT INTO `department_solved` VALUES (1, '测试组', '2020-10-12 16:21:07', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', 'video1');
+INSERT INTO `department_solved` VALUES (2, '测试组', '2020-09-26 20:49:46', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
+INSERT INTO `department_solved` VALUES (3, '测试组', '2020-10-12 16:33:19', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
+INSERT INTO `department_solved` VALUES (4, '测试组', '2020-09-26 20:15:28', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/photo-1597750721050-f29f1f1eb2c7.jpg\r\n', 0, '', '');
+INSERT INTO `department_solved` VALUES (5, '测试组', '2020-09-26 19:03:25', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
+INSERT INTO `department_solved` VALUES (6, '测试组', '2020-09-26 19:03:26', '火焰', '工厂1', 'http://qh9ik3frs.hb-bkt.clouddn.com/fabien-bellanger--s4f4gF6EHY-unsplash.jpg', 0, '', '');
 
 -- ----------------------------
 -- Table structure for device
@@ -89,7 +117,7 @@ CREATE TABLE `device`  (
 -- ----------------------------
 -- Records of device
 -- ----------------------------
-INSERT INTO `device` VALUES (1, '工厂', 'admin', '192.168.1.100', '26101', 'NANO开发测试', 0, '测试检测人', '门口', 1);
+INSERT INTO `device` VALUES (1, '工厂', 'admin', '192.168.1.100', '26101', 'NANO开发测试', 0, '测试检测人', '门口', 0);
 INSERT INTO `device` VALUES (2, '灰色摄像机', 'admin', '192.168.1.64', '554', 'NANO开发测试', 0, '测试组', '饮水机QQ', 0);
 INSERT INTO `device` VALUES (3, '白色摄像头', 'admin', '192.168.1.65', '554', 'NANO', 0, '中科鸿云', '门口', 0);
 
@@ -150,7 +178,7 @@ CREATE TABLE `tb_acl`  (
   `type` int(11) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 25 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_acl
@@ -160,6 +188,7 @@ INSERT INTO `tb_acl` VALUES (5, '测试权限拦截', '/chuoyue/hello/index/**',
 INSERT INTO `tb_acl` VALUES (21, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 09:02:51');
 INSERT INTO `tb_acl` VALUES (22, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 20:36:48');
 INSERT INTO `tb_acl` VALUES (23, '获取报警管理信息', '/chuoyue/department/**', 'Admin', '所有人都能请求', 1, 1, '2020-09-26 20:36:50');
+INSERT INTO `tb_acl` VALUES (25, NULL, '/department-solved/**', 'Admin', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_agent
@@ -263,6 +292,7 @@ INSERT INTO `tb_role_acl` VALUES (1, 23);
 INSERT INTO `tb_role_acl` VALUES (2, 23);
 INSERT INTO `tb_role_acl` VALUES (3, 23);
 INSERT INTO `tb_role_acl` VALUES (1, 5);
+INSERT INTO `tb_role_acl` VALUES (1, 25);
 
 -- ----------------------------
 -- Table structure for tb_student
