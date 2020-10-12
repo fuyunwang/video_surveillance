@@ -324,7 +324,6 @@ export default {
         console.log(res.message)
         loading.close()
       }
-
       this.$message.success(res.message)
       loading.close()
     }
