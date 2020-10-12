@@ -1,4 +1,4 @@
-# vue-shop-admin
+# chuoyue-vue-admin
 
 ## Project setup
 ```
