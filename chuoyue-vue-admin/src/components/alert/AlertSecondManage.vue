@@ -176,7 +176,7 @@ export default {
       // const token = window.sessionStorage.getItem('token')
       const { data: res } = await this.$http({
         method: 'post',
-        url: 'department/getbypage',
+        url: 'department-solved/getbypage',
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
         },

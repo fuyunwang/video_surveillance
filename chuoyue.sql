@@ -188,7 +188,7 @@ INSERT INTO `tb_acl` VALUES (5, '测试权限拦截', '/chuoyue/hello/index/**',
 INSERT INTO `tb_acl` VALUES (21, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 09:02:51');
 INSERT INTO `tb_acl` VALUES (22, '获取菜单列表', '/chuoyue/menus/**', 'Admin', '所有人能够请求', 1, 1, '2020-09-26 20:36:48');
 INSERT INTO `tb_acl` VALUES (23, '获取报警管理信息', '/chuoyue/department/**', 'Admin', '所有人都能请求', 1, 1, '2020-09-26 20:36:50');
-INSERT INTO `tb_acl` VALUES (25, NULL, '/department-solved/**', 'Admin', NULL, NULL, NULL, NULL);
+INSERT INTO `tb_acl` VALUES (25, NULL, '/chuoyue/department-solved/**', 'Admin', NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for tb_agent
