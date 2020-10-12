@@ -4,6 +4,7 @@ import router from './router'
 import './plugins/element.js'
 import './assets/css/global.css'
 import './assets/fonts/iconfont.css'
+import store from './components/store'
 
 import axios from 'axios'
 
@@ -31,5 +32,6 @@ Vue.prototype.$http = axios
 
 new Vue({
   router,
-  render: h => h(App)
+  render: h => h(App),
+  store
 }).$mount('#app')

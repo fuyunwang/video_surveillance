@@ -2,8 +2,8 @@
   <div>
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>商品分类</el-breadcrumb-item>
+      <el-breadcrumb-item>首页展示</el-breadcrumb-item>
+      <el-breadcrumb-item>首页展示1</el-breadcrumb-item>
     </el-breadcrumb>
     <el-row :gutter="20">
 
@@ -11,13 +11,17 @@
         <el-card style="margin-bottom:20px;">
           <div slot="header" class="clearfix">
             <span>About me</span>
+            <h4>{{showCount}}</h4>
+            <el-button @click="handleChangeCount">count--</el-button>
+            <el-button @click="handleChangeCount1">count++</el-button>
           </div>
 
           <div class="user-profile">
             <div class="box-center">
               <goods-thumb :image="user.avatar" :height="'100px'" :width="'100px'" :hoverable="false">
-                <div>Hello</div>
-                {{ user.role }}
+<!--                <div>Hello FuyunWang</div>-->
+<!--                {{ user.role }}-->
+<!--                <el-avatar :size="75" src="src/assets/avatar2.jpg"></el-avatar>-->
               </goods-thumb>
             </div>
             <div class="box-center">
@@ -81,6 +85,8 @@
 </template>
 
 <script>
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+
 import GoodsThumb from './thumb/index'
 import Account from './content/Account'
 import Activity from './content/Activity'
@@ -95,7 +101,7 @@ export default {
         return {
           name: '',
           email: '',
-          avatar: '',
+          avatar: 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar1.jpg',
           role: ''
         }
       }
@@ -105,6 +111,20 @@ export default {
     return {
       activeTab: 'activity'
     }
+  },
+  computed: {
+    ...mapState(['count']),
+    ...mapGetters(['showCount'])
+  },
+  methods: {
+    handleChangeCount(){
+      this.addAsync()
+    },
+    handleChangeCount1(){
+      this.$store.dispatch('addAsync')
+    },
+    ...mapMutations(['sub']),
+    ...mapActions(['addAsync'])
   }
 }
 </script>

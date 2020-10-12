@@ -1,13 +1,10 @@
 <template>
   <div>
-
     <!--卡片视图-->
     <el-card class="box-card">
-
       <el-row :gutter="20">
         <el-col :span="8">
           <el-input placeholder="请输入内容" v-model="queryParams" clearable @clear="getUserSearchList">
-
             <el-button slot="append" icon="el-icon-search" @click="getUserSearchList"></el-button>
           </el-input>
         </el-col>
@@ -21,11 +18,13 @@
         <el-table-column label="报警时间" prop="alarmTime" ></el-table-column>
         <el-table-column label="事件类型" prop="incidentType" ></el-table-column>
         <el-table-column label="设备名称" prop="deviceName" ></el-table-column>
-        <el-table-column show-overflow-tooltip label="抓拍图" height="160px" width="220px">
+        <el-table-column show-overflow-tooltip label="播放视频" >
           <template slot-scope="scope">
-            <el-image
+            <!--<el-image
               :src="scope.row.screenShot"
-            ></el-image>
+            ></el-image>-->
+<!--            <vab-player-mp4 :config="config1" @player="Player1 = $event" />-->
+            <el-button @click="handlePlayer(scope.row.screenShot)">点击播放视频{{scope.row.note}}</el-button>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="150px">
@@ -68,9 +67,10 @@
       <el-row :gutter="24" >
         <el-col :span="10">
           <template>
-            <el-image
+            <!--<el-image
               :src="this.currentScreenShot">
-            </el-image>
+            </el-image>-->
+            <vab-player-mp4 :config="config1" @player="Player1 = $event" />
           </template>
         </el-col>
         <el-col :span="14" >
@@ -97,13 +97,39 @@
     <el-button type="primary" @click="addUser">确 定</el-button>
   </span>
     </el-dialog>
+    <el-dialog
+      title="视频播放"
+      style="text-align: center"
+      :visible.sync="videoPlayerDialog"
+      width="40%"
+      @close="addDialogClosed">
+      <el-row :gutter="24" >
+<!--        <el-col :span="20">-->
+          <template>
+            <!--<el-image
+              :src="this.currentScreenShot">
+            </el-image>-->
+            <vab-player-mp4 :config="config1" @player="Player1 = $event" />
+          </template>
+<!--        </el-col>-->
+      </el-row>
 
+      <span  slot="footer" class="dialog-footer">
+    <el-button @click="videoPlayerDialog = false">取 消</el-button>
+    <el-button type="primary" @click="addUser">确 定</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import { VabPlayerMp4, VabPlayerHls } from '@/plugins/vabPlayer.js'
 export default {
   name: 'AlertFirstManage',
+  components: {
+    VabPlayerMp4,
+    VabPlayerHls
+  },
   data () {
     // 验证邮箱和手机号的校验规则
     var checkEmail = (rule, value, cb) => {
@@ -129,6 +155,13 @@ export default {
     }
 
     return {
+      config1: {
+        id: 'mse1',
+        url: 'http://qi2c9qbdt.hb-bkt.clouddn.com/test.mp4',
+        volume: 1,
+        autoplay: false
+      },
+      Player1: null,
       queryInfo: {
         pagenum: 1,
         pagesize: 3
@@ -139,6 +172,7 @@ export default {
       total: 3,
       queryParams: '',
       addDialogVisible: false,
+      videoPlayerDialog: false,
       // 添加用户的表单数据和校验规则
       addUserForm: {
         username: '',
@@ -201,6 +235,7 @@ export default {
       // 调用此方法,后端会自动返回指定条数的数据
       this.getUserList()
     },
+
     handleCurrentChange(newPage) {
       // 监听 页码值 改变的事件
       this.queryInfo.pagenum = newPage
@@ -226,6 +261,9 @@ export default {
     handleAddDialog(image) {
       this.addDialogVisible = true,
       this.currentScreenShot = image
+    },
+    handlePlayer(url) {
+      this.videoPlayerDialog = true
     },
     // 监听添加用户对话框的关闭事件
     addDialogClosed() {

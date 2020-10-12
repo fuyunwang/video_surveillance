@@ -1,5 +1,7 @@
 <template>
   <div class="form-container" >
+    <h3>{{$store.state.count}}</h3>
+    <el-button @click="handleCountChange">count++</el-button>
     <el-row :gutter="20" style="margin: 0 auto;">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" >
         <el-form
@@ -137,6 +139,9 @@ export default {
     },
     handleShowHtml(html) {
       this.html = html
+    },
+    handleCountChange() {
+      this.$store.commit('addN',15)
     }
   }
 }
