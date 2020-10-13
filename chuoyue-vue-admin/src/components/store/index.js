@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 0
+    count: 0,
+    departments: {}
   },
   mutations: {
     add(state) {
@@ -16,6 +17,11 @@ export default new Vuex.Store({
     },
     addN(state, step) {
       state.count += step
+    },
+    setDepartments(state,departments){
+      departments.forEach(item => {
+        Vue.set(state.departments,item.id,item)
+      })
     }
   },
   actions: {
