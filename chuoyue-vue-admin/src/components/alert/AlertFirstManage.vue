@@ -25,13 +25,13 @@
         </el-table-column>
         <el-table-column label="状态" width="150px">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.state ? '已处理' : '未处理'}}</span>
+            <span style="margin-left: 10px">{{scope.row.status === 1 ? '已处理' : '未处理'}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100px">
           <template slot-scope="scope">
             <el-tooltip  effect="dark" content="报警处置" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini" @click="handleAddDialog(scope.row.screenShot)"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="mini" @click="handleAddDialog(scope.row.id)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -58,35 +58,39 @@
       <el-row :gutter="24" >
         <el-col :span="10">
           <template>
-            <!--<el-image
-              :src="this.currentScreenShot">
-            </el-image>-->
-            <vab-player-mp4 :config="config1" @player="Player1 = $event" />
+            <el-image
+              :src="this.videoDetectResult.currentScreenShot">
+            </el-image>
           </template>
         </el-col>
         <el-col :span="14" >
           <!--Dialog内容主体区域-->
-          <el-form :model="addUserForm" :rules="addUserFormRules" ref="ruleForm" label-width="70px" >
-            <el-form-item label="用户名" prop="username">
-              <el-input v-model="addUserForm.username"></el-input>
+          <el-form :model="videoDetectResult" :rules="disposalAlarmRules" label-width="70px" ref="disposalAlarmForm">
+            <el-form-item label="组织名:" prop="departmentName">
+              {{videoDetectResult.departmentName}}
             </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input v-model="addUserForm.password"></el-input>
+            <el-form-item label="设备名:" prop="deviceName">
+              {{videoDetectResult.deviceName}}
             </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="addUserForm.email"></el-input>
+            <el-form-item label="类型:" prop="incidentType">
+              {{videoDetectResult.incidentType}}
             </el-form-item>
-            <el-form-item label="手机号" prop="mobile">
-              <el-input v-model="addUserForm.mobile"></el-input>
+            <el-form-item label="时间:" prop="incidentType">
+              {{videoDetectResult.alarmTime}}
+            </el-form-item>
+            <el-form-item label="备注:" prop="note">
+              <el-input v-model="videoDetectResult.note"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号:" prop="contact">
+              <el-input v-model="videoDetectResult.contact"></el-input>
             </el-form-item>
           </el-form>
         </el-col>
       </el-row>
-
       <span  slot="footer" class="dialog-footer">
-    <el-button @click="addDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="addUser">确 定</el-button>
-  </span>
+      <el-button @click="addDialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="disposalAlarm">确 定</el-button>
+      </span>
     </el-dialog>
     <el-dialog
       title="视频播放"
@@ -157,6 +161,16 @@ export default {
       userList: [
       ],
       currentScreenShot: '',
+      videoDetectResult: {
+        currentScreenShot: '',
+        departmentName: '',
+        alarmTime: '',
+        deviceName: '',
+        incidentType: '',
+        note: '',
+        contact: '',
+        departmentId: 1
+      },
       total: 3,
       queryParams: '',
       addDialogVisible: false,
@@ -168,21 +182,12 @@ export default {
         email: '',
         mobile: ''
       },
-      addUserFormRules: {
-        username: [
-          { required: true, message: '用户名不能为空', trigger: 'blur' },
-          { min: 2, max: 10, message: '用户名长度不合法', trigger: 'blur' }
+      disposalAlarmRules: {
+        note: [
+          { required: true, message: '备注不能为空', trigger: 'blur' },
         ],
-        password: [
-          { required: true, message: '密码不能为空', trigger: 'blur' },
-          { min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
-        ],
-        email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { validator: checkEmail, trigger: 'blur' }
-        ],
-        mobile: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
+        contact: [
+          { required: true, message: '联系方式不合法', trigger: 'blur' },
           { validator: checkMobile, trigger: 'blur' }
         ]
       }
@@ -246,9 +251,32 @@ export default {
     getUserSearchList() {
       this.$message.success(this.queryParams)
     },
-    handleAddDialog(image) {
-      this.addDialogVisible = true,
-      this.currentScreenShot = image
+    async handleAddDialog(id) {
+      const { data: res3 } = await this.$http({
+        method: 'post',
+        url: 'department-solved/getbyid',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          id: id,
+        },
+        transformRequest: [function (data) {
+          let ret = ''
+          for (const it in data) {
+            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+          }
+          return ret
+        }]
+      })
+      this.videoDetectResult.currentScreenShot = res3.data.screenShot
+      this.videoDetectResult.alarmTime = res3.data.alarmTime
+      this.videoDetectResult.incidentType = res3.data.incidentType
+      this.videoDetectResult.departmentName = res3.data.departmentName
+      this.videoDetectResult.deviceName = res3.data.deviceName
+      this.videoDetectResult.departmentId = res3.data.departmentId
+
+      this.addDialogVisible = true
     },
     handlePlayer(url) {
       this.config1.url = url
@@ -258,26 +286,27 @@ export default {
     addDialogClosed() {
       this.$refs.ruleForm.resetFields()
     },
-    // 点击按钮，添加新用户
+
     addUser() {
       // const token = window.sessionStorage.getItem('token')
-      this.$refs.ruleForm.validate(async valid => {
-        if (!valid) return
-        // 可以发起添加用户的网络请求
-
-        const { data: res } = await this.$http.post('users', this.addUserForm)
-
-        if (res.meta.status !== 201) {
-          this.$message.error('添加用户失败！' + res.meta.msg)
-        }
-
-        this.$message.success('添加用户成功！')
-        // 隐藏添加用户的对话框
-        this.addDialogVisible = false
-        // 重新获取用户列表数据
-        this.getUserList()
-      })
+      // this.$refs.ruleForm.validate(async valid => {
+      //   if (!valid) return
+      //   // 可以发起添加用户的网络请求
+      //
+      //   const { data: res } = await this.$http.post('users', this.addUserForm)
+      //
+      //   if (res.meta.status !== 201) {
+      //     this.$message.error('添加用户失败！' + res.meta.msg)
+      //   }
+      //
+      //   this.$message.success('添加用户成功！')
+      //   // 隐藏添加用户的对话框
+      //   this.addDialogVisible = false
+      //   // 重新获取用户列表数据
+      //   this.getUserList()
+      // })
     },
+
     async editUser() {
       await this.$router.push('/users/edit')
     },
@@ -318,6 +347,27 @@ export default {
         }
       })
 
+      const { data: res2 } = await this.$http({
+        method: 'post',
+        url: 'department/getbypage',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          pagenum: this.queryInfo.pagenum,
+          pagesize: this.queryInfo.pagesize
+        },
+        transformRequest: [function (data) {
+          let ret = ''
+          for (const it in data) {
+            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+          }
+          return ret
+        }]
+      })
+      this.userList = res2.data.records
+      this.total = res2.data.total
+
       this.videoPlayerDialog = false
       if (res.status !== 20000) {
         this.$message.error('服务器内部错误,检测失败' + res.message)
@@ -326,6 +376,43 @@ export default {
       }
       this.$message.success(res.message)
       loading.close()
+    },
+    disposalAlarm(){
+      this.$refs.disposalAlarmForm.validate(async valid => {
+        if (!valid){
+          return
+        }
+        let loading
+        const startLoading = () => {
+          loading = Loading.service({
+            lock: true,
+            text: '正在处置……',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          })
+        }
+        startLoading()
+        const { data: res } = await this.$http({
+          method: 'post',
+          url: 'department-solved/dispose',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          data: {
+            departmentId: this.videoDetectResult.departmentId,
+            contact: this.videoDetectResult.contact,
+            note: this.videoDetectResult.note
+          }
+        })
+        if (res.status !== 20000) {
+          this.addDialogVisible = false
+          return this.$message.error(res.data.message)
+          loading.close()
+        }
+        this.addDialogVisible = false
+        this.$message.success(res.message)
+        loading.close()
+      })
     }
   }
 }

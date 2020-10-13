@@ -4,6 +4,8 @@ import shutil
 import numpy as np
 import cv2
 from flask import Flask,request,jsonify,make_response
+from pymysql import ProgrammingError
+
 from yolo import YOLO
 from PIL import Image
 from qiniu import Auth, put_file, etag
@@ -91,8 +93,8 @@ def video_show():
                 data_url = base_url+'person_detect'+str(i)+'.jpg'
                 cur.execute("select * from department where screenShot = {}".format("'"+video_url+"'"))
                 all = cur.fetchall()
-                cur.execute("insert into department_solved(departmentName,alarmTime,incidentType,deviceName,screenShot,contact,note) values("+"'"+all[0][1]+"'"
-                            +","+"'"+datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')+"'"+","+"'"+all[0][3]+"'"+","+"'"+all[0][4]+"'"+","+"'"+data_url+"'"+","+"'2375872953@qq.com'"+","+"'已处理'"+")")
+                cur.execute("insert into department_solved(departmentName,alarmTime,incidentType,deviceName,screenShot,contact,note,departmentId) values("+"'"+all[0][1]+"'"
+                            +","+"'"+datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')+"'"+","+"'"+all[0][3]+"'"+","+"'"+all[0][4]+"'"+","+"'"+data_url+"'"+","+"'2375872953@qq.com'"+","+"'未处理'"+","+str(all[0][0])+")")
                 conn.commit()
                 print(info)
             beforeNum = tmp[1]
@@ -105,6 +107,19 @@ def video_show():
         conn.close()
         response = make_response(jsonify(result))
         response.status = "200"
+        response.headers['Access-Control-Allow-Origin'] = '*'
+        response.headers['Access-Control-Allow-Methods'] = 'OPTIONS,HEAD,GET,POST'
+        response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'
+        return response
+    except ProgrammingError:
+        cur.close()
+        conn.close()
+        result = {
+            'status': 50000,
+            'message': '视频检测失败'
+        }
+        response = make_response(jsonify(json.dumps(result).encode('utf-8')))
+        response.status = "500"
         response.headers['Access-Control-Allow-Origin'] = '*'
         response.headers['Access-Control-Allow-Methods'] = 'OPTIONS,HEAD,GET,POST'
         response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'

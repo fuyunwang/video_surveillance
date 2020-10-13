@@ -3,6 +3,8 @@ package com.fuyunwang.chuoyue.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.fuyunwang.chuoyue.common.exception.ParamException;
+import com.fuyunwang.chuoyue.system.dto.DepartmentSolvedDto;
 import com.fuyunwang.chuoyue.system.entity.Department;
 import com.fuyunwang.chuoyue.system.entity.DepartmentSolved;
 import com.fuyunwang.chuoyue.system.mapper.DepartmentSolvedMapper;
@@ -37,10 +39,39 @@ public class DepartmentSolvedServiceImpl extends ServiceImpl<DepartmentSolvedMap
         if (CollectionUtils.isNotEmpty(authorities)){
             String roleName = (String) ((GrantedAuthority)(authorities.get(0))).getAuthority();
             if (roleName.equals("administrator")){
-                IPage<DepartmentSolved> departmentIPage = departmentSolvedMapper.selectPage(page, new QueryWrapper<>());
+                QueryWrapper<DepartmentSolved> queryWrapper=new QueryWrapper<>();
+                queryWrapper.eq("status",1);
+                IPage<DepartmentSolved> departmentIPage = departmentSolvedMapper.selectPage(page, queryWrapper);
                 return departmentIPage;
             }
         }
         return null;
+    }
+
+    @Override
+    public DepartmentSolved getDepartmentSolvedById(Integer id) {
+        QueryWrapper<DepartmentSolved> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("departmentId",id);
+        List<DepartmentSolved> departmentSolveds = departmentSolvedMapper.selectList(queryWrapper);
+        if (CollectionUtils.isNotEmpty(departmentSolveds)){
+            return departmentSolveds.get(0);
+        }
+        throw new ParamException("当前没有数据");
+    }
+
+    @Override
+    public String disposeAlarms(DepartmentSolvedDto departmentSolvedDto) {
+
+        QueryWrapper<DepartmentSolved> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("departmentId",departmentSolvedDto.getDepartmentId());
+        List<DepartmentSolved> departmentSolveds = departmentSolvedMapper.selectList(queryWrapper);
+        for (DepartmentSolved departmentSolved : departmentSolveds) {
+            departmentSolved.setContact(departmentSolvedDto.getContact());
+            departmentSolved.setNote(departmentSolvedDto.getNote());
+            departmentSolved.setStatus(1);
+            departmentSolvedMapper.updateById(departmentSolved);
+        }
+
+        return "处置成功";
     }
 }

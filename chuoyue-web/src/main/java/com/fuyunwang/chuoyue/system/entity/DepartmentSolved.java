@@ -84,5 +84,7 @@ public class DepartmentSolved implements Serializable {
     @TableField("note")
     private String note;
 
+    @TableField("departmentId")
+    private String departmentId;
 
 }

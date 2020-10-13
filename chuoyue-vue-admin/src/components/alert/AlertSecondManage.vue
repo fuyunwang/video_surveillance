@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column label="状态" width="150px">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.state ? '已处理' : '未处理'}}</span>
+            <span style="margin-left: 10px">{{scope.row.status === 1 ? '已处理' : '未处理'}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100px">
