@@ -97,7 +97,6 @@ export default {
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
-
     .avatar_box {
       height: 130px;
       width: 130px;
