@@ -44,4 +44,9 @@ public class DepartmentSolvedController {
         String result=iDepartmentService.disposeAlarms(departmentSolvedDto);
         return ResponseResult.createBySuccess(result);
     }
+
+    @RequestMapping(value = "/getone",method = RequestMethod.POST)
+    public ResponseResult<DepartmentSolved> getDepartmentSolvedOneById(@RequestParam("id")Integer id){
+        return ResponseResult.createBySuccess(iDepartmentService.getDepartmentSolvedOneById(id));
+    }
 }

@@ -28,9 +28,9 @@
             ></el-image>
           </template>
         </el-table-column>
-        <el-table-column label="状态" width="150px">
+        <el-table-column label="状态" width="150px" height="200px">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.status === 1 ? '已处理' : '未处理'}}</span>
+            <span style="margin-left: 10px">{{scope.row.status === 1 ? '已处置' : '未处置'}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100px">
@@ -40,8 +40,8 @@
             <!--            &lt;!&ndash;删除&ndash;&gt;-->
             <!--            <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser"></el-button>-->
             <!--分配角色-->
-            <el-tooltip  effect="dark" content="报警处置" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini" @click="handleAddDialog(scope.row.screenShot)"></el-button>
+            <el-tooltip  effect="dark" content="告警详细信息" placement="top" :enterable="false">
+              <el-button type="warning" icon="el-icon-info" size="mini" @click="handleAddDialog(scope.row.id)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -60,7 +60,7 @@
     </el-card>
 
     <el-dialog
-      title="报警处置"
+      title="告警处置信息"
       style="text-align: center"
       :visible.sync="addDialogVisible"
       width="40%"
@@ -69,32 +69,40 @@
         <el-col :span="10">
           <template>
             <el-image
-              :src="this.currentScreenShot">
+              :src="this.videoDetectResult.currentScreenShot">
             </el-image>
           </template>
         </el-col>
         <el-col :span="14" >
           <!--Dialog内容主体区域-->
-          <el-form :model="addUserForm" :rules="addUserFormRules" ref="ruleForm" label-width="70px" >
-            <el-form-item label="用户名" prop="username">
-              <el-input v-model="addUserForm.username"></el-input>
+          <el-form :model="videoDetectResult" label-width="70px">
+            <el-form-item label="组织名:" prop="departmentName">
+              {{videoDetectResult.departmentName}}
             </el-form-item>
-            <el-form-item label="密码" prop="password">
-              <el-input v-model="addUserForm.password"></el-input>
+            <el-form-item label="设备名:" prop="deviceName">
+              {{videoDetectResult.deviceName}}
             </el-form-item>
-            <el-form-item label="邮箱" prop="email">
-              <el-input v-model="addUserForm.email"></el-input>
+            <el-form-item label="类型:" prop="incidentType">
+              {{videoDetectResult.incidentType}}
             </el-form-item>
-            <el-form-item label="手机号" prop="mobile">
-              <el-input v-model="addUserForm.mobile"></el-input>
+            <el-form-item label="状态:" prop="incidentType">
+              已处置
+            </el-form-item>
+            <el-form-item label="时间:" prop="incidentType">
+              {{videoDetectResult.alarmTime}}
+            </el-form-item>
+            <el-form-item label="备注:" prop="note">
+              {{videoDetectResult.note}}
+            </el-form-item>
+            <el-form-item label="手机号:" prop="contact">
+              {{videoDetectResult.contact}}
             </el-form-item>
           </el-form>
         </el-col>
       </el-row>
-
       <span  slot="footer" class="dialog-footer">
-    <el-button @click="addDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="addUser">确 定</el-button>
+      <el-button @click="addDialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="addDialogVisible = false">确 定</el-button>
   </span>
     </el-dialog>
 
@@ -129,6 +137,15 @@ export default {
     }
 
     return {
+      videoDetectResult: {
+        currentScreenShot: '',
+        departmentName: '',
+        alarmTime: '',
+        deviceName: '',
+        incidentType: '',
+        note: '',
+        contact: ''
+      },
       queryInfo: {
         pagenum: 1,
         pagesize: 3
@@ -224,9 +241,33 @@ export default {
     getUserSearchList() {
       this.$message.success(this.queryParams)
     },
-    handleAddDialog(image) {
-      this.addDialogVisible = true,
-      this.currentScreenShot = image
+    async handleAddDialog(id) {
+      const { data: res } = await this.$http({
+        method: 'post',
+        url: 'department-solved/getone',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        data: {
+          id: id,
+        },
+        transformRequest: [function (data) {
+          let ret = ''
+          for (const it in data) {
+            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+          }
+          return ret
+        }]
+      })
+      this.videoDetectResult.currentScreenShot = res.data.screenShot
+      this.videoDetectResult.alarmTime = res.data.alarmTime
+      this.videoDetectResult.incidentType = res.data.incidentType
+      this.videoDetectResult.departmentName = res.data.departmentName
+      this.videoDetectResult.deviceName = res.data.deviceName
+      this.videoDetectResult.note = res.data.note
+      this.videoDetectResult.contact = res.data.contact
+
+      this.addDialogVisible = true
     },
     // 监听添加用户对话框的关闭事件
     addDialogClosed() {

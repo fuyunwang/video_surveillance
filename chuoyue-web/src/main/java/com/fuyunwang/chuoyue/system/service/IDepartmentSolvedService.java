@@ -20,4 +20,6 @@ public interface IDepartmentSolvedService extends IService<DepartmentSolved> {
     DepartmentSolved getDepartmentSolvedById(Integer id);
 
     String disposeAlarms(DepartmentSolvedDto departmentSolvedDto);
+
+    DepartmentSolved getDepartmentSolvedOneById(Integer id);
 }

@@ -74,4 +74,10 @@ public class DepartmentSolvedServiceImpl extends ServiceImpl<DepartmentSolvedMap
 
         return "处置成功";
     }
+
+    @Override
+    public DepartmentSolved getDepartmentSolvedOneById(Integer id) {
+        DepartmentSolved departmentSolved = departmentSolvedMapper.selectById(id);
+        return departmentSolved;
+    }
 }
