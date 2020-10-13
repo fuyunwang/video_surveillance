@@ -83,13 +83,14 @@ export default {
 
 <style lang="less" scoped>
   .login-container {
-    background-color: lightblue;
+    background: url('~@/assets/login_background.png');
     height: 100%;
+    background-size: cover;
   }
   .login_box {
     width: 400px;
     height: 300px;
-    background-color: #fff;
+    /*background-color: rgb(17, 203, 229);*/
     border-radius: 3px;
     position: absolute;
     /*以下三行将盒子定位到正中*/
