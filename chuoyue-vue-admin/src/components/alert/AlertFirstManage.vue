@@ -100,8 +100,14 @@
       @close="addDialogClosed">
       <el-row :gutter="24" >
           <template v-if="videoPlayerDialog">
-            <vab-player-mp4 :config="config1" @player="Player1 = $event" />
+            <div v-if="config1.url !== ''">
+              <vab-player-mp4 :config="config1" @player="Player1 = $event" />
+            </div>
+            <div v-else>
+              暂无视频源
+            </div>
           </template>
+
       </el-row>
       <span  slot="footer" class="dialog-footer">
     <el-button @click="videoPlayerDialog = false">取 消</el-button>
