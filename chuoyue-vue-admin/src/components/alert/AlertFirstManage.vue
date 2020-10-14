@@ -20,7 +20,7 @@
         <el-table-column label="设备名称" prop="deviceName" ></el-table-column>
         <el-table-column show-overflow-tooltip label="播放视频" >
           <template slot-scope="scope">
-            <el-button @click="handlePlayer(scope.row.screenShot)">点击播放视频{{scope.row.note}}</el-button>
+            <el-button @click="handlePlayer(scope.row.id)">点击播放视频{{scope.row.note}}</el-button>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="150px">
@@ -99,7 +99,7 @@
       width="40%"
       @close="addDialogClosed">
       <el-row :gutter="24" >
-          <template>
+          <template v-if="videoPlayerDialog">
             <vab-player-mp4 :config="config1" @player="Player1 = $event" />
           </template>
       </el-row>
@@ -113,8 +113,10 @@
 
 <script>
 import { VabPlayerMp4, VabPlayerHls } from '@/plugins/vabPlayer.js'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import { Loading } from 'element-ui'
 import axios from 'axios'
+import Vue from 'vue'
 
 export default {
   name: 'AlertFirstManage',
@@ -148,10 +150,10 @@ export default {
 
     return {
       config1: {
-        id: 'mse12',
+        id: '12',
         url: 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4',
         volume: 1,
-        autoplay: false
+        autoplay: true
       },
       Player1: null,
       queryInfo: {
@@ -220,6 +222,7 @@ export default {
       })
       this.userList = res.data.records
       this.total = res.data.total
+      this.setDevices(res.data.records)
     },
 
     handleSizeChange(newSize) {
@@ -278,8 +281,13 @@ export default {
 
       this.addDialogVisible = true
     },
-    handlePlayer(url) {
-      this.config1.url = url
+    handlePlayer(id) {
+      console.log(id)
+      this.config1.url = this.devices[id].screenShot
+      // console.log(this.devices[id].screenShot)
+      // this.config1.id = this.devices[id].id
+      // Vue.set(this.config1,'id',this.devices[id].id)
+      // this.config1 = this.videoConfigs[id]
       this.videoPlayerDialog = true
     },
     // 监听添加用户对话框的关闭事件
@@ -413,7 +421,11 @@ export default {
         this.$message.success(res.message)
         loading.close()
       })
-    }
+    },
+    ...mapMutations(['setDevices'])
+  },
+  computed:{
+    ...mapState(['devices','videoConfigs'])
   }
 }
 </script>
