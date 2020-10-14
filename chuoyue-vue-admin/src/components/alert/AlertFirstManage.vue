@@ -420,6 +420,8 @@ export default {
         this.addDialogVisible = false
         this.$message.success(res.message)
         loading.close()
+        // this.$parent.$children
+        this.$emit("notifySecond")
       })
     },
     ...mapMutations(['setDevices'])

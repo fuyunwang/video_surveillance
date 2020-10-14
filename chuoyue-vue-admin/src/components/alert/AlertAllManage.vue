@@ -7,10 +7,10 @@
   </el-breadcrumb>
   <el-tabs v-model="activeTab" @tab-click="handleClick">
     <el-tab-pane label="未处理" name="activity">
-      <alert-first-manage />
+      <alert-first-manage  @notifySecond="notifySecondChild"/>
     </el-tab-pane>
     <el-tab-pane label="已处理" name="timeline">
-      <alert-second-manage />
+      <alert-second-manage ref="secondChild"/>
     </el-tab-pane>
     <el-tab-pane label="误报警" name="account">
       <alert-third-manage />
@@ -35,6 +35,9 @@ export default {
     handleClick(tab, event) {
       console.log(tab)
       console.log(event.target)
+    },
+    notifySecondChild(){
+      this.$refs.secondChild.getAlarmsList()
     }
   }
 }

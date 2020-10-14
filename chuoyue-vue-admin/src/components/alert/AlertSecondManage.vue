@@ -185,11 +185,11 @@ export default {
     }
   },
   created() {
-    this.getUserList()
+    this.getAlarmsList()
     console.log('init......................')
   },
   methods: {
-    async getUserList() {
+    async getAlarmsList() {
       // const token = window.sessionStorage.getItem('token')
       const { data: res } = await this.$http({
         method: 'post',
@@ -217,12 +217,12 @@ export default {
       // 监听pageSize改变的事件
       this.queryInfo.pagesize = newSize
       // 调用此方法,后端会自动返回指定条数的数据
-      this.getUserList()
+      this.getAlarmsList()
     },
     handleCurrentChange(newPage) {
       // 监听 页码值 改变的事件
       this.queryInfo.pagenum = newPage
-      this.getUserList()
+      this.getAlarmsList()
     },
     async userStateChange(userInfo) {
       const token = window.sessionStorage.getItem('token')
