@@ -13,6 +13,7 @@ import Category from '../components/goods/Category'
 import AlertFirstManage from '../components/alert/AlertFirstManage'
 import SettingsFirstManage from '../components/settings/SettingsFirstManage'
 import AlertAllManage from '../components/alert/AlertAllManage'
+import Page404 from '../error-page/404'
 
 Vue.use(VueRouter)
 
@@ -53,6 +54,10 @@ const routes = [
       {
         path: '/system/first',
         component: ChartFirst
+      },
+      {
+        path: '/system/second',
+        component: Page404
       },
       {
         path: '/roles/edit',
