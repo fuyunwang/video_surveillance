@@ -1,0 +1,83 @@
+### gradle ###
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
+
+### STS ###
+.settings/
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.lock
+rebel.xml
+
+### NetBeans ###
+nbproject/private/
+build/
+nbbuild/
+nbdist/
+.nb-gradle/
+
+### maven ###
+target/
+*.war
+*.ear
+*.zip
+*.tar
+*.tar.gz
+
+### logs ####
+/logs/
+*.log
+
+### temp ignore ###
+*.cache
+*.diff
+*.patch
+*.tmp
+*.java~
+*.properties~
+*.xml~
+
+### system ignore ###
+.DS_Store
+Thumbs.db
+Servers
+.metadata
+upload
+gen_code
+
+### node ###
+node_modules
+
+Chuoyue-Element-Admin/.DS_Store
+Chuoyue-Element-Admin/node_modules/
+Chuoyue-Element-Admin/dist/
+Chuoyue-Element-Admin/npm-debug.log*
+Chuoyue-Element-Admin/yarn-debug.log*
+Chuoyue-Element-Admin/yarn-error.log*
+Chuoyue-Element-Admin/**/*.log
+Chuoyue-Element-Admin/tests/**/coverage/
+Chuoyue-Element-Admin/tests/e2e/reports
+Chuoyue-Element-Admin/selenium-debug.log
+# Editor directories and files
+Chuoyue-Element-Admin/.idea/
+Chuoyue-Element-Admin/.vscode
+Chuoyue-Element-Admin/*.suo
+Chuoyue-Element-Admin/*.ntvs*
+Chuoyue-Element-Admin/*.njsproj
+Chuoyue-Element-Admin/*.sln
+Chuoyue-Element-Admin/*.local
+Chuoyue-Element-Admin/package-lock.json
+Chuoyue-Element-Admin/yarn.lock
+

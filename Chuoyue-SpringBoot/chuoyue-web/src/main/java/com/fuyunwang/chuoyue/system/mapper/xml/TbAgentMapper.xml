@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fuyunwang.chuoyue.system.mapper.TbAgentMapper">
+    <select id="findByAgentname" parameterType="java.lang.String" resultType="com.fuyunwang.chuoyue.system.entity.TbAgent">
+            SELECT * FROM tb_agent WHERE agent_name = #{agentName}
+    </select>
+    <select id="findByAgentphone" parameterType="java.lang.String" resultType="com.fuyunwang.chuoyue.system.entity.TbAgent">
+            SELECT * FROM tb_agent WHERE agent_phone = #{agentPhone}
+    </select>
+    <select id="findRolesByAgentname" parameterType="java.lang.String" resultType="com.fuyunwang.chuoyue.system.entity.TbRole">
+            SELECT r.* FROM tb_agent a
+            left join tb_agent_role ar on a.id = ar.agent_id
+            left join tb_role r  on ar.role_id = r.id where a.agent_name = #{agentName}
+    </select>
+    
+    <resultMap id="allAgentInfoResultMap" type="com.fuyunwang.chuoyue.system.entity.TbAgent">
+        <id column="id" property="id"></id>
+        <result column="agent_achieve" property="agentAchieve"></result>
+        <result column="agent_email" property="agentEmail"></result>
+        <result column="agent_idcard" property="agentIdcard"></result>
+        <result column="agent_idcard_img" property="agentIdcardImg"></result>
+        <result column="agent_name" property="agentName"></result>
+        <result column="agent_password" property="agentPassword"></result>
+        <result column="agent_phone" property="agentPhone"></result>
+        <result column="agent_school" property="agentSchool"></result>
+        <result column="parent_id" property="parentId"></result>
+        <result column="status" property="status"></result>
+        <collection property="roleList" ofType="com.fuyunwang.chuoyue.system.entity.TbRole">
+<!--            <id column="id" property="id"/>-->
+            <result column="operator" property="operator"/>
+            <result column="remark" property="remark"/>
+            <result column="role_name" property="roleName"/>
+            <result column="status" property="status"/>
+            <result column="type" property="type"/>
+            <result column="update_time" property="updateTime"/>
+        </collection>
+    </resultMap>
+    <select id="getAllAgentInfoById" parameterType="java.lang.Integer" resultMap="allAgentInfoResultMap">
+            SELECT a.*,r.*
+            from tb_agent a
+            left join tb_agent_role ar on ar.agent_id = a.id
+            left join tb_role r on r.id = ar.role_id
+            where a.id = #{id}
+    </select>
+</mapper>
