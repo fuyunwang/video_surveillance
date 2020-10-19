@@ -4,6 +4,7 @@ import com.fuyunwang.chuoyue.common.base.ResponseCode;
 import com.fuyunwang.chuoyue.common.base.ResponseResult;
 import com.fuyunwang.chuoyue.common.exception.InternalException;
 import com.fuyunwang.chuoyue.common.exception.MobileNotFoundException;
+import com.fuyunwang.chuoyue.common.exception.ParamException;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -35,6 +36,14 @@ public class ExceptionResolver {
                 ResponseCode.ERROR.getDesc(),data);
     }
 
+
+    @ExceptionHandler(ParamException.class)
+//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ResponseResult<Map<String,String>> paramExceptionHandler(ParamException e){
+        Map<String,String> data= Maps.newHashMap();
+        data.put("error",e.getErrorMesssage());
+        return ResponseResult.createByError(ResponseCode.ILLEGAL_ARGUMENTS.getCode(),e.getErrorMesssage(),data);
+    }
 
     //单个请求参数的校验
     @ExceptionHandler(value = ConstraintViolationException.class)

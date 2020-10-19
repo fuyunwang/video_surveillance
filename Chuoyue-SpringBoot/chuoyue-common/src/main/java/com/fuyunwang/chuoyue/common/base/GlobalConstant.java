@@ -9,4 +9,13 @@ public class GlobalConstant {
     public static final String TOAST_MESSAGE="message";
     // 简单手机号正则（这里只是简单校验是否为 11位，实际规则更复杂）
     public static final String MOBILE_REG = "[1]\\d{10}";
+    public interface RabbitMQ{
+        String QUEUE_NAME_CHUOYUE = "chuoyue";
+        String EXCHANGE_NAME_TOPIC="topicExchange";
+    }
+
+    public interface Algorithm{
+        String SELECTED_ALGORITHM="selected_algorithm";
+        String ALGORITHM_PREFIX="algorithm:";
+    }
 }

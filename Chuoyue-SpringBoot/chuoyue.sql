@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 19/10/2020 20:36:27
+ Date: 19/10/2020 22:09:45
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `tb_acl`  (
   `type` int(11) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = MyISAM AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_acl
@@ -39,10 +39,13 @@ CREATE TABLE `tb_acl`  (
 INSERT INTO `tb_acl` VALUES (1, '超管和高管可以看到', '/chuoyue/hello/index/se', 'Admin', '超管和高管可以看到', 1, 1, '2019-04-03 21:29:50');
 INSERT INTO `tb_acl` VALUES (2, '只有超管才能看到', '/chuoyue/hello/index/ad', 'Admin', '只有超管才能看到', 1, 0, '2019-04-03 21:32:58');
 INSERT INTO `tb_acl` VALUES (3, '登陆之后就可以看到', '/chuoyue/hello/index/lo', 'Admin', '登陆之后就可以看到', 1, 2, '2019-04-03 21:48:08');
-INSERT INTO `tb_acl` VALUES (20, NULL, '/chuoyue/hello/index/test1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `tb_acl` VALUES (20, NULL, '/chuoyue/hello/index/test1', NULL, NULL, NULL, NULL, '2020-10-19 20:44:30');
 INSERT INTO `tb_acl` VALUES (5, '超管、中管、高管都可以看', '/chuoyue/hello/index/ju', 'Admin', '超管、中管、高管都可以看', 1, 1, '2019-04-03 21:52:53');
-INSERT INTO `tb_acl` VALUES (21, NULL, '/chuoyue/tb-agent/**', 'Admin', NULL, 1, 1, NULL);
-INSERT INTO `tb_acl` VALUES (22, NULL, '/chuoyue/tb-menu-info/**', NULL, NULL, 1, 1, NULL);
+INSERT INTO `tb_acl` VALUES (21, NULL, '/chuoyue/tb-agent/**', 'Admin', NULL, 1, 1, '2020-10-19 20:44:28');
+INSERT INTO `tb_acl` VALUES (22, NULL, '/chuoyue/tb-menu-info/**', NULL, NULL, 1, 1, '2020-10-19 20:44:25');
+INSERT INTO `tb_acl` VALUES (23, NULL, '/chuoyue/tb-device/**', NULL, NULL, 1, 1, '2020-10-19 20:44:21');
+INSERT INTO `tb_acl` VALUES (24, NULL, '/chuoyue/tb-department-solved/**', NULL, NULL, 1, 1, NULL);
+INSERT INTO `tb_acl` VALUES (25, NULL, '/chuoyue/tb-department/**', NULL, NULL, 1, 1, NULL);
 
 -- ----------------------------
 -- Table structure for tb_agent
@@ -292,6 +295,12 @@ INSERT INTO `tb_role_acl` VALUES (1, 21);
 INSERT INTO `tb_role_acl` VALUES (2, 21);
 INSERT INTO `tb_role_acl` VALUES (1, 22);
 INSERT INTO `tb_role_acl` VALUES (2, 22);
+INSERT INTO `tb_role_acl` VALUES (1, 23);
+INSERT INTO `tb_role_acl` VALUES (2, 23);
+INSERT INTO `tb_role_acl` VALUES (1, 24);
+INSERT INTO `tb_role_acl` VALUES (2, 24);
+INSERT INTO `tb_role_acl` VALUES (1, 25);
+INSERT INTO `tb_role_acl` VALUES (2, 25);
 
 -- ----------------------------
 -- Table structure for tb_student

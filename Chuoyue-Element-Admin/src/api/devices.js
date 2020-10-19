@@ -20,3 +20,17 @@ export function getList(data) {
     }]
   })
 }
+
+export function changeDeviceAlgorithmState(data) {
+  return request({
+    url: 'tb-device/change_state',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    data: {
+      id: data.id,
+      state: data.state
+    }
+  })
+}

@@ -68,6 +68,7 @@
 
         <!--分页区域-->
         <el-pagination
+          class="paginations"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="queryInfo.pagenum"
@@ -76,7 +77,6 @@
           layout="total, sizes, prev, pager, next, jumper"
           :total="devicesTotal">
         </el-pagination>
-        <!--        <table-edit ref="edit"></table-edit>-->
       </el-card>
     </div>
   </div>
@@ -122,34 +122,33 @@ export default {
       // 监听pageSize改变的事件
       this.queryInfo.pagesize = newSize
       // 调用此方法,后端会自动返回指定条数的数据
-      // this.getUserList()
+      this.getDeviceList()
     },
     handleCurrentChange(newPage) {
       // 监听 页码值 改变的事件
       this.queryInfo.pagenum = newPage
-      // this.getUserList()
+      this.getDeviceList()
     },
     async deviceStateChange(deviceInfo, event) {
-      // event.currentTarget.
+      this.loading = true
       console.log(deviceInfo.id)
-      deviceInfo.state = deviceInfo.state === 0 ? 1 : 0
-      const { data: res } = await this.$http({
-        method: 'post',
-        url: 'device/change_state',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8'
-        },
-        data: {
-          id: deviceInfo.id,
-          state: deviceInfo.state
-        }
-      }).catch(error => {
-        deviceInfo.state = 0
-        this.$message.error('请保证同时只选择一种算法')
-        NProgress.done()
-      })
-
-      this.$message.success(res.message)
+      const result = deviceInfo.state === 0 ? 1 : 0
+      const params = { id: deviceInfo.id, state: result }
+      this.$store.dispatch('devices/selectDeviceAlgorithm', params)
+        .then((res) => {
+          if (res.status === 20000) {
+            deviceInfo.state = result
+            this.$message.success(res.message)
+          } else {
+            this.$message.error(res.message)
+          }
+          this.loading = false
+        })
+        .catch((error) => {
+          console.log(error)
+          this.$message.error(error.message)
+          this.loading = false
+        })
     },
     getUserSearchList() {
       this.$message.success(this.queryParams)
@@ -205,7 +204,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .table-container{
-
-  }
+.paginations{
+  margin-top: 18px;
+}
 </style>

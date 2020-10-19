@@ -1,4 +1,4 @@
-import { getList } from '@/api/devices'
+import { getList, changeDeviceAlgorithmState } from '@/api/devices'
 
 const state = {
   total: 0,
@@ -45,6 +45,16 @@ const actions = {
         commit('SET_ORDERS', orders)
         commit('SET_PAGES', pages)
         resolve(res)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  selectDeviceAlgorithm({ commit }, params) {
+    const { id, state } = params
+    return new Promise((resolve, reject) => {
+      changeDeviceAlgorithmState({ id, state }).then(response => {
+        resolve(response)
       }).catch(error => {
         reject(error)
       })
