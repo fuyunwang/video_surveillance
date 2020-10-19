@@ -1,34 +1,111 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 127.0.0.1
+ Source Server         : local
  Source Server Type    : MySQL
- Source Server Version : 80021
+ Source Server Version : 50731
  Source Host           : localhost:3306
  Source Schema         : chuoyue
 
  Target Server Type    : MySQL
- Target Server Version : 80021
+ Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 19/10/2020 01:03:52
+ Date: 19/10/2020 20:29:23
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for department
+-- ----------------------------
+DROP TABLE IF EXISTS `department`;
+CREATE TABLE `department`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
+  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
+  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
+  `status` int(11) NOT NULL COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceName`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of department
+-- ----------------------------
+INSERT INTO `department` VALUES (1, '测试组', '2020-10-14 10:10:47', '人员检测', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 1, '', 'video1');
+INSERT INTO `department` VALUES (2, '测试组', '2020-10-14 12:50:36', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/zhenhuan.mp4', 1, '', '');
+INSERT INTO `department` VALUES (3, '测试组', '2020-10-14 12:32:40', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '', '');
+INSERT INTO `department` VALUES (4, '测试组', '2020-10-13 10:32:48', '火焰', '工厂1', '', 0, '', '');
+INSERT INTO `department` VALUES (5, '测试组', '2020-10-13 10:32:49', '火焰', '工厂1', '', 0, '', '');
+INSERT INTO `department` VALUES (6, '测试组', '2020-10-13 10:32:51', '火焰', '工厂1', '', 0, '', '');
+
+-- ----------------------------
+-- Table structure for department_solved
+-- ----------------------------
+DROP TABLE IF EXISTS `department_solved`;
+CREATE TABLE `department_solved`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
+  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
+  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系人',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `departmentId` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceName`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 215 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of department_solved
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for device
+-- ----------------------------
+DROP TABLE IF EXISTS `device`;
+CREATE TABLE `device`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `deviceUserName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备用户名',
+  `deviceIp` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备IP地址',
+  `RTSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'RTSP端口',
+  `gateway` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '网关',
+  `status` int(11) NOT NULL COMMENT '状态（0正常 1异常）',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
+  `state` int(11) NULL DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceNmae`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of device
+-- ----------------------------
+INSERT INTO `device` VALUES (1, '工厂', 'admin', '192.168.1.100', '26101', 'NANO开发测试', 0, '测试检测人', '门口', 1);
+INSERT INTO `device` VALUES (2, '灰色摄像机', 'admin', '192.168.1.64', '554', 'NANO开发测试', 0, '测试组', '饮水机QQ', 0);
+INSERT INTO `device` VALUES (3, '白色摄像头', 'admin', '192.168.1.65', '554', 'NANO', 0, '中科鸿云', '门口', 0);
+
+-- ----------------------------
 -- Table structure for tb_acl
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_acl`;
 CREATE TABLE `tb_acl`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `acl_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `acl_url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `operator` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `acl_remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `type` int(0) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
+  `type` int(11) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -49,8 +126,8 @@ INSERT INTO `tb_acl` VALUES (22, NULL, '/chuoyue/tb-menu-info/**', NULL, NULL, 1
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_agent`;
 CREATE TABLE `tb_agent`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
-  `agent_achieve` int(0) NULL DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `agent_achieve` int(11) NULL DEFAULT NULL,
   `agent_email` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_idcard` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_idcard_img` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -58,9 +135,9 @@ CREATE TABLE `tb_agent`  (
   `agent_password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_phone` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_school` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `parent_id` int(0) NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `role_id` int(0) NULL DEFAULT NULL,
+  `parent_id` int(11) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
+  `role_id` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FK87oi6qqndbhjr95l34sq1t7dv`(`role_id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -97,8 +174,8 @@ INSERT INTO `tb_agent` VALUES (30, NULL, NULL, NULL, NULL, 'lisi', '$2a$10$Dm3mr
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_agent_role`;
 CREATE TABLE `tb_agent_role`  (
-  `agent_id` int(0) NOT NULL,
-  `role_id` int(0) NOT NULL
+  `agent_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -116,16 +193,16 @@ INSERT INTO `tb_agent_role` VALUES (11, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_menu_info`;
 CREATE TABLE `tb_menu_info`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单名称',
   `menu_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单路径',
-  `orders` int(0) NULL DEFAULT 1 COMMENT '顺序',
-  `parent_id` int(0) NULL DEFAULT 0 COMMENT '父级id,为0表示为根父级',
-  `auth_type` int(0) NULL DEFAULT 3 COMMENT '权限类型,0是只有超管才能看到,1是高管可以看到,2是中管可以看到,3是所有人都可以看到',
+  `orders` int(11) NULL DEFAULT 1 COMMENT '顺序',
+  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级id,为0表示为根父级',
+  `auth_type` int(11) NULL DEFAULT 3 COMMENT '权限类型,0是只有超管才能看到,1是高管可以看到,2是中管可以看到,3是所有人都可以看到',
   `component` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `redirect` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_menu_info
@@ -147,22 +224,22 @@ INSERT INTO `tb_menu_info` VALUES (16, '用户管理', 'user', 1, 15, 3, 'system
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_menu_info_meta`;
 CREATE TABLE `tb_menu_info_meta`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `menu_id` int(0) NULL DEFAULT 0,
+  `menu_id` int(11) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_menu_info_meta
 -- ----------------------------
 INSERT INTO `tb_menu_info_meta` VALUES (1, '算法配置', 'edit', 14);
 INSERT INTO `tb_menu_info_meta` VALUES (2, '报警管理', 'documentation', 13);
-INSERT INTO `tb_menu_info_meta` VALUES (3, '数据报表1', 'dashboard', 10);
-INSERT INTO `tb_menu_info_meta` VALUES (4, '数据报表2', 'dashboard', 11);
-INSERT INTO `tb_menu_info_meta` VALUES (5, '数据报表3', 'dashboard', 12);
-INSERT INTO `tb_menu_info_meta` VALUES (6, '数据统计', 'dashboard', 4);
+INSERT INTO `tb_menu_info_meta` VALUES (3, '数据报表1', 'chart', 10);
+INSERT INTO `tb_menu_info_meta` VALUES (4, '数据报表2', 'chart', 11);
+INSERT INTO `tb_menu_info_meta` VALUES (5, '数据报表3', 'chart', 12);
+INSERT INTO `tb_menu_info_meta` VALUES (6, '数据统计', 'chart', 4);
 INSERT INTO `tb_menu_info_meta` VALUES (7, '用户管理', 'user', 16);
 
 -- ----------------------------
@@ -170,12 +247,12 @@ INSERT INTO `tb_menu_info_meta` VALUES (7, '用户管理', 'user', 16);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role`;
 CREATE TABLE `tb_role`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `operator` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `role_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `type` int(0) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
+  `type` int(11) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -193,9 +270,9 @@ INSERT INTO `tb_role` VALUES (4, NULL, NULL, 'test1', NULL, NULL, NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role_acl`;
 CREATE TABLE `tb_role_acl`  (
-  `role_id` int(0) NOT NULL,
-  `acl_id` int(0) NOT NULL
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+  `role_id` int(11) NOT NULL,
+  `acl_id` int(11) NOT NULL
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of tb_role_acl
@@ -221,9 +298,9 @@ INSERT INTO `tb_role_acl` VALUES (2, 22);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_student`;
 CREATE TABLE `tb_student`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `operator` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
   `student_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `student_img` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `student_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
