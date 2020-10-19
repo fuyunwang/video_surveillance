@@ -111,7 +111,7 @@ export default {
       this.loading = true
       this.$store.dispatch('devices/getDevices',this.queryInfo)
         .then((res) => {
-          this.deviceList = this
+          // this.deviceList = this
           this.loading = false
         })
         .catch(() => {

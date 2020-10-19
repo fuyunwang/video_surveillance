@@ -26,9 +26,9 @@ export default {
   name: 'AlertAllManage',
   components: { AlertFirstManage, AlertSecondManage, AlertThirdManage },
   data() {
-      return {
-          activeTab: 'activity'
-      }
+   return {
+    activeTab: 'activity'
+   }
   },
   methods: {
       handleClick(tab, event) {

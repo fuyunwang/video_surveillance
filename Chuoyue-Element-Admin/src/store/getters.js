@@ -13,6 +13,8 @@ const getters = {
   errorLogs: state => state.errorLog.logs,
   menus: state => state.user.menus,
   devices: state => state.devices.records,
-  devicesTotal: state => state.devices.total
+  departments: state => state.department.records,
+  devicesTotal: state => state.devices.total,
+  departmentTotal: state => state.department.total
 }
 export default getters
