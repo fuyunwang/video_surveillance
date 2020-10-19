@@ -11,88 +11,11 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 19/10/2020 20:29:23
+ Date: 19/10/2020 20:36:27
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
--- ----------------------------
--- Table structure for department
--- ----------------------------
-DROP TABLE IF EXISTS `department`;
-CREATE TABLE `department`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
-  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
-  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
-  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
-  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
-  `status` int(11) NOT NULL COMMENT '状态（0 未处理 1 已处理 3 误报警）',
-  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
-  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `deviceName`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of department
--- ----------------------------
-INSERT INTO `department` VALUES (1, '测试组', '2020-10-14 10:10:47', '人员检测', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 1, '', 'video1');
-INSERT INTO `department` VALUES (2, '测试组', '2020-10-14 12:50:36', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/zhenhuan.mp4', 1, '', '');
-INSERT INTO `department` VALUES (3, '测试组', '2020-10-14 12:32:40', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '', '');
-INSERT INTO `department` VALUES (4, '测试组', '2020-10-13 10:32:48', '火焰', '工厂1', '', 0, '', '');
-INSERT INTO `department` VALUES (5, '测试组', '2020-10-13 10:32:49', '火焰', '工厂1', '', 0, '', '');
-INSERT INTO `department` VALUES (6, '测试组', '2020-10-13 10:32:51', '火焰', '工厂1', '', 0, '', '');
-
--- ----------------------------
--- Table structure for department_solved
--- ----------------------------
-DROP TABLE IF EXISTS `department_solved`;
-CREATE TABLE `department_solved`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
-  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
-  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
-  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
-  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
-  `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态（0 未处理 1 已处理 3 误报警）',
-  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系人',
-  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `departmentId` int(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `deviceName`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 215 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of department_solved
--- ----------------------------
-
--- ----------------------------
--- Table structure for device
--- ----------------------------
-DROP TABLE IF EXISTS `device`;
-CREATE TABLE `device`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
-  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
-  `deviceUserName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备用户名',
-  `deviceIp` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备IP地址',
-  `RTSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'RTSP端口',
-  `gateway` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '网关',
-  `status` int(11) NOT NULL COMMENT '状态（0正常 1异常）',
-  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
-  `state` int(11) NULL DEFAULT NULL COMMENT '状态',
-  PRIMARY KEY (`id`) USING BTREE,
-  INDEX `deviceNmae`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of device
--- ----------------------------
-INSERT INTO `device` VALUES (1, '工厂', 'admin', '192.168.1.100', '26101', 'NANO开发测试', 0, '测试检测人', '门口', 1);
-INSERT INTO `device` VALUES (2, '灰色摄像机', 'admin', '192.168.1.64', '554', 'NANO开发测试', 0, '测试组', '饮水机QQ', 0);
-INSERT INTO `device` VALUES (3, '白色摄像头', 'admin', '192.168.1.65', '554', 'NANO', 0, '中科鸿云', '门口', 0);
 
 -- ----------------------------
 -- Table structure for tb_acl
@@ -187,6 +110,83 @@ INSERT INTO `tb_agent_role` VALUES (29, 3);
 INSERT INTO `tb_agent_role` VALUES (11, 2);
 INSERT INTO `tb_agent_role` VALUES (11, 3);
 INSERT INTO `tb_agent_role` VALUES (11, 1);
+
+-- ----------------------------
+-- Table structure for tb_department
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_department`;
+CREATE TABLE `tb_department`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
+  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
+  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
+  `status` int(11) NOT NULL COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceName`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_department
+-- ----------------------------
+INSERT INTO `tb_department` VALUES (1, '测试组', '2020-10-14 10:10:47', '人员检测', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 1, '', 'video1');
+INSERT INTO `tb_department` VALUES (2, '测试组', '2020-10-14 12:50:36', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/zhenhuan.mp4', 1, '', '');
+INSERT INTO `tb_department` VALUES (3, '测试组', '2020-10-14 12:32:40', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '', '');
+INSERT INTO `tb_department` VALUES (4, '测试组', '2020-10-13 10:32:48', '火焰', '工厂1', '', 0, '', '');
+INSERT INTO `tb_department` VALUES (5, '测试组', '2020-10-13 10:32:49', '火焰', '工厂1', '', 0, '', '');
+INSERT INTO `tb_department` VALUES (6, '测试组', '2020-10-13 10:32:51', '火焰', '工厂1', '', 0, '', '');
+
+-- ----------------------------
+-- Table structure for tb_department_solved
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_department_solved`;
+CREATE TABLE `tb_department_solved`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
+  `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
+  `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系人',
+  `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `departmentId` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceName`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 215 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_department_solved
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tb_device
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_device`;
+CREATE TABLE `tb_device`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
+  `deviceUserName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备用户名',
+  `deviceIp` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备IP地址',
+  `RTSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'RTSP端口',
+  `gateway` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '网关',
+  `status` int(11) NOT NULL COMMENT '状态（0正常 1异常）',
+  `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织',
+  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
+  `state` int(11) NULL DEFAULT NULL COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `deviceNmae`(`deviceName`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tb_device
+-- ----------------------------
+INSERT INTO `tb_device` VALUES (1, '工厂', 'admin', '192.168.1.100', '26101', 'NANO开发测试', 0, '测试检测人', '门口', 1);
+INSERT INTO `tb_device` VALUES (2, '灰色摄像机', 'admin', '192.168.1.64', '554', 'NANO开发测试', 0, '测试组', '饮水机QQ', 0);
+INSERT INTO `tb_device` VALUES (3, '白色摄像头', 'admin', '192.168.1.65', '554', 'NANO', 0, '中科鸿云', '门口', 0);
 
 -- ----------------------------
 -- Table structure for tb_menu_info

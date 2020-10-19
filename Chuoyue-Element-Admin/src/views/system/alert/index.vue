@@ -103,7 +103,7 @@ export default {
     }
   },
   created() {
-    this.getDeviceList()
+    // this.getDeviceList()
   },
   methods: {
     async getUserList() {
