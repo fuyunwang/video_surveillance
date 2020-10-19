@@ -2,8 +2,21 @@ import request from '@/utils/request'
 
 export function getList(data) {
   return request({
-    url: '/table/getList',
+    url: 'tb-device/getbypage',
     method: 'post',
-    data,
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      pagenum: data.pagenum,
+      pagesize: data.pagesize
+    },
+    transformRequest: [function(data) {
+      let ret = ''
+      for (const it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+      }
+      return ret
+    }]
   })
 }

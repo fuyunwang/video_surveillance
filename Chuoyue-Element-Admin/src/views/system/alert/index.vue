@@ -13,10 +13,10 @@
           end-placeholder="结束日期"
           :default-time="['00:00:00', '23:59:59']">
         </el-date-picker>
-        <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
+        <el-button icon="el-icon-plus" type="primary" >
           添加
         </el-button>
-        <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
+        <el-button icon="el-icon-delete" type="danger">
           删除
         </el-button>
       </el-row>
@@ -38,7 +38,7 @@
           </el-form-item>
         </el-form>
 
-        <el-table :data="deviceList" stripe border>
+        <el-table :data="devices" stripe border>
           <el-table-column type="index" label="#"></el-table-column>
           <el-table-column label="组织" prop="departmentName" ></el-table-column>
           <el-table-column label="摄像机名称" prop="deviceName"></el-table-column>
@@ -74,7 +74,7 @@
           :page-sizes="[1, 2, 3, 4, 5, 6]"
           :page-size="queryInfo.pagesize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="total">
+          :total="devicesTotal">
         </el-pagination>
         <!--        <table-edit ref="edit"></table-edit>-->
       </el-card>
@@ -84,6 +84,7 @@
 
 <script>
 import NProgress from 'nprogress'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Index',
@@ -93,53 +94,40 @@ export default {
         pagenum: 1,
         pagesize: 3
       },
-      deviceList: [
-      ],
-      total: 3,
       queryParams: '',
       switchState: false,
       value: '',
       input: ''
     }
   },
+  computed: {
+    ...mapGetters(['devices', 'devicesTotal'])
+  },
   created() {
-    // this.getDeviceList()
+    this.getDeviceList()
   },
   methods: {
-    async getUserList() {
-      // const token = window.sessionStorage.getItem('token')
-      const { data: res } = await this.$http({
-        method: 'post',
-        url: 'device/getbypage',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: {
-          pagenum: this.queryInfo.pagenum,
-          pagesize: this.queryInfo.pagesize
-        },
-        transformRequest: [function (data) {
-          let ret = ''
-          for (const it in data) {
-            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-          }
-          return ret
-        }]
-      })
-      this.userList = res.data.records
-      this.total = res.data.total
+    getDeviceList() {
+      this.loading = true
+      this.$store.dispatch('devices/getDevices',this.queryInfo)
+        .then((res) => {
+          this.deviceList = this
+          this.loading = false
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
-
     handleSizeChange(newSize) {
       // 监听pageSize改变的事件
       this.queryInfo.pagesize = newSize
       // 调用此方法,后端会自动返回指定条数的数据
-      this.getUserList()
+      // this.getUserList()
     },
     handleCurrentChange(newPage) {
       // 监听 页码值 改变的事件
       this.queryInfo.pagenum = newPage
-      this.getUserList()
+      // this.getUserList()
     },
     async deviceStateChange(deviceInfo, event) {
       // event.currentTarget.
