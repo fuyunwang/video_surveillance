@@ -87,5 +87,6 @@ public class TbDepartmentSolved implements Serializable {
     @TableField("departmentId")
     private Integer departmentId;
 
-
+    @TableField(exist = false)
+    private String[] screenShots;
 }

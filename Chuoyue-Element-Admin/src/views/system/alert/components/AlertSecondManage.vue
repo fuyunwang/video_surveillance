@@ -22,6 +22,7 @@
           <template slot-scope="scope">
             <el-image
               style="width: 100px; height: 100px"
+              :preview-src-list="scope.row.screenShots"
               :src="scope.row.screenShot"
             ></el-image>
           </template>
@@ -157,7 +158,6 @@ export default {
         .catch(() => {
           this.loading = false
         })
-
     }
   }
 }

@@ -284,12 +284,13 @@ export default {
           console.log(res)
           if (res.status === 20000){
             this.$message.success(res.message)
-          }else {
+          } else {
             this.$message.error(res.message)
           }
           loading.close()
           this.loading = false
           this.disposeDialogVisible = false
+          this.$emit('notifySecond')
         })
         .catch(() => {
           this.loading = false
@@ -297,7 +298,7 @@ export default {
           this.disposeDialogVisible = false
         })
 
-        this.$emit('notifySecond')
+
       })
     }
   }

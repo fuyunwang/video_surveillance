@@ -44,7 +44,17 @@ public class TbDepartmentSolvedServiceImpl extends ServiceImpl<TbDepartmentSolve
             if (collect.contains("admin")){
                 QueryWrapper<TbDepartmentSolved> queryWrapper=new QueryWrapper<>();
                 queryWrapper.eq("status",1);
+                queryWrapper.groupBy("departmentId");
+                //                queryWrapper.getSqlSelect()
                 IPage<TbDepartmentSolved> departmentIPage = departmentSolvedMapper.selectPage(page, queryWrapper);
+
+                for (TbDepartmentSolved record : departmentIPage.getRecords()) {
+                    QueryWrapper<TbDepartmentSolved> queryWrapper1=new QueryWrapper<>();
+                    queryWrapper1.eq("departmentId",record.getDepartmentId());
+                    List<String> collect1 = departmentSolvedMapper.selectList(queryWrapper1).stream().map(TbDepartmentSolved::getScreenShot).collect(Collectors.toList());
+                    record.setScreenShots(collect1.toArray(new String[collect1.size()]));
+                }
+
                 return departmentIPage;
             }
         }
