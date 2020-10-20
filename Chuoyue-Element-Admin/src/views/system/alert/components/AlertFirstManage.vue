@@ -227,35 +227,15 @@ export default {
           video_url: this.config1.url
         }
       })
-
-      const { data: res2 } = await this.$http({
-        method: 'post',
-        url: 'department/getbypage',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: {
-          pagenum: this.queryInfo.pagenum,
-          pagesize: this.queryInfo.pagesize
-        },
-        transformRequest: [function (data) {
-          let ret = ''
-          for (const it in data) {
-            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-          }
-          return ret
-        }]
-      })
-      this.userList = res2.data.records
-      this.total = res2.data.total
-
-      this.videoPlayerDialog = false
+      this.getDepartments()
       if (res.status !== 20000) {
         this.$message.error('服务器内部错误,检测失败' + res.message)
         console.log(res.message)
         loading.close()
+      } else {
+        this.$message.success(res.message)
       }
-      this.$message.success(res.message)
+      this.videoPlayerDialogVisible = false
       loading.close()
     },
     disposalAlarm() {
