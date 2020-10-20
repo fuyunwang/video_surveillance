@@ -186,31 +186,10 @@ export default {
   },
   created() {
     this.getAlarmsList()
-    console.log('init......................')
   },
   methods: {
-    async getAlarmsList() {
-      // const token = window.sessionStorage.getItem('token')
-      const { data: res } = await this.$http({
-        method: 'post',
-        url: 'department-solved/getbypage',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: {
-          pagenum: this.queryInfo.pagenum,
-          pagesize: this.queryInfo.pagesize
-        },
-        transformRequest: [function (data) {
-          let ret = ''
-          for (const it in data) {
-            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-          }
-          return ret
-        }]
-      })
-      this.userList = res.data.records
-      this.total = res.data.total
+    getAlarmsList() {
+
     },
 
     handleSizeChange(newSize) {

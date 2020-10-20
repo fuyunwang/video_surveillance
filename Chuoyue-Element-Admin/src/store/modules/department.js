@@ -1,4 +1,5 @@
-import { getDepartmentList } from "@/api/department"
+import { getDepartmentList, getDepartmentInfo, disposalAlarm } from "@/api/department"
+import Vue from 'vue'
 
 const state = {
   total: 0,
@@ -6,7 +7,9 @@ const state = {
   current: 1,
   orders: [],
   pages: 1,
-  records: []
+  records: [],
+  currentDepartment: {},
+  deviceList: {}
 }
 
 const mutations = {
@@ -27,11 +30,18 @@ const mutations = {
   },
   SET_RECORDS: (state, records) => {
     state.records = records
+  },
+  SET_CURRENT_DEPARTMENT: (state, currentDepartment) => {
+    state.currentDepartment = currentDepartment
+  },
+  SET_DEVICE_LIST: () => {
+    state.records.forEach(record => {
+      Vue.set(state.deviceList, record.id, record)
+    })
   }
 }
 
 const actions = {
-  // user login
   getDepartmentList({ commit }, params) {
     const { pagenum, pagesize } = params
     return new Promise((resolve, reject) => {
@@ -44,10 +54,33 @@ const actions = {
         commit('SET_CURRENT', current)
         commit('SET_ORDERS', orders)
         commit('SET_PAGES', pages)
+        commit('SET_DEVICE_LIST', records)
         resolve(res)
       }).catch(error => {
         reject(error)
       })
+    })
+  },
+  getDepartmentInfo({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      getDepartmentInfo(id).then(response => {
+        const { data: res } = response
+        commit('SET_CURRENT_DEPARTMENT', res)
+        resolve(res)
+      })
+        .catch(error => {
+          reject(error)
+        })
+    })
+  },
+  disposeAlarm({ commit }, params) {
+    return new Promise((resolve, reject) => {
+      disposalAlarm(params).then(response => {
+        resolve(response)
+      })
+        .catch(error => {
+          reject(error)
+        })
     })
   }
 }

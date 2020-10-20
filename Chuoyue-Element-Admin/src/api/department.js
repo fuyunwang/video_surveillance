@@ -21,16 +21,39 @@ export function getDepartmentList(data) {
   })
 }
 
-export function changeDeviceAlgorithmState(data) {
+export function getDepartmentInfo(id) {
   return request({
-    url: 'tb-device/change_state',
+    url: 'tb-department-solved/getbyid',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      id: id
+    },
+    transformRequest: [function (data) {
+      let ret = ''
+      for (const it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+      }
+      return ret
+    }]
+  })
+}
+
+export function disposalAlarm(params) {
+  const { departmentId, contact, note} = params
+  return request({
+    url: 'tb-department-solved/dispose',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=utf-8'
     },
     data: {
-      id: data.id,
-      state: data.state
+      departmentId: departmentId,
+      contact: contact,
+      note: note
     }
   })
 }
+

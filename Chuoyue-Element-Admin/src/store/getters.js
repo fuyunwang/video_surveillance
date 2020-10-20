@@ -15,6 +15,8 @@ const getters = {
   devices: state => state.devices.records,
   departments: state => state.department.records,
   devicesTotal: state => state.devices.total,
-  departmentTotal: state => state.department.total
+  departmentTotal: state => state.department.total,
+  currentDepartment: state => state.department.currentDepartment,
+  deviceList: state => state.department.deviceList
 }
 export default getters

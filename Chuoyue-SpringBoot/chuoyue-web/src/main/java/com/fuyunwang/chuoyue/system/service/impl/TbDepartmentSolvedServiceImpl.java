@@ -36,7 +36,7 @@ public class TbDepartmentSolvedServiceImpl extends ServiceImpl<TbDepartmentSolve
         List authorities = (List) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         if (CollectionUtils.isNotEmpty(authorities)){
             String roleName = (String) ((GrantedAuthority)(authorities.get(0))).getAuthority();
-            if (roleName.equals("administrator")){
+            if (roleName.equals("admin")){
                 QueryWrapper<TbDepartmentSolved> queryWrapper=new QueryWrapper<>();
                 queryWrapper.eq("status",1);
                 IPage<TbDepartmentSolved> departmentIPage = departmentSolvedMapper.selectPage(page, queryWrapper);

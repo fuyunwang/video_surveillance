@@ -1,13 +1,13 @@
 <template>
   <div>
-      <el-row :gutter="20" style="margin-bottom: 20px">
+    <el-row :gutter="20" style="margin-bottom: 20px">
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryParams" clearable>
+          <el-input placeholder="请输入内容" clearable>
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
-          <el-button type="primary" @click="handleAddDialog">添加报警</el-button>
+          <el-button type="primary">添加报警</el-button>
         </el-col>
       </el-row>
       <el-table :data="departments" stripe border>
@@ -29,7 +29,7 @@
         <el-table-column label="操作" width="100px">
           <template slot-scope="scope">
             <el-tooltip  effect="dark" content="报警处置" placement="top" :enterable="false">
-              <el-button type="warning" icon="el-icon-setting" size="mini" @click="handleAddDialog(scope.row.id)"></el-button>
+              <el-button type="warning" icon="el-icon-setting" size="mini" @click="handleDisposeDialog(scope.row.id)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -46,19 +46,18 @@
         layout="total, sizes, prev, pager, next, jumper"
         :total="departmentTotal">
       </el-pagination>
-<!--    </el-card>-->
 
     <el-dialog
       title="报警处置"
       style="text-align: center"
-      :visible.sync="addDialogVisible"
+      :visible.sync="disposeDialogVisible"
       width="40%"
-      @close="addDialogClosed">
+      @close="disposeDialogClosed">
       <el-row :gutter="24" >
         <el-col :span="10">
           <template>
             <el-image
-              :src="this.videoDetectResult.currentScreenShot">
+              :src="currentDepartment.screenShot">
             </el-image>
           </template>
         </el-col>
@@ -66,16 +65,16 @@
           <!--Dialog内容主体区域-->
           <el-form :model="videoDetectResult" :rules="disposalAlarmRules" label-width="70px" ref="disposalAlarmForm">
             <el-form-item label="组织名:" prop="departmentName">
-              {{videoDetectResult.departmentName}}
+              {{currentDepartment.departmentName}}
             </el-form-item>
             <el-form-item label="设备名:" prop="deviceName">
-              {{videoDetectResult.deviceName}}
+              {{currentDepartment.deviceName}}
             </el-form-item>
             <el-form-item label="类型:" prop="incidentType">
-              {{videoDetectResult.incidentType}}
+              {{currentDepartment.incidentType}}
             </el-form-item>
             <el-form-item label="时间:" prop="incidentType">
-              {{videoDetectResult.alarmTime}}
+              {{currentDepartment.alarmTime}}
             </el-form-item>
             <el-form-item label="备注:" prop="note">
               <el-input v-model="videoDetectResult.note"></el-input>
@@ -87,18 +86,19 @@
         </el-col>
       </el-row>
       <span  slot="footer" class="dialog-footer">
-      <el-button @click="addDialogVisible = false">取 消</el-button>
+      <el-button @click="disposeDialogVisible = false">取 消</el-button>
       <el-button type="primary" @click="disposalAlarm">确 定</el-button>
       </span>
     </el-dialog>
+
     <el-dialog
       title="视频播放"
       style="text-align: center"
-      :visible.sync="videoPlayerDialog"
+      :visible.sync="videoPlayerDialogVisible"
       width="40%"
-      @close="addDialogClosed">
+      @close="videoPlayerDialogClose">
       <el-row :gutter="24" >
-          <template v-if="videoPlayerDialog">
+          <template v-if="videoPlayerDialogVisible">
             <div v-if="config1.url !== ''">
               <vab-player-mp4 :config="config1" @player="Player1 = $event" />
             </div>
@@ -106,28 +106,26 @@
               暂无视频源
             </div>
           </template>
-
       </el-row>
       <span  slot="footer" class="dialog-footer">
-    <el-button @click="videoPlayerDialog = false">取 消</el-button>
-    <el-button type="primary" @click="detectPerson">开始检测</el-button>
-  </span>
+      <el-button @click="videoPlayerDialogVisible = false">取 消</el-button>
+      <el-button type="primary" @click="detectPerson">开始检测</el-button>
+      </span>
     </el-dialog>
+
   </div>
 </template>
 
 <script>
-import { VabPlayerMp4, VabPlayerHls } from '@/plugins/vabPlayer.js'
+import { VabPlayerMp4 } from '@/plugins/vabPlayer.js'
 import { mapGetters } from 'vuex'
 import { Loading } from 'element-ui'
 import axios from 'axios'
-import Vue from 'vue'
 
 export default {
   name: 'AlertFirstManage',
   components: {
-    VabPlayerMp4,
-    VabPlayerHls
+    VabPlayerMp4
   },
   data() {
     return {
@@ -142,145 +140,72 @@ export default {
         pagenum: 1,
         pagesize: 3
       },
-      currentScreenShot: '',
-      videoDetectResult: {
-        currentScreenShot: '',
-        departmentName: '',
-        alarmTime: '',
-        deviceName: '',
-        incidentType: '',
-        note: '',
-        contact: '',
-        departmentId: 1
-      },
-      total: 3,
-      queryParams: '',
-      addDialogVisible: false,
-      videoPlayerDialog: false,
+      disposeDialogVisible: false,
+      videoPlayerDialogVisible: false,
       disposalAlarmRules: {
         note: [
-          { required: true, message: '备注不能为空', trigger: 'blur' },
+          { required: true, message: '备注不能为空', trigger: 'blur' }
         ],
         contact: [
           { required: true, message: '联系方式不合法', trigger: 'blur' }
-          // { validator: checkMobile, trigger: 'blur' }
         ]
+      },
+      videoDetectResult: {
+        note: '',
+        contact: ''
       }
-
     }
   },
   computed: {
-      ...mapGetters(['departments','departmentTotal'])
+    ...mapGetters(['departments', 'departmentTotal', 'currentDepartment','deviceList'])
   },
   created() {
     this.getDepartments()
   },
   methods: {
-    async getDepartments() {
+    getDepartments() {
         this.loading = true
-        this.$store.dispatch('department/getDepartmentList',this.queryInfo)
+        this.$store.dispatch('department/getDepartmentList', this.queryInfo)
             .then((res) => {
                 // this.deviceList = this
+              console.log(res)
                 this.loading = false
             })
             .catch(() => {
                 this.loading = false
             })
-
     },
-
     handleSizeChange(newSize) {
       // 监听pageSize改变的事件
       this.queryInfo.pagesize = newSize
       // 调用此方法,后端会自动返回指定条数的数据
       this.getDepartments()
     },
-
     handleCurrentChange(newPage) {
       // 监听 页码值 改变的事件
       this.queryInfo.pagenum = newPage
       this.getDepartments()
     },
-    async handleAddDialog(id) {
-      const { data: res3 } = await this.$http({
-        method: 'post',
-        url: 'department-solved/getbyid',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        data: {
-          id: id,
-        },
-        transformRequest: [function (data) {
-          let ret = ''
-          for (const it in data) {
-            ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-          }
-          return ret
-        }]
+    handleDisposeDialog(id) {
+      this.loading = true
+      this.$store.dispatch('department/getDepartmentInfo', id).then((res) => {
+        // console.log('DepartmentInfo' + res)
+        this.loading = false
+        console.log(this.currentDepartment)
+        this.disposeDialogVisible = true
       })
-      this.videoDetectResult.currentScreenShot = res3.data.screenShot
-      this.videoDetectResult.alarmTime = res3.data.alarmTime
-      this.videoDetectResult.incidentType = res3.data.incidentType
-      this.videoDetectResult.departmentName = res3.data.departmentName
-      this.videoDetectResult.deviceName = res3.data.deviceName
-      this.videoDetectResult.departmentId = res3.data.departmentId
-
-      this.addDialogVisible = true
+      .catch(() => {
+        this.loading = false
+      })
     },
     handlePlayer(id) {
-      console.log(id)
-      this.config1.url = this.devices[id].screenShot
-      // console.log(this.devices[id].screenShot)
-      // this.config1.id = this.devices[id].id
-      // Vue.set(this.config1,'id',this.devices[id].id)
-      // this.config1 = this.videoConfigs[id]
-      this.videoPlayerDialog = true
+      this.config1.url = this.deviceList[id].screenShot
+      this.videoPlayerDialogVisible = true
     },
-    // 监听添加用户对话框的关闭事件
-    addDialogClosed() {
-      this.$refs.ruleForm.resetFields()
+    disposeDialogClosed() {
+      this.$refs.disposalAlarmForm.resetFields()
     },
-
-    addUser() {
-      // const token = window.sessionStorage.getItem('token')
-      // this.$refs.ruleForm.validate(async valid => {
-      //   if (!valid) return
-      //   // 可以发起添加用户的网络请求
-      //
-      //   const { data: res } = await this.$http.post('users', this.addUserForm)
-      //
-      //   if (res.meta.status !== 201) {
-      //     this.$message.error('添加用户失败！' + res.meta.msg)
-      //   }
-      //
-      //   this.$message.success('添加用户成功！')
-      //   // 隐藏添加用户的对话框
-      //   this.addDialogVisible = false
-      //   // 重新获取用户列表数据
-      //   this.getUserList()
-      // })
-    },
-
-    async editUser() {
-      await this.$router.push('/users/edit')
-    },
-    async deleteUser() {
-      await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
+    videoPlayerDialogClose() {
     },
     async detectPerson() {
       let loading
@@ -332,9 +257,9 @@ export default {
       this.$message.success(res.message)
       loading.close()
     },
-    disposalAlarm(){
+    disposalAlarm() {
       this.$refs.disposalAlarmForm.validate(async valid => {
-        if (!valid){
+        if (!valid) {
           return
         }
         let loading
@@ -346,33 +271,35 @@ export default {
             background: 'rgba(0, 0, 0, 0.7)'
           })
         }
+        this.loading = true
         startLoading()
-        const { data: res } = await this.$http({
-          method: 'post',
-          url: 'department-solved/dispose',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8'
-          },
-          data: {
-            departmentId: this.videoDetectResult.departmentId,
-            contact: this.videoDetectResult.contact,
-            note: this.videoDetectResult.note
-          }
-        })
-        if (res.status !== 20000) {
-          this.addDialogVisible = false
-          return this.$message.error(res.data.message)
-          loading.close()
+        const params = {
+          departmentId: this.currentDepartment.departmentId,
+          contact: this.videoDetectResult.contact,
+          note: this.videoDetectResult.note
         }
-        this.addDialogVisible = false
-        this.$message.success(res.message)
-        loading.close()
-        // this.$parent.$children
-        this.$emit("notifySecond")
+
+        this.$store.dispatch('department/disposeAlarm', params).then((res) => {
+          console.log(res)
+          if (res.status === 20000){
+            this.$message.success(res.message)
+          }else {
+            this.$message.error(res.message)
+          }
+          loading.close()
+          this.loading = false
+          this.disposeDialogVisible = false
+        })
+        .catch(() => {
+          this.loading = false
+          loading.close()
+          this.disposeDialogVisible = false
+        })
+
+        // this.$emit("notifySecond")
       })
-    },
-    // ...mapMutations(['setDevices'])
-  },
+    }
+  }
 }
 </script>
 
