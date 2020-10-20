@@ -56,9 +56,10 @@
       <el-row :gutter="24" >
         <el-col :span="10">
           <template>
-            <el-image
-              :src="currentDepartment.screenShot">
-            </el-image>
+
+              <el-image
+                :src="currentDepartment.screenShot">
+              </el-image>
           </template>
         </el-col>
         <el-col :span="14" >
@@ -296,7 +297,7 @@ export default {
           this.disposeDialogVisible = false
         })
 
-        // this.$emit("notifySecond")
+        this.$emit('notifySecond')
       })
     }
   }

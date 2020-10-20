@@ -35,7 +35,7 @@ export default {
           console.log(tab)
           console.log(event.target)
       },
-      notifySecondChild(){
+      notifySecondChild() {
           this.$refs.secondChild.getAlarmsList()
       }
   }

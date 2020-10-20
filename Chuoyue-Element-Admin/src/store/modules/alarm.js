@@ -1,13 +1,13 @@
-import { getDisposedAlarmList } from "@/api/alarm"
+import { getDisposedAlarmList, getDetailAlarmInfo } from "@/api/alarm"
 // import Vue from 'vue'
-
 const state = {
   total: 0,
   size: 0,
   current: 1,
   orders: [],
   pages: 1,
-  records: []
+  records: [],
+  currentSolvedDepartment: {}
 }
 
 const mutations = {
@@ -28,6 +28,9 @@ const mutations = {
   },
   SET_RECORDS: (state, records) => {
     state.records = records
+  },
+  SET_CURRENT_DEPARTMENT: (state, currentDepartment) => {
+    state.currentSolvedDepartment = currentDepartment
   }
 }
 
@@ -44,6 +47,17 @@ const actions = {
         commit('SET_CURRENT', current)
         commit('SET_ORDERS', orders)
         commit('SET_PAGES', pages)
+        resolve(res)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
+  getDetailAlarmInfo({ commit }, id) {
+    return new Promise((resolve, reject) => {
+      getDetailAlarmInfo(id).then(response => {
+        const { data: res } = response
+        commit('SET_CURRENT_DEPARTMENT', res)
         resolve(res)
       }).catch(error => {
         reject(error)

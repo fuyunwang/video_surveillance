@@ -9,13 +9,16 @@ import com.fuyunwang.chuoyue.system.entity.TbDepartmentSolved;
 import com.fuyunwang.chuoyue.system.mapper.TbDepartmentSolvedMapper;
 import com.fuyunwang.chuoyue.system.service.ITbDepartmentSolvedService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.google.common.base.Strings;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -33,10 +36,12 @@ public class TbDepartmentSolvedServiceImpl extends ServiceImpl<TbDepartmentSolve
     @Override
     public IPage<TbDepartmentSolved> getDepartmentsByPage(Integer pagenum, Integer pagesize) {
         Page<TbDepartmentSolved> page=new Page<>(pagenum,pagesize);
-        List authorities = (List) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        List<GrantedAuthority> authorities = (List<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         if (CollectionUtils.isNotEmpty(authorities)){
-            String roleName = (String) ((GrantedAuthority)(authorities.get(0))).getAuthority();
-            if (roleName.equals("admin")){
+            List<String> collect = authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+            String[] roleNames = collect.toArray(new String[authorities.size()]);
+//            String roleName = (String) ((GrantedAuthority)(authorities.get(0))).getAuthority();
+            if (collect.contains("admin")){
                 QueryWrapper<TbDepartmentSolved> queryWrapper=new QueryWrapper<>();
                 queryWrapper.eq("status",1);
                 IPage<TbDepartmentSolved> departmentIPage = departmentSolvedMapper.selectPage(page, queryWrapper);
