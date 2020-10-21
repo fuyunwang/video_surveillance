@@ -8,7 +8,7 @@ function resolve(dir) {
 
 const name = defaultSettings.title || 'chuoyue' // page title
 
-const port = process.env.port || process.env.npm_config_port || 10088 // dev port
+const port = process.env.port || process.env.npm_config_port || 10010 // dev port
 
 module.exports = {
   publicPath: '/',
