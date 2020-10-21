@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 19/10/2020 22:09:45
+ Date: 21/10/2020 12:32:03
 */
 
 SET NAMES utf8mb4;
@@ -135,8 +135,8 @@ CREATE TABLE `tb_department`  (
 -- ----------------------------
 -- Records of tb_department
 -- ----------------------------
-INSERT INTO `tb_department` VALUES (1, '测试组', '2020-10-14 10:10:47', '人员检测', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 1, '', 'video1');
-INSERT INTO `tb_department` VALUES (2, '测试组', '2020-10-14 12:50:36', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/zhenhuan.mp4', 1, '', '');
+INSERT INTO `tb_department` VALUES (1, '测试组', '2020-10-20 17:00:14', '人员检测', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 0, '', 'video1');
+INSERT INTO `tb_department` VALUES (2, '测试组', '2020-10-20 17:00:12', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/zhenhuan.mp4', 0, '', '');
 INSERT INTO `tb_department` VALUES (3, '测试组', '2020-10-14 12:32:40', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '', '');
 INSERT INTO `tb_department` VALUES (4, '测试组', '2020-10-13 10:32:48', '火焰', '工厂1', '', 0, '', '');
 INSERT INTO `tb_department` VALUES (5, '测试组', '2020-10-13 10:32:49', '火焰', '工厂1', '', 0, '', '');
@@ -159,11 +159,13 @@ CREATE TABLE `tb_department_solved`  (
   `departmentId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `deviceName`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 215 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 217 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_department_solved
 -- ----------------------------
+INSERT INTO `tb_department_solved` VALUES (215, 'ABC', '2020-10-20 21:43:46', 'AA', 'AA', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect1.jpg', 1, '17864195231', 'hdfgddf', 1);
+INSERT INTO `tb_department_solved` VALUES (216, '股份等四个都是', '2020-10-20 21:43:51', '广东省分公司的', '广告费等四个 ', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect2.jpg', 1, '17864195231', 'hdfgddf', 1);
 
 -- ----------------------------
 -- Table structure for tb_device

@@ -1,0 +1,36 @@
+version: '3'
+services:
+  mysql:
+    restart: always
+    image: mysql:5.7.16
+    container_name: chuoyue_video_mysql
+    volumes:
+      - /home/fuyunwang/dockers/chuoyue_video_1/mysql/mydir:/mydir
+      - /home/fuyunwang/dockers/chuoyue_video_1/mysql/datadir:/var/lib/mysql
+      - /home/fuyunwang/dockers/chuoyue_video_1/mysql/conf/my.cnf:/etc/my.cnf
+      #数据库还原目录 可将需要还原的sql文件放在这里
+      - /home/fuyunwang/dockers/chuoyue_video_1/mysql/source:/docker-entrypoint-initdb.d
+    environment:
+      - "MYSQL_ROOT_PASSWORD=password"
+      - "MYSQL_DATABASE=chuoyue"
+      - "TZ=Asia/Shanghai"
+    ports:
+      - 3306:3306
+  redis:
+    image: redis:4.0.14
+    container_name: redis
+    command: redis-server /usr/local/etc/redis/redis.conf --appendonly yes
+    volumes:
+      - /home/fuyunwang/dockers/chuoyue_video_1/redis/data:/data #挂载 Redis数据
+      - /home/fuyunwang/dockers/chuoyue_video_1/redis/conf/redis.conf:/usr/local/etc/redis/redis.conf #挂载 Redis配置
+    ports:
+      - 6379:6379
+      #rabbitmq:
+      #image: rabbitmq:3.7.15-management
+      #container_name: rabbitmq
+      #volumes:
+      #- /home/fuyunwang/dockers/chuoyue_video/rabbitmq/data:/var/lib/rabbitmq #挂载 RabbitMQ数据
+      #- /home/fuyunwang/dockers/chuoyue_video/rabbitmq/log:/var/log/rabbitmq #挂载 RabbitMQ日志
+      #ports:
+      #- 5672:5672
+      #- 15672:15672
