@@ -43,3 +43,10 @@ export function getMenuList() {
     method: 'post'
   })
 }
+
+export function getValidateCode() {
+  return request({
+    url: 'captcha',
+    method: 'get'
+  })
+}

@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
+    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left" >
 
       <div class="title-container">
         <h3 class="title">Chuoyue——绰约</h3>
@@ -46,17 +46,17 @@
           </span>
         </el-form-item>
       </el-tooltip>
-      <el-form-item>
+      <!--<el-form-item>
         <el-input v-model="loginForm.code" auto-complete="off" placeholder="验证码" style="width: 65%" @keyup.enter.native="handleLogin">
           <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
         </el-input>
-        <div class="login-code">
+        <div class="login-code" v-if="showCode">
           <img :src="codeUrl" @click="getCode">
         </div>
-      </el-form-item>
+      </el-form-item>-->
       <el-row :gutter="20">
         <el-col :span="12"><el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">登录</el-button></el-col>
-        <el-col :span="12"><el-button style="width:100%;margin-bottom:30px;" @click.native.prevent="">重置</el-button></el-col>
+        <el-col :span="12"><el-button style="width:100%;margin-bottom:30px;" @click="handleReset">重置</el-button></el-col>
       </el-row>
 
     </el-form>
@@ -64,6 +64,8 @@
 </template>
 
 <script>
+import { getValidateCode } from "@/api/user";
+
 export default {
   name: 'Login',
   data() {
@@ -88,8 +90,9 @@ export default {
       capsTooltip: false,
       loading: false,
       redirect: undefined,
-      codeUrl: 'http://127.0.0.1:8999/chuoyue/captcha',
-      otherQuery: {}
+      codeUrl: 'http://192.168.1.100:10086/chuoyue/captcha',
+      otherQuery: {},
+      showCode: true
     }
   },
   watch: {
@@ -159,7 +162,14 @@ export default {
       }, {})
     },
     getCode() {
-      this.codeUrl = 'http://127.0.0.1:8999/chuoyue/captcha'
+      getValidateCode().then((res) => {
+        // this.codeUrl = res
+      })
+    },
+    handleReset() {
+      this.loginForm.username = '',
+      this.loginForm.password = '',
+      this.loginForm.code = ''
     }
   }
 }
@@ -228,7 +238,7 @@ $light_gray:#eee;
     width: 520px;
     max-width: 100%;
     padding: 160px 35px 0;
-    margin: 0 auto;
+    margin: 0 auto ;
     overflow: hidden;
   }
 
@@ -254,7 +264,7 @@ $light_gray:#eee;
 
   .title-container {
     position: relative;
-    margin-bottom: 150px;
+    margin-bottom: 160px;
     .title {
       font-size: 26px;
       color: $light_gray;
