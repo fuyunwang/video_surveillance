@@ -138,9 +138,13 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
-            .then(() => {
-              this.$message.success('登陆成功')
-              this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+            .then((response) => {
+              if (response.status === 20000) {
+                this.$message.success('登陆成功')
+                this.$router.push({ path: this.redirect || '/', query: this.otherQuery })
+              }else{
+                this.$message.error(response.message)
+              }
               this.loading = false
             })
             .catch(() => {
