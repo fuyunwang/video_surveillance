@@ -38,14 +38,14 @@ def index():
 
 
 @app.route('/video_detect/person',methods=['GET','POST'])
-def video_show():
+def video_show_person():
     if request.method == 'GET':
         result = {
             'status': 40000,
             'message': 'please request with post'
         }
-        cur.close()
-        conn.close()
+        # cur.close()
+        # conn.close()
         response = make_response(jsonify(result))
         response.status = "400"
         response.headers['Access-Control-Allow-Origin'] = '*'
@@ -57,7 +57,10 @@ def video_show():
 
     # 调用摄像头
     video_url = json_data.get('video_url')
-    print(video_url)
+    detect_type = json_data.get('detect_type')
+    print(video_url, detect_type)
+    yolo = YOLO(detect_type=detect_type)
+
     capture = cv2.VideoCapture(json_data.get('video_url'))  # capture=cv2.VideoCapture("1.mp4")
     cur.execute("update tb_department set status=1 where screenShot = {}".format("'"+video_url+"'"))
     i = 0
@@ -80,12 +83,12 @@ def video_show():
                 frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
                 # 保存图片
                 i += 1
-                cv2.imwrite('{}{}.jpg'.format('F:/video_surveillance/chuoyue-algorithm-server/static/video/' + 'person_detect', i), frame)
-                key = 'person_detect'+str(i)+'.jpg'
+                cv2.imwrite('{}{}.jpg'.format('F:/video_surveillance/chuoyue-algorithm-server/static/video/' + detect_type, i), frame)
+                key = detect_type+str(i)+'.jpg'
                 token = q.upload_token(bucket_name, key)
-                localfile = 'F:/video_surveillance/chuoyue-algorithm-server/static/video/'+'person_detect'+str(i)+'.jpg'
+                localfile = 'F:/video_surveillance/chuoyue-algorithm-server/static/video/'+detect_type+str(i)+'.jpg'
                 ret, info = put_file(token, key, localfile)
-                data_url = base_url+'person_detect'+str(i)+'.jpg'
+                data_url = base_url+detect_type+str(i)+'.jpg'
                 cur.execute("select * from tb_department where screenShot = {}".format("'"+video_url+"'"))
                 all = cur.fetchall()
                 cur.execute("insert into tb_department_solved(departmentName,alarmTime,incidentType,deviceName,screenShot,contact,note,departmentId) values("+"'"+all[0][1]+"'"
@@ -98,8 +101,8 @@ def video_show():
             'status': 20000,
             'message': '当前视频检测完成'
         }
-        cur.close()
-        conn.close()
+        # cur.close()
+        # conn.close()
         response = make_response(jsonify(result))
         response.status = "200"
         response.headers['Access-Control-Allow-Origin'] = '*'
@@ -107,8 +110,8 @@ def video_show():
         response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'
         return response
     except ProgrammingError:
-        cur.close()
-        conn.close()
+        # cur.close()
+        # conn.close()
         result = {
             'status': 50000,
             'message': '视频检测失败'
@@ -120,8 +123,8 @@ def video_show():
         response.headers['Access-Control-Allow-Headers'] = 'x-requested-with'
         return response
     except:
-        cur.close()
-        conn.close()
+        # cur.close()
+        # conn.close()
         result = {
             'status': 50000,
             'message': '视频检测失败'
@@ -134,6 +137,6 @@ def video_show():
         return response
 
 
+
 if __name__ == '__main__':
-    yolo=YOLO()
     app.run(debug=True)

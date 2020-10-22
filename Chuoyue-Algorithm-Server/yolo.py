@@ -19,9 +19,9 @@ from utils.utils import non_max_suppression, DecodeBox, letterbox_image, yolo_co
 # --------------------------------------------#
 class YOLO(object):
     _defaults = {
-        "model_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo4_weights.pth',
+        "model_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_safety.pth',
         "anchors_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_anchors.txt',
-        "classes_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/coco_classess.txt',
+        "classes_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/new_classes_safty.txt',
         "model_image_size": (416, 416, 3),
         "confidence": 0.7,
         "iou": 0.3,
@@ -40,14 +40,21 @@ class YOLO(object):
     # ---------------------------------------------------#
     def __init__(self, **kwargs):
         self.__dict__.update(self._defaults)
-        self.class_names = self._get_class()
         self.anchors = self._get_anchors()
+        self.detect_type = kwargs.get('detect_type')
+        self.class_names = self._get_class()
         self.generate()
 
     # ---------------------------------------------------#
     #   获得所有的分类
     # ---------------------------------------------------#
     def _get_class(self):
+        if self.detect_type == 'person':
+            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo4_weights.pth'
+            self.classes_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/coco_classess.txt'
+        if self.detect_type == 'safety':
+            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_safety.pth'
+            self.classes_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/new_classes_safty.txt'
         classes_path = os.path.expanduser(self.classes_path)
         with open(classes_path) as f:
             class_names = f.readlines()
@@ -74,6 +81,12 @@ class YOLO(object):
         # 加快模型训练的效率
         print('Loading weights into state dict...')
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+        if self.detect_type == 'person':
+            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo4_weights.pth'
+            self.classes_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/coco_classess.txt'
+        if self.detect_type == 'safety':
+            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_safety.pth'
+            self.classes_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/new_classes_safty.txt'
         state_dict = torch.load(self.model_path, map_location=device)
         self.net.load_state_dict(state_dict)
 
@@ -88,7 +101,14 @@ class YOLO(object):
         for i in range(3):
             self.yolo_decodes.append(
                 DecodeBox(self.anchors[i], len(self.class_names), (self.model_image_size[1], self.model_image_size[0])))
-
+        # if self.detect_type == 'person':
+        #     self._defaults['model_path'] = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo4_weights.pth'
+        #     self._defaults[
+        #         'classes_path'] = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/coco_classess.txt'
+        # if self.detect_type == 'safety':
+        #     self._defaults['model_path'] = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_safety.pth'
+        #     self._defaults[
+        #         'classes_path'] = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/new_classes_safty.txt'
         print('{} model, anchors, and classes loaded.'.format(self.model_path))
         # 画框设置不同的颜色
         hsv_tuples = [(x / len(self.class_names), 1., 1.)
@@ -151,7 +171,7 @@ class YOLO(object):
 
         for i, c in enumerate(top_label):
             predicted_class = self.class_names[c]
-            if predicted_class == 'person':
+            if predicted_class == self.detect_type:
                 judge += 1
                 score = top_conf[i]
 

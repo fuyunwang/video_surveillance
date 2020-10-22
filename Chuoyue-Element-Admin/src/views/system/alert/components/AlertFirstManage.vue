@@ -136,6 +136,7 @@ export default {
         volume: 1,
         autoplay: true
       },
+      currentDetectType: '',
       Player1: null,
       queryInfo: {
         pagenum: 1,
@@ -201,6 +202,7 @@ export default {
     },
     handlePlayer(id) {
       this.config1.url = this.deviceList[id].screenShot
+      this.currentDetectType = this.deviceList[id].note
       this.videoPlayerDialogVisible = true
     },
     disposeDialogClosed() {
@@ -224,7 +226,8 @@ export default {
         url: 'http://127.0.0.1:5000/video_detect/person',
         method: 'post',
         data: {
-          video_url: this.config1.url
+          video_url: this.config1.url,
+          detect_type: this.currentDetectType
         }
       })
       this.getDepartments()

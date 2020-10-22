@@ -9,9 +9,10 @@ import numpy as np
 import cv2
 import time
 
-yolo = YOLO()
+yolo = YOLO(detect_type='safety')
 # 调用摄像头
-capture = cv2.VideoCapture('http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4')  # capture=cv2.VideoCapture("1.mp4")
+capture = cv2.VideoCapture('http://qi2c9qbdt.hb-bkt.clouddn.com/new_safety.mp4')  # capture=cv2.VideoCapture("1.mp4")
+# capture = cv2.VideoCapture('http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4')  # capture=cv2.VideoCapture("1.mp4")
 # ret = './video/retImg'
 # fps = 0.0
 i = 0
@@ -46,7 +47,7 @@ while True:
         # frame = cv2.putText(frame, "fps= %.2f" % fps, (0, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
         # 保存图片
-        cv2.imwrite('./static/video' + '/' + str(i) + '.jpg', frame)
+        cv2.imwrite('F:/video_surveillance/chuoyue-algorithm-server/static/video' + '/' + str(i) + '.jpg', frame)
         print(i)
         # 显示视频
         cv2.imshow("video", frame)
