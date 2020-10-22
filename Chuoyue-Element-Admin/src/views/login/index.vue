@@ -19,8 +19,7 @@
           name="username"
           type="text"
           tabindex="1"
-          autocomplete="on"
-        />
+          autocomplete="on"/>
       </el-form-item>
 
       <el-tooltip v-model="capsTooltip" content="大写锁定已打开" placement="right" manual>
