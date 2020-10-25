@@ -11,7 +11,7 @@ const name = defaultSettings.title || 'chuoyue' // page title
 const port = process.env.port || process.env.npm_config_port || 10010 // dev port
 
 module.exports = {
-  publicPath: './',
+  publicPath: 'E:\\laboratory\\video_surveillance\\Chuoyue-Element-Admin\\',
   outputDir: 'dist',
   assetsDir: 'static',
   lintOnSave: process.env.NODE_ENV === 'development',

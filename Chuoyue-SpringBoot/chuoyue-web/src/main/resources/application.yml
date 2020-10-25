@@ -2,6 +2,12 @@ server:
   port: 10086
   servlet:
     context-path: /chuoyue
+  tomcat:
+    accept-count: 1000        #最大等待队列
+    threads:
+      min-spare: 100          #最小工作线程
+      max: 800                #最大工作线程数
+    max-connections: 10000
 
 spring:
   datasource:
