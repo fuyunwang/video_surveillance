@@ -2,6 +2,7 @@ package com.fuyunwang.chuoyue.common.handler;
 
 import com.fuyunwang.chuoyue.common.base.ResponseCode;
 import com.fuyunwang.chuoyue.common.base.ResponseResult;
+import com.fuyunwang.chuoyue.common.exception.ConcurrentException;
 import com.fuyunwang.chuoyue.common.exception.InternalException;
 import com.fuyunwang.chuoyue.common.exception.MobileNotFoundException;
 import com.fuyunwang.chuoyue.common.exception.ParamException;
@@ -35,6 +36,16 @@ public class ExceptionResolver {
         return ResponseResult.createByError(ResponseCode.ERROR.getCode(),
                 ResponseCode.ERROR.getDesc(),data);
     }
+
+    @ExceptionHandler(ConcurrentException.class)
+    @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseResult<Map<String,String>> concurrentExceptionHandler(ConcurrentException e){
+        Map data= Maps.newHashMap();
+        data.put("error",e.getMessage());
+        return ResponseResult.createByError(ResponseCode.ERROR.getCode(),
+                e.getMessage(),data);
+    }
+
 
 
     @ExceptionHandler(ParamException.class)
