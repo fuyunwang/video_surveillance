@@ -137,6 +137,97 @@ def video_show_person():
         return response
 
 
+class Live:
+    def __init__(self, camera_path, rtmpUrl):
+        self.yolo = YOLO()
+        self.frame_queue = queue.Queue()
+        self.command = ""
+        # 自行设置
+        self.rtmpUrl = rtmpUrl  # "rtmp://127.0.0.1:1935/live/home"
+        self.camera_path = camera_path  # './video/test.mp4'
+        self.judge = 0
+
+    def read_frame(self):
+        print("开启推流")
+        cap = cv2.VideoCapture(self.camera_path)
+
+        # Get video information
+        fps = int(cap.get(cv2.CAP_PROP_FPS))
+        width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+        height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        # ffmpeg command
+        self.command = ['F:\\work\laboratory\\ffmpeg-4.3.1-win64-static\\bin\\ffmpeg.exe',
+                        '-y',
+                        '-f', 'rawvideo',
+                        '-vcodec', 'rawvideo',
+                        '-pix_fmt', 'bgr24',
+                        '-s', "{}x{}".format(width, height),
+                        '-r', str(fps),
+                        '-i', '-',
+                        '-c:v', 'libx264',
+                        '-pix_fmt', 'yuv420p',
+                        '-preset', 'ultrafast',
+                        '-f', 'flv',
+                        self.rtmpUrl]
+
+        # read webcamera
+        while True:
+            ret, frame = cap.read()
+            if not ret:
+                print("Opening camera is failed")
+                # 说实话这里的break应该替换为：
+                # cap = cv2.VideoCapture(self.camera_path)
+                cap.release()
+                cv2.destroyAllWindows()
+                self.judge = 0
+                # 因为我这俩天遇到的项目里出现断流的毛病
+                # 特别是拉取rtmp流的时候！！！！
+                break
+            # put frame into queue
+            while self.frame_queue.full():
+                # cv2.waitKey(1)
+                pass
+            self.frame_queue.put(frame)
+
+    def push_frame(self):
+        # 防止多线程时 command 未被设置
+        while True:
+            if len(self.command) > 0:
+                # 管道配置
+                pipe = sp.Popen(self.command, stdin=sp.PIPE)
+                print('管道设置成功')
+                break
+
+        while True:
+            if not self.frame_queue.empty():
+                frame = self.frame_queue.get()
+                # process frame
+                # 格式转变，BGRtoRGB
+                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                # 转变成Image
+                frame = Image.fromarray(np.uint8(frame))
+                # 进行检测
+                frame = np.array(self.yolo.detect_image(frame, False)[0])
+
+                # RGBtoBGR满足opencv显示格式
+                frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+
+                # write to pipe
+                pipe.stdin.write(frame.tostring())
+            elif self.judge == 0:
+                break
+
+    def run(self):
+        threads = [
+            threading.Thread(target=Live.read_frame, args=(self,)),
+            threading.Thread(target=Live.push_frame, args=(self,))
+        ]
+        # [thread.setDaemon(True) for thread in threads]
+        self.judge = 1
+        [thread.start() for thread in threads]
+
 
 if __name__ == '__main__':
+    live = Live('./video/person_detect.mp4', 'rtmp://192.168.1.100:1935/live/home')
+    live.run()
     app.run(debug=True)
