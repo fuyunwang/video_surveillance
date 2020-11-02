@@ -1,7 +1,7 @@
 # Chuoyue
 Chuoyue即绰约——凌波绰约无尘俗 不羡群芳自展颜
 
-基于 Pytorch + OpenCV的目标识别监控平台
+基于 Pytorch + OpenCV + Ffmpeg的目标识别监控平台
 
 ## 技术要点
 > SpringBoot+Vue. 使用SpringSecurity+JWT完成基于RBAC权限模型的认证与授权.使用最优秀的数据访问层框架MyBatis-Plus完成所有的数据访问层逻辑.
