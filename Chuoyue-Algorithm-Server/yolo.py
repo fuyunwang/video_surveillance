@@ -19,9 +19,9 @@ from utils.utils import non_max_suppression, DecodeBox, letterbox_image, yolo_co
 # --------------------------------------------#
 class YOLO(object):
     _defaults = {
-        "model_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_safety.pth',
-        "anchors_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_anchors.txt',
-        "classes_path": 'F:/video_surveillance/chuoyue-algorithm-server/model_data/new_classes_safty.txt',
+        "model_path": 'F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.pth',
+        "anchors_path": 'F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/model_data/yolo_anchors.txt',
+        "classes_path": 'F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.txt',
         "model_image_size": (416, 416, 3),
         "confidence": 0.7,
         "iou": 0.3,
@@ -50,7 +50,7 @@ class YOLO(object):
     # ---------------------------------------------------#
     def _get_class(self):
         if self.detect_type == 'person':
-            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo4_weights.pth'
+            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/person.pth'
             self.classes_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/coco_classess.txt'
         if self.detect_type == 'safety':
             self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_safety.pth'
@@ -82,7 +82,7 @@ class YOLO(object):
         print('Loading weights into state dict...')
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         if self.detect_type == 'person':
-            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo4_weights.pth'
+            self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/person.pth'
             self.classes_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/coco_classess.txt'
         if self.detect_type == 'safety':
             self.model_path = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo_safety.pth'
@@ -102,7 +102,7 @@ class YOLO(object):
             self.yolo_decodes.append(
                 DecodeBox(self.anchors[i], len(self.class_names), (self.model_image_size[1], self.model_image_size[0])))
         # if self.detect_type == 'person':
-        #     self._defaults['model_path'] = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/yolo4_weights.pth'
+        #     self._defaults['model_path'] = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/person.pth'
         #     self._defaults[
         #         'classes_path'] = 'F:/video_surveillance/chuoyue-algorithm-server/model_data/coco_classess.txt'
         # if self.detect_type == 'safety':

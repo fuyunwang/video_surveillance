@@ -2,7 +2,9 @@ import numpy as np
 import cv2
 from flask import Flask,request,jsonify,make_response
 from pymysql import ProgrammingError
-
+import queue
+import threading
+import subprocess as sp
 from yolo import YOLO
 from PIL import Image
 from qiniu import Auth, put_file, etag
@@ -11,6 +13,7 @@ import json
 import pymysql
 from flask_cors import CORS
 from datetime import datetime
+
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
@@ -228,6 +231,6 @@ class Live:
 
 
 if __name__ == '__main__':
-    live = Live('./video/person_detect.mp4', 'rtmp://192.168.1.100:1935/live/home')
+    live = Live(0, 'rtmp://192.168.1.100:1935/live/home')
     live.run()
     app.run(debug=True)
