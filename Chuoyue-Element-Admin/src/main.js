@@ -22,9 +22,14 @@ import * as filters from './filters' // global filters
 
 import './assets/icons' // icon
 
-import 'video.js/dist/video-js.css'
-import 'videojs-flash'
+// import 'video.js/dist/video-js.css'
+// import 'videojs-flash'
 // import VideoPlayer from 'vue-video-player'
+import VueVideoPlayer from 'vue-video-player'
+import 'video.js/dist/video-js.css'
+import 'vue-video-player/src/custom-theme.css'
+import 'videojs-flash'
+import 'videojs-contrib-hls/dist/videojs-contrib-hls'
 
 /**
  * If you don't want to use mock-server
@@ -52,6 +57,7 @@ Object.keys(filters).forEach(key => {
 Vue.config.productionTip = false
 
 // Vue.use(VideoPlayer)
+Vue.use(VueVideoPlayer)
 
 new Vue({
   el: '#app',
