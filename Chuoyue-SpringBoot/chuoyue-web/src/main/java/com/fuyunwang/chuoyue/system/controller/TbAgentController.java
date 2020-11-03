@@ -32,4 +32,8 @@ public class TbAgentController {
         TbAgent tbAgent=iTbAgentService.getAllAgentInfoById(principal.getId());
         return ResponseResult.createBySuccess("获取成功",tbAgent);
     }
+
+//    @RequestMapping(value = "/portal-base-info")
+//    public ResponseResult<>
+
 }

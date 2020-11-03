@@ -26,7 +26,7 @@
               <div class="user-bio-section-header"><svg-icon icon-class="education" /><span>Education</span></div>
               <div class="user-bio-section-body">
                 <div class="text-muted">
-                  JS in Computer Science from the University of Technology
+                  At present, the master's degree is in Shandong Normal University
                 </div>
               </div>
             </div>
@@ -35,19 +35,19 @@
               <div class="user-bio-section-header"><svg-icon icon-class="skill" /><span>Skills</span></div>
               <div class="user-bio-section-body">
                 <div class="progress-item">
-                  <span>Vue</span>
-                  <el-progress :percentage="70" />
+                  <span>计算机基础</span>
+                  <el-progress :percentage="90" />
                 </div>
                 <div class="progress-item">
-                  <span>JavaScript</span>
-                  <el-progress :percentage="18" />
+                  <span>算法与数据结构</span>
+                  <el-progress :percentage="80" />
                 </div>
                 <div class="progress-item">
-                  <span>Css</span>
-                  <el-progress :percentage="12" />
+                  <span>机器学习、人工智能</span>
+                  <el-progress :percentage="85" />
                 </div>
                 <div class="progress-item">
-                  <span>ESLint</span>
+                  <span>系统设计与研发</span>
                   <el-progress :percentage="100" status="success" />
                 </div>
               </div>
