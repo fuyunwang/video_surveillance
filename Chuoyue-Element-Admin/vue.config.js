@@ -34,6 +34,7 @@ module.exports = {
   configureWebpack: {
     name: name,
     resolve: {
+      modules: [path.resolve('node_modules'), 'node_modules'],
       alias: {
         '@': resolve('src')
       }
