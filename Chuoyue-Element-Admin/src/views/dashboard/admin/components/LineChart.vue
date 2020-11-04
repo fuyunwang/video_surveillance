@@ -90,15 +90,18 @@ export default {
           }
         },
         legend: {
-          data: ['expected', 'actual']
+          data: ['visits', 'users']
         },
         series: [{
-          name: 'expected', itemStyle: {
+          name: 'visits', itemStyle: {
             normal: {
-              color: '#FF005A',
+              color: '#06f35c',
               lineStyle: {
-                color: '#FF005A',
+                color: '#06f35c',
                 width: 2
+              },
+              areaStyle: {
+                color: '#e4eae0'
               }
             }
           },
@@ -107,9 +110,9 @@ export default {
           data: expectedData,
           animationDuration: 2800,
           animationEasing: 'cubicInOut'
-        },
+        }/*,
         {
-          name: 'actual',
+          name: 'users',
           smooth: true,
           type: 'line',
           itemStyle: {
@@ -127,7 +130,7 @@ export default {
           data: actualData,
           animationDuration: 2800,
           animationEasing: 'quadraticOut'
-        }]
+        }*/]
       })
     }
   }
