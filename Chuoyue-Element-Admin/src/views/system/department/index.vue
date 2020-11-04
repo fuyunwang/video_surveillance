@@ -44,45 +44,35 @@
           </el-form-item>
         </el-form>
 
-        <el-table :data="userList" stripe border>
-          <!--<el-table-column
+        <el-table :data="departments" stripe border>
+          <el-table-column
             type="selection"
             width="55">
-          </el-table-column>-->
-          <el-table-column type="expand">
-            <template slot-scope="scope">
-              <!-- 循环渲染Tag标签 -->
-              <el-tag v-for="(item, i) in scope.row.attr_vals" :key="i" closable @close="handleClose(i, scope.row)">{{item}}</el-tag>
-              <!-- 输入的文本框 -->
-              <el-input class="input-new-tag" v-if="scope.row.inputVisible" v-model="scope.row.inputValue" ref="saveTagInput" size="small" @keyup.enter.native="handleInputConfirm(scope.row)" @blur="handleInputConfirm(scope.row)">
-              </el-input>
-              <!-- 添加按钮 -->
-              <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
-            </template>
           </el-table-column>
-          <el-table-column label="用户名" prop="agentName" ></el-table-column>
-          <el-table-column label="手机号" prop="agentPhone"></el-table-column>
-          <el-table-column label="邮箱" prop="agentEmail" ></el-table-column>
-          <el-table-column show-overflow-tooltip label="头像" height="160px" width="220px">
+          <!--<el-table-column type="expand">
+            <template slot-scope="scope">
+              {{scope.row.agentMotto}}
+            </template>
+          </el-table-column>-->
+          <el-table-column label="部门名称" prop="departmentName" ></el-table-column>
+          <el-table-column label="部门检测类型" prop="incidentType"></el-table-column>
+          <el-table-column label="部门设备" prop="deviceName" ></el-table-column>
+          <el-table-column label="联系方式" prop="contact" ></el-table-column>
+          <!--<el-table-column show-overflow-tooltip label="头像" height="160px" width="220px">
             <template slot-scope="scope">
               <el-image
                 style="width: 100px; height: 100px"
                 :src="scope.row.agentIdcardImg"
               ></el-image>
             </template>
-          </el-table-column>
+          </el-table-column>-->
           <el-table-column label="状态"  width="120px">
             <template slot-scope="scope">
-              <span v-if="scope.row.status === 0">正常</span>
-              <span v-else>异常</span>
+              <span v-if="scope.row.status === 0">未检测</span>
+              <span v-else>已检测过</span>
             </template>
           </el-table-column>
-          <el-table-column label="创建时间" >
-            <template slot-scope="scope">
-              <i class="el-icon-time"></i>
-              <span style="margin-left: 10px">{{ scope.row.createTime }}</span>
-            </template>
-          </el-table-column>
+          <el-table-column label="备注" prop="note" ></el-table-column>
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button
@@ -105,7 +95,7 @@
           :page-sizes="[1, 2, 3, 4, 5, 6]"
           :page-size="queryInfo.pagesize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="userListTotal">
+          :total="departmentTotal">
         </el-pagination>
         <!--        <table-edit ref="edit"></table-edit>-->
       </el-card>
@@ -121,7 +111,7 @@
       return {
         queryInfo: {
           pagenum: 1,
-          pagesize: 5
+          pagesize: 4
         },
         queryParams: '',
         switchState: false,
@@ -130,12 +120,12 @@
       }
     },
     created() {
-      this.getUserLists()
+      this.getDepartmentList()
     },
     methods: {
-      getUserLists() {
+      getDepartmentList() {
         this.loading = true
-        this.$store.dispatch('user/getUserByPage', this.queryInfo)
+        this.$store.dispatch('department/getDepartmentList', this.queryInfo)
           .then((res) => {
             // this.deviceList = this
             this.loading = false
@@ -148,20 +138,20 @@
         // 监听pageSize改变的事件
         this.queryInfo.pagesize = newSize
         // 调用此方法,后端会自动返回指定条数的数据
-        this.getUserLists()
+        this.getDepartmentList()
       },
       handleCurrentChange(newPage) {
         // 监听 页码值 改变的事件
         this.queryInfo.pagenum = newPage
-        this.getUserLists()
+        this.getDepartmentList()
       },
       handleSelectionChange(val) {
         console.log(val)
       }
     },
     computed: {
-      ...mapGetters(['userList', 'userListTotal'])
-    }
+      ...mapGetters(['departments', 'departmentTotal'])
+    },
   }
 </script>
 <style lang="scss" scoped>

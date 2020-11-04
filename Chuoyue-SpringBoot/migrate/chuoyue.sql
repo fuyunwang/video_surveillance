@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 04/11/2020 18:53:39
+ Date: 04/11/2020 19:10:47
 */
 
 SET NAMES utf8mb4;
@@ -136,12 +136,12 @@ CREATE TABLE `tb_department`  (
 -- ----------------------------
 -- Records of tb_department
 -- ----------------------------
-INSERT INTO `tb_department` VALUES (1, '测试组', '2020-10-23 20:30:04', '人员检测', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 1, '', 'person');
-INSERT INTO `tb_department` VALUES (2, '测试组', '2020-10-23 20:31:20', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/new_safety.mp4', 1, '', 'safety');
-INSERT INTO `tb_department` VALUES (3, '测试组', '2020-10-14 12:32:40', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '', '');
-INSERT INTO `tb_department` VALUES (4, '测试组', '2020-10-13 10:32:48', '火焰', '工厂1', '', 0, '', '');
-INSERT INTO `tb_department` VALUES (5, '测试组', '2020-10-13 10:32:49', '火焰', '工厂1', '', 0, '', '');
-INSERT INTO `tb_department` VALUES (6, '测试组', '2020-10-13 10:32:51', '火焰', '工厂1', '', 0, '', '');
+INSERT INTO `tb_department` VALUES (1, '测试组1', '2020-11-04 19:01:16', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 0, '17861423310', 'person');
+INSERT INTO `tb_department` VALUES (2, '测试组2', '2020-11-04 19:01:14', '安全绳检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/new_safety.mp4', 0, '18952437510', 'safety');
+INSERT INTO `tb_department` VALUES (3, '测试组3', '2020-11-04 19:00:35', '吸烟检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '15552220331', '');
+INSERT INTO `tb_department` VALUES (4, '测试组4', '2020-11-04 19:00:47', '打电话检测', '设备1', '', 0, '18913024586', '');
+INSERT INTO `tb_department` VALUES (5, '测试组5', '2020-11-04 19:00:52', '电机检测', '设备1', '', 0, '19854157620', '');
+INSERT INTO `tb_department` VALUES (6, '测试组6', '2020-11-04 19:01:05', '火焰', '设备1', '', 0, '13422109987', '');
 
 -- ----------------------------
 -- Table structure for tb_department_solved
