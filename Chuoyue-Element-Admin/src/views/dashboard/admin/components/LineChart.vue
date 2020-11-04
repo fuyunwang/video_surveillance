@@ -90,18 +90,18 @@ export default {
           }
         },
         legend: {
-          data: ['visits', 'users']
+          data: ['上周访问', 'users']
         },
         series: [{
-          name: 'visits', itemStyle: {
+          name: '上周访问', itemStyle: {
             normal: {
-              color: '#06f35c',
+              color: '#06ebf3',
               lineStyle: {
-                color: '#06f35c',
+                color: '#06ebf3',
                 width: 2
               },
               areaStyle: {
-                color: '#e4eae0'
+                color: '#ddf1f1'
               }
             }
           },

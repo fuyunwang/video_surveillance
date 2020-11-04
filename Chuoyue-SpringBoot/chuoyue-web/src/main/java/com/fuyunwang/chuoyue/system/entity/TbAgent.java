@@ -40,8 +40,8 @@ public class TbAgent implements Serializable, UserDetails {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    @TableField("agent_achieve")
-    private Integer agentAchieve;
+    @TableField("agent_motto")
+    private String agentMotto;
 
     @TableField("agent_email")
     private String agentEmail;

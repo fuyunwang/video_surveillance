@@ -44,8 +44,11 @@
             </el-form-item>
           </el-form>
 
-        <el-table :data="userList" stripe border>
-          <el-table-column type="index" label="#"></el-table-column>
+        <el-table :data="userList" @selection-change="handleSelectionChange" stripe border>
+          <el-table-column
+            type="selection"
+            width="55">
+          </el-table-column>
           <el-table-column label="用户名" prop="agentName" ></el-table-column>
           <el-table-column label="手机号" prop="agentPhone"></el-table-column>
           <el-table-column label="邮箱" prop="agentEmail" ></el-table-column>
@@ -64,15 +67,16 @@
             </template>
           </el-table-column>
           <el-table-column label="创建时间" prop="createTime" ></el-table-column>
-          <el-table-column label="操作" width="251px">
-            <template slot-scope="scope">
-              <el-switch
-                v-model="scope.row.state === 1"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-                @change="deviceStateChange(scope.row)">
-              </el-switch>
-              <span style="margin-left: 10px">{{scope.row.state === 1 ? '已启用' : '未启用'}}</span>
+          <el-table-column label="操作" width="280px">
+            <template>
+
+              <el-button type="primary" icon="el-icon-edit" size="mini" @click="editUser"></el-button>
+                 <!--删除-->
+              <el-button type="danger" icon="el-icon-delete" size="mini" @click="deleteUser"></el-button>
+<!--              分配角色-->
+              <el-tooltip  effect="dark" content="设置" placement="top" :enterable="false">
+                <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+              </el-tooltip>
             </template>
           </el-table-column>
         </el-table>
@@ -135,6 +139,9 @@ export default {
       // 监听 页码值 改变的事件
       this.queryInfo.pagenum = newPage
       this.getUserLists()
+    },
+    handleSelectionChange(val) {
+      console.log(val)
     }
   },
   computed: {
