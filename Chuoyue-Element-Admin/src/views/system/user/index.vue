@@ -23,22 +23,22 @@
             :inline="true"
             @submit.native.prevent>
             <el-form-item>
-              <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
+              <el-button icon="el-icon-plus" size="small" type="primary" @click="handleAdd">
                 添加
               </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button icon="el-icon-edit" type="success" @click="handleAdd">
+              <el-button icon="el-icon-edit" size="small" type="success" @click="handleAdd">
                 修改
               </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
+              <el-button icon="el-icon-delete" size="small" type="danger" @click="handleDelete">
                 删除
               </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button icon="el-icon-download" type="warning" @click="handleAdd">
+              <el-button icon="el-icon-download" size="small" type="warning" @click="handleAdd">
                 导出
               </el-button>
             </el-form-item>
