@@ -13,11 +13,8 @@
           end-placeholder="结束日期"
           :default-time="['00:00:00', '23:59:59']">
         </el-date-picker>
-        <el-button icon="el-icon-plus" type="primary" >
-          添加
-        </el-button>
-        <el-button icon="el-icon-delete" type="danger">
-          删除
+        <el-button icon="el-icon-search" type="primary" @click="handleAdd">
+          查询
         </el-button>
       </el-row>
       <el-card style="margin-top:20px">
@@ -26,19 +23,28 @@
           :inline="true"
           @submit.native.prevent>
           <el-form-item>
-            <el-input placeholder="标题" />
+            <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
+              添加
+            </el-button>
           </el-form-item>
           <el-form-item>
-            <el-button
-              icon="el-icon-search"
-              type="primary"
-              native-type="submit">
-              查询
+            <el-button icon="el-icon-edit" type="success" @click="handleAdd">
+              修改
+            </el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
+              删除
+            </el-button>
+          </el-form-item>
+          <el-form-item>
+            <el-button icon="el-icon-download" type="warning" @click="handleAdd">
+              导出
             </el-button>
           </el-form-item>
         </el-form>
 
-        <el-table :data="devices" stripe border>
+        <el-table :data="userList" stripe border>
           <el-table-column type="index" label="#"></el-table-column>
           <el-table-column label="组织" prop="departmentName" ></el-table-column>
           <el-table-column label="摄像机名称" prop="deviceName"></el-table-column>
@@ -68,15 +74,15 @@
 
         <!--分页区域-->
         <el-pagination
-          class="paginations"
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="queryInfo.pagenum"
           :page-sizes="[1, 2, 3, 4, 5, 6]"
           :page-size="queryInfo.pagesize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="devicesTotal">
+          :total="total">
         </el-pagination>
+        <!--        <table-edit ref="edit"></table-edit>-->
       </el-card>
     </div>
   </div>
@@ -84,71 +90,129 @@
 
 <script>
   import NProgress from 'nprogress'
-  import { mapGetters } from 'vuex'
 
   export default {
     name: 'Index',
     data() {
+      // 验证邮箱和手机号的校验规则
+      var checkEmail = (rule, value, cb) => {
+        // 验证邮箱的正则表达式
+        const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
+        if (regEmail.test(value)) {
+          // 合法的邮箱
+          return cb()
+        }
+        cb(new Error('请输入合法的邮箱'))
+      }
+      var checkMobile = (rule, value, cb) => {
+        // 验证手机号的正则表达式
+        const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+        if (regMobile.test(value)) {
+          return cb()
+        }
+        cb(new Error('请输入合法的手机号'))
+      }
+
       return {
         queryInfo: {
           pagenum: 1,
           pagesize: 3
         },
+        userList: [
+        ],
+        total: 3,
         queryParams: '',
+        addDialogVisible: false,
         switchState: false,
+        // 添加用户的表单数据和校验规则
+        addUserForm: {
+          username: '',
+          password: '',
+          email: '',
+          mobile: ''
+        },
+        addUserFormRules: {
+          username: [
+            { required: true, message: '用户名不能为空', trigger: 'blur' },
+            { min: 2, max: 10, message: '用户名长度不合法', trigger: 'blur' }
+          ],
+          password: [
+            { required: true, message: '密码不能为空', trigger: 'blur' },
+            { min: 6, message: '密码长度不能小于6位', trigger: 'blur' }
+          ],
+          email: [
+            { required: true, message: '请输入邮箱', trigger: 'blur' },
+            { validator: checkEmail, trigger: 'blur' }
+          ],
+          mobile: [
+            { required: true, message: '请输入手机号', trigger: 'blur' },
+            { validator: checkMobile, trigger: 'blur' }
+          ]
+        },
         value: '',
         input: ''
       }
     },
-    computed: {
-      ...mapGetters(['devices', 'devicesTotal'])
-    },
     created() {
-      this.getDeviceList()
+      // this.getUserList()
     },
     methods: {
-      getDeviceList() {
-        this.loading = true
-        this.$store.dispatch('devices/getDevices',this.queryInfo)
-          .then((res) => {
-            // this.deviceList = this
-            this.loading = false
-          })
-          .catch(() => {
-            this.loading = false
-          })
+      async getUserList() {
+        // const token = window.sessionStorage.getItem('token')
+        const { data: res } = await this.$http({
+          method: 'post',
+          url: 'device/getbypage',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          data: {
+            pagenum: this.queryInfo.pagenum,
+            pagesize: this.queryInfo.pagesize
+          },
+          transformRequest: [function (data) {
+            let ret = ''
+            for (const it in data) {
+              ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+            }
+            return ret
+          }]
+        })
+        this.userList = res.data.records
+        this.total = res.data.total
       },
+
       handleSizeChange(newSize) {
         // 监听pageSize改变的事件
         this.queryInfo.pagesize = newSize
         // 调用此方法,后端会自动返回指定条数的数据
-        this.getDeviceList()
+        this.getUserList()
       },
       handleCurrentChange(newPage) {
         // 监听 页码值 改变的事件
         this.queryInfo.pagenum = newPage
-        this.getDeviceList()
+        this.getUserList()
       },
       async deviceStateChange(deviceInfo, event) {
-        this.loading = true
+        // event.currentTarget.
         console.log(deviceInfo.id)
-        const result = deviceInfo.state === 0 ? 1 : 0
-        const params = { id: deviceInfo.id, state: result }
-        this.$store.dispatch('devices/selectDeviceAlgorithm', params)
-          .then((res) => {
-            if (res.status === 20000) {
-              deviceInfo.state = result
-              this.$message.success(res.message)
-            } else {
-              this.$message.error(res.message)
-            }
-            this.loading = false
-          })
-          .catch((error) => {
-            console.log(error)
-            this.$message.error(error.message)
-            this.loading = false
-          })
+        deviceInfo.state = deviceInfo.state === 0 ? 1 : 0
+        const { data: res } = await this.$http({
+          method: 'post',
+          url: 'device/change_state',
+          headers: {
+            'Content-Type': 'application/json;charset=utf-8'
+          },
+          data: {
+            id: deviceInfo.id,
+            state: deviceInfo.state
+          }
+        }).catch(error => {
+          deviceInfo.state = 0
+          this.$message.error('请保证同时只选择一种算法')
+          NProgress.done()
+        })
+
+        this.$message.success(res.message)
       },
       getUserSearchList() {
         this.$message.success(this.queryParams)
@@ -204,7 +268,7 @@
   }
 </script>
 <style lang="scss" scoped>
-  .paginations{
-    margin-top: 18px;
+  .table-container{
+
   }
 </style>

@@ -13,40 +13,44 @@
           end-placeholder="结束日期"
           :default-time="['00:00:00', '23:59:59']">
         </el-date-picker>
-        <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
-          添加
-        </el-button>
-        <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
-          删除
+        <el-button icon="el-icon-search" type="primary" @click="handleAdd">
+          查询
         </el-button>
       </el-row>
       <el-card style="margin-top:20px">
           <el-form
             ref="form"
             :inline="true"
-            @submit.native.prevent
-          >
+            @submit.native.prevent>
             <el-form-item>
-              <el-input placeholder="标题" />
+              <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
+                添加
+              </el-button>
             </el-form-item>
             <el-form-item>
-              <el-button
-                icon="el-icon-search"
-                type="primary"
-                native-type="submit"
-              >
-                查询
+              <el-button icon="el-icon-edit" type="success" @click="handleAdd">
+                修改
+              </el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
+                删除
+              </el-button>
+            </el-form-item>
+            <el-form-item>
+              <el-button icon="el-icon-download" type="warning" @click="handleAdd">
+                导出
               </el-button>
             </el-form-item>
           </el-form>
 
         <el-table :data="userList" stripe border>
           <el-table-column type="index" label="#"></el-table-column>
-          <el-table-column label="组织" prop="departmentName" ></el-table-column>
-          <el-table-column label="摄像机名称" prop="deviceName"></el-table-column>
-          <el-table-column label="设备用户名" prop="deviceUserName" ></el-table-column>
-          <el-table-column label="位置" prop="address"></el-table-column>
-          <el-table-column label="IP地址" prop="deviceIp"></el-table-column>
+          <el-table-column label="用户名" prop="departmentName" ></el-table-column>
+          <el-table-column label="手机号" prop="deviceName"></el-table-column>
+          <el-table-column label="邮箱" prop="deviceUserName" ></el-table-column>
+          <el-table-column label="头像" prop="address"></el-table-column>
+          <el-table-column label="状态" prop="deviceIp"></el-table-column>
           <el-table-column label="RTSP端口" prop="rtsp" ></el-table-column>
           <el-table-column label="网关" prop="gateway"></el-table-column>
           <el-table-column label="状态"  width="120px">
