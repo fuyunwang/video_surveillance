@@ -42,8 +42,8 @@
           <el-table-column label="设备用户名" prop="deviceUserName" ></el-table-column>
           <el-table-column label="位置" prop="address"></el-table-column>
           <el-table-column label="IP地址" prop="deviceIp"></el-table-column>
-          <el-table-column label="RTSP端口" prop="rtsp" ></el-table-column>
-          <el-table-column label="网关" prop="gateway"></el-table-column>
+<!--          <el-table-column label="RTSP端口" prop="rtsp" ></el-table-column>-->
+          <el-table-column label="检测类型" prop="gateway"></el-table-column>
           <el-table-column label="状态"  width="120px">
             <template slot-scope="scope">
               <span v-if="scope.row.status === 0">正常</span>

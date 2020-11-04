@@ -11,11 +11,15 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 21/10/2020 12:32:03
+ Date: 04/11/2020 19:18:00
 */
+
+DROP DATABASE IF EXISTS `chuoyue`;
+create database `chuoyue` default character set utf8mb4 collate utf8mb4_general_ci;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+USE `chuoyue`;
 
 -- ----------------------------
 -- Table structure for tb_acl
@@ -53,7 +57,7 @@ INSERT INTO `tb_acl` VALUES (25, NULL, '/chuoyue/tb-department/**', NULL, NULL, 
 DROP TABLE IF EXISTS `tb_agent`;
 CREATE TABLE `tb_agent`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `agent_achieve` int(11) NULL DEFAULT NULL,
+  `agent_motto` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_email` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_idcard` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_idcard_img` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -64,6 +68,7 @@ CREATE TABLE `tb_agent`  (
   `parent_id` int(11) NULL DEFAULT NULL,
   `status` int(11) NULL DEFAULT NULL,
   `role_id` int(11) NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FK87oi6qqndbhjr95l34sq1t7dv`(`role_id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 31 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -71,29 +76,29 @@ CREATE TABLE `tb_agent`  (
 -- ----------------------------
 -- Records of tb_agent
 -- ----------------------------
-INSERT INTO `tb_agent` VALUES (1, 2, 'beautifulsoup@163.com', '372330000007777663220', 'http://47.95.244.237:8888/driving/M00/00/00/111', 'FuyunWang', 'e10adc3949ba59abbe56e057f20f883e', '17864195200', 'SDNU', 0, 1, 1);
-INSERT INTO `tb_agent` VALUES (9, 6, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'wangxiaohao', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (10, 15, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'wangshu', '670b14728ad9902aecba32e22fa4f6bd', '17864195552', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (11, 0, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'beautifulsoup', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 10, 1, 3);
-INSERT INTO `tb_agent` VALUES (12, 11, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'gopher', '670b14728ad9902aecba32e22fa4f6bd', '17864195552', '山东师范大学', 9, 0, 3);
-INSERT INTO `tb_agent` VALUES (13, 10, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'zhudunru', '670b14728ad9902aecba32e22fa4f6bd', '17864195552', '山东师范大学', 9, 1, 3);
-INSERT INTO `tb_agent` VALUES (14, 0, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'libai', '670b14728ad9902aecba32e22fa4f6bd', '17864195552', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (15, 0, 'http://goudao.png', '372330111198888', '6669.5', 'wangbo', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (16, 0, 'http://goudao.png', '372330111198888', '6669.5', 'aaa号-1', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 15, 0, 3);
-INSERT INTO `tb_agent` VALUES (17, 0, 'http://goudao.png', '372330111198888', '6669.5', 'bbb号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (18, 0, 'http://goudao.png', '372330111198888', '6669.5', 'bbb号-1', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 17, 0, 3);
-INSERT INTO `tb_agent` VALUES (19, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (20, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-1', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 19, 0, 3);
-INSERT INTO `tb_agent` VALUES (21, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ddd号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (22, 0, 'http://goudao.png', '372330111198888', '6669.5', 'eee号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (23, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-2', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 19, 0, 3);
-INSERT INTO `tb_agent` VALUES (24, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-3', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 19, 0, 3);
-INSERT INTO `tb_agent` VALUES (25, 0, 'http://goudao.png', '372330111198888', '6669.5', 'fff号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (26, 0, 'http://goudao.png', '372330111198888', '6669.5', 'hhh号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (27, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 1, 1, 2);
-INSERT INTO `tb_agent` VALUES (28, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号-1', '670b14728ad9902aecba32e22fa4f6bd', '17864195555', '山东师范大学', 27, 0, 3);
-INSERT INTO `tb_agent` VALUES (29, NULL, NULL, NULL, NULL, 'wangww', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 2);
-INSERT INTO `tb_agent` VALUES (30, NULL, NULL, NULL, NULL, 'lisi', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 4);
+INSERT INTO `tb_agent` VALUES (1, '1', 'beautifulsoup@163.com', '372330000007777663220', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower5.jpg', 'FuyunWang', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195200', 'SDNU', 0, 0, 1, '2020-10-20 09:55:44');
+INSERT INTO `tb_agent` VALUES (9, '能工摩型,巧匠窃意', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/snow1.jpg', 'wangxiaohao', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 0, 2, '2020-11-01 09:55:44');
+INSERT INTO `tb_agent` VALUES (10, '15', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower2.jpg', 'wangshu', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 0, 2, '2020-05-29 09:55:44');
+INSERT INTO `tb_agent` VALUES (11, '0', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'beautifulsoup', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 10, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (12, '11', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'gopher', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (13, '10', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'zhudunru', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 1, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (14, '0', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'libai', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (15, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'wangbo', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (16, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'aaa号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 15, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (17, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'bbb号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (18, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'bbb号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 17, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (19, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'ccc号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (20, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'ccc号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (21, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'ddd号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (22, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'eee号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (23, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'ccc号-2', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2019-02-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (24, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'ccc号-3', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (25, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'fff号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-03-26 09:55:44');
+INSERT INTO `tb_agent` VALUES (26, '0', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'hhh号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-04-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (27, '0', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower1.jpg', 'mmm号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-10-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (28, '你会的越多,你不会的越多', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/snow2.jpg', 'mmm号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 27, 0, 3, '2020-10-31 09:55:44');
+INSERT INTO `tb_agent` VALUES (29, '万事起于忽微,量变引起质变', '2375872953@qq.com', NULL, 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar1.jpg', 'administrator', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195301', NULL, NULL, 0, 2, '2020-11-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (30, '莫道君行早,更有早行人', '1836361620@qq.com', NULL, 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar2.jpg', 'BeautifulSoup2020', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '18954157220', NULL, NULL, 0, 4, '2020-11-02 09:55:44');
 
 -- ----------------------------
 -- Table structure for tb_agent_role
@@ -135,12 +140,12 @@ CREATE TABLE `tb_department`  (
 -- ----------------------------
 -- Records of tb_department
 -- ----------------------------
-INSERT INTO `tb_department` VALUES (1, '测试组', '2020-10-20 17:00:14', '人员检测', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 0, '', 'video1');
-INSERT INTO `tb_department` VALUES (2, '测试组', '2020-10-20 17:00:12', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/zhenhuan.mp4', 0, '', '');
-INSERT INTO `tb_department` VALUES (3, '测试组', '2020-10-14 12:32:40', '火焰', '工厂1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '', '');
-INSERT INTO `tb_department` VALUES (4, '测试组', '2020-10-13 10:32:48', '火焰', '工厂1', '', 0, '', '');
-INSERT INTO `tb_department` VALUES (5, '测试组', '2020-10-13 10:32:49', '火焰', '工厂1', '', 0, '', '');
-INSERT INTO `tb_department` VALUES (6, '测试组', '2020-10-13 10:32:51', '火焰', '工厂1', '', 0, '', '');
+INSERT INTO `tb_department` VALUES (1, '测试组1', '2020-11-04 19:01:16', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 0, '17861423310', 'person');
+INSERT INTO `tb_department` VALUES (2, '测试组2', '2020-11-04 19:01:14', '安全绳检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/new_safety.mp4', 0, '18952437510', 'safety');
+INSERT INTO `tb_department` VALUES (3, '测试组3', '2020-11-04 19:00:35', '吸烟检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '15552220331', '');
+INSERT INTO `tb_department` VALUES (4, '测试组4', '2020-11-04 19:00:47', '打电话检测', '设备1', '', 0, '18913024586', '');
+INSERT INTO `tb_department` VALUES (5, '测试组5', '2020-11-04 19:00:52', '电机检测', '设备1', '', 0, '19854157620', '');
+INSERT INTO `tb_department` VALUES (6, '测试组6', '2020-11-04 19:01:05', '火焰', '设备1', '', 0, '13422109987', '');
 
 -- ----------------------------
 -- Table structure for tb_department_solved
@@ -159,13 +164,11 @@ CREATE TABLE `tb_department_solved`  (
   `departmentId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `deviceName`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 217 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_department_solved
 -- ----------------------------
-INSERT INTO `tb_department_solved` VALUES (215, 'ABC', '2020-10-20 21:43:46', 'AA', 'AA', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect1.jpg', 1, '17864195231', 'hdfgddf', 1);
-INSERT INTO `tb_department_solved` VALUES (216, '股份等四个都是', '2020-10-20 21:43:51', '广东省分公司的', '广告费等四个 ', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect2.jpg', 1, '17864195231', 'hdfgddf', 1);
 
 -- ----------------------------
 -- Table structure for tb_device
@@ -184,14 +187,15 @@ CREATE TABLE `tb_device`  (
   `state` int(11) NULL DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `deviceNmae`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_device
 -- ----------------------------
-INSERT INTO `tb_device` VALUES (1, '工厂', 'admin', '192.168.1.100', '26101', 'NANO开发测试', 0, '测试检测人', '门口', 1);
-INSERT INTO `tb_device` VALUES (2, '灰色摄像机', 'admin', '192.168.1.64', '554', 'NANO开发测试', 0, '测试组', '饮水机QQ', 0);
-INSERT INTO `tb_device` VALUES (3, '白色摄像头', 'admin', '192.168.1.65', '554', 'NANO', 0, '中科鸿云', '门口', 0);
+INSERT INTO `tb_device` VALUES (1, '人员检测设备', 'administrator', '192.168.1.100', '26101', '人员检测', 0, '测试组1', '门口', 0);
+INSERT INTO `tb_device` VALUES (2, '安全绳检测设备', 'administrator', '192.168.1.101', '554', '安全绳检测', 0, '测试组2', '过道', 1);
+INSERT INTO `tb_device` VALUES (3, '吸烟检测设备', 'administrator', '192.168.1.102', '554', '吸烟检测', 0, '测试组3', '楼梯', 0);
+INSERT INTO `tb_device` VALUES (4, '打电话检测设备', 'administrator', '192.168.1.103', '554', '打电话检测', 0, '测试组4', '后墙', NULL);
 
 -- ----------------------------
 -- Table structure for tb_menu_info
@@ -207,22 +211,27 @@ CREATE TABLE `tb_menu_info`  (
   `component` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `redirect` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 24 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_menu_info
 -- ----------------------------
 INSERT INTO `tb_menu_info` VALUES (1, '首页展示', '/system/portal', 1, 0, 1, 'system/portal/index', 'noredirect');
-INSERT INTO `tb_menu_info` VALUES (2, '报警配置', '/alert', 4, 0, 1, 'Layout', 'system/alert/index');
-INSERT INTO `tb_menu_info` VALUES (3, '配置配置', '/settings', 3, 0, 1, 'Layout', 'noredirect');
-INSERT INTO `tb_menu_info` VALUES (4, '数据统计', '/system', 5, 0, 1, 'Layout', 'noredirect');
-INSERT INTO `tb_menu_info` VALUES (10, '数据报表1', 'chart/first', 1, 4, 3, 'system/chart/first/index', 'noredirect');
-INSERT INTO `tb_menu_info` VALUES (11, '数据报表2', 'chart/second', 2, 4, 3, 'system/chart/second/index', 'noredirect');
-INSERT INTO `tb_menu_info` VALUES (12, '数据报表3', 'chart/third', 3, 4, 3, 'system/chart/third/index', 'noredirect');
+INSERT INTO `tb_menu_info` VALUES (2, '报警配置', '/alert', 5, 0, 1, 'Layout', 'system/alert/index');
+INSERT INTO `tb_menu_info` VALUES (3, '配置配置', '/settings', 4, 0, 1, 'Layout', 'noredirect');
+INSERT INTO `tb_menu_info` VALUES (4, '数据统计', '/system', 7, 0, 1, 'Layout', 'noredirect');
+INSERT INTO `tb_menu_info` VALUES (10, '数据报表3', 'chart/first', 3, 4, 3, 'system/chart/first/index', 'noredirect');
+INSERT INTO `tb_menu_info` VALUES (11, '数据报表1', 'chart/second', 1, 4, 3, 'system/chart/second/index', 'noredirect');
+INSERT INTO `tb_menu_info` VALUES (12, '数据报表2', 'chart/third', 2, 4, 3, 'system/chart/third/index', 'noredirect');
 INSERT INTO `tb_menu_info` VALUES (13, '报警管理', 'alert', 1, 2, 3, 'system/alert/index', '');
 INSERT INTO `tb_menu_info` VALUES (14, '配置管理', 'settings', 1, 3, 3, 'system/settings/index', '');
 INSERT INTO `tb_menu_info` VALUES (15, '用户模块', '/user', 2, 0, 3, 'Layout', '');
 INSERT INTO `tb_menu_info` VALUES (16, '用户管理', 'user', 1, 15, 3, 'system/user/index', '');
+INSERT INTO `tb_menu_info` VALUES (19, '部门模块', '/department', 3, 0, 3, 'Layout', '');
+INSERT INTO `tb_menu_info` VALUES (20, '部门管理', 'department', 1, 19, 3, 'system/department/index', '');
+INSERT INTO `tb_menu_info` VALUES (21, '数据报表4', 'chart/fourth', 4, 4, 3, 'system/chart/fourth/index', '');
+INSERT INTO `tb_menu_info` VALUES (22, '直播检测', '/live', 6, 0, 3, 'Layout', '');
+INSERT INTO `tb_menu_info` VALUES (23, '直播检测', 'live', 1, 22, 3, 'system/live/index', '');
 
 -- ----------------------------
 -- Table structure for tb_menu_info_meta
@@ -234,18 +243,21 @@ CREATE TABLE `tb_menu_info_meta`  (
   `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `menu_id` int(11) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_menu_info_meta
 -- ----------------------------
 INSERT INTO `tb_menu_info_meta` VALUES (1, '算法配置', 'edit', 14);
 INSERT INTO `tb_menu_info_meta` VALUES (2, '报警管理', 'documentation', 13);
-INSERT INTO `tb_menu_info_meta` VALUES (3, '数据报表1', 'chart', 10);
-INSERT INTO `tb_menu_info_meta` VALUES (4, '数据报表2', 'chart', 11);
-INSERT INTO `tb_menu_info_meta` VALUES (5, '数据报表3', 'chart', 12);
+INSERT INTO `tb_menu_info_meta` VALUES (3, '数据报表1', 'table', 11);
+INSERT INTO `tb_menu_info_meta` VALUES (4, '数据报表2', 'table', 12);
+INSERT INTO `tb_menu_info_meta` VALUES (5, '数据报表3', 'table', 10);
 INSERT INTO `tb_menu_info_meta` VALUES (6, '数据统计', 'chart', 4);
 INSERT INTO `tb_menu_info_meta` VALUES (7, '用户管理', 'user', 16);
+INSERT INTO `tb_menu_info_meta` VALUES (9, '部门管理', 'dashboard', 20);
+INSERT INTO `tb_menu_info_meta` VALUES (10, '数据报表4', 'table', 21);
+INSERT INTO `tb_menu_info_meta` VALUES (11, '直播检测', 'component', 23);
 
 -- ----------------------------
 -- Table structure for tb_role
