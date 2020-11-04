@@ -11,7 +11,7 @@
  Target Server Version : 50731
  File Encoding         : 65001
 
- Date: 04/11/2020 09:57:11
+ Date: 04/11/2020 10:02:19
 */
 
 SET NAMES utf8mb4;
@@ -72,29 +72,29 @@ CREATE TABLE `tb_agent`  (
 -- ----------------------------
 -- Records of tb_agent
 -- ----------------------------
-INSERT INTO `tb_agent` VALUES (1, 2, 'beautifulsoup@163.com', '372330000007777663220', 'http://47.95.244.237:8888/driving/M00/00/00/111', 'FuyunWang', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195200', 'SDNU', 0, 1, 1, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (9, 6, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'wangxiaohao', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (10, 15, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'wangshu', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (11, 0, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'beautifulsoup', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 10, 1, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (12, 11, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'gopher', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 0, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (13, 10, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'zhudunru', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 1, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (14, 0, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'libai', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (15, 0, 'http://goudao.png', '372330111198888', '6669.5', 'wangbo', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (16, 0, 'http://goudao.png', '372330111198888', '6669.5', 'aaa号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 15, 0, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (17, 0, 'http://goudao.png', '372330111198888', '6669.5', 'bbb号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (18, 0, 'http://goudao.png', '372330111198888', '6669.5', 'bbb号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 17, 0, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (19, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (20, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (21, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ddd号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (22, 0, 'http://goudao.png', '372330111198888', '6669.5', 'eee号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (23, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-2', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (24, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-3', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (25, 0, 'http://goudao.png', '372330111198888', '6669.5', 'fff号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (26, 0, 'http://goudao.png', '372330111198888', '6669.5', 'hhh号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (27, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (28, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 27, 0, 3, '2020-11-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (1, 2, 'beautifulsoup@163.com', '372330000007777663220', 'http://47.95.244.237:8888/driving/M00/00/00/111', 'FuyunWang', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195200', 'SDNU', 0, 1, 1, '2020-11-15 09:55:44');
+INSERT INTO `tb_agent` VALUES (9, 6, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'wangxiaohao', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2020-11-01 09:55:44');
+INSERT INTO `tb_agent` VALUES (10, 15, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'wangshu', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2020-05-29 09:55:44');
+INSERT INTO `tb_agent` VALUES (11, 0, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'beautifulsoup', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 10, 1, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (12, 11, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'gopher', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (13, 10, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'zhudunru', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 1, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (14, 0, 'beautifulsoup@126.com', '372230000000000', 'http://www.aa.jpg', 'libai', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (15, 0, 'http://goudao.png', '372330111198888', '6669.5', 'wangbo', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (16, 0, 'http://goudao.png', '372330111198888', '6669.5', 'aaa号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 15, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (17, 0, 'http://goudao.png', '372330111198888', '6669.5', 'bbb号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (18, 0, 'http://goudao.png', '372330111198888', '6669.5', 'bbb号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 17, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (19, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (20, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (21, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ddd号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (22, 0, 'http://goudao.png', '372330111198888', '6669.5', 'eee号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (23, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-2', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2019-02-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (24, 0, 'http://goudao.png', '372330111198888', '6669.5', 'ccc号-3', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 19, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (25, 0, 'http://goudao.png', '372330111198888', '6669.5', 'fff号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-03-26 09:55:44');
+INSERT INTO `tb_agent` VALUES (26, 0, 'http://goudao.png', '372330111198888', '6669.5', 'hhh号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-04-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (27, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-10-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (28, 0, 'http://goudao.png', '372330111198888', '6669.5', 'mmm号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 27, 0, 3, '2020-10-31 09:55:44');
 INSERT INTO `tb_agent` VALUES (29, NULL, NULL, NULL, NULL, 'wangww', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (30, NULL, NULL, NULL, NULL, 'lisi', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 4, '2020-11-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (30, NULL, NULL, NULL, NULL, 'lisi', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', NULL, NULL, NULL, NULL, 4, '2020-11-02 09:55:44');
 
 -- ----------------------------
 -- Table structure for tb_agent_role
