@@ -268,7 +268,4 @@
   }
 </script>
 <style lang="scss" scoped>
-  .table-container{
-
-  }
 </style>

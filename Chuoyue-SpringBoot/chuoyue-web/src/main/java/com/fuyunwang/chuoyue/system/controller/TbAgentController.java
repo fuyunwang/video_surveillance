@@ -1,6 +1,7 @@
 package com.fuyunwang.chuoyue.system.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fuyunwang.chuoyue.common.base.ResponseResult;
 import com.fuyunwang.chuoyue.system.entity.TbAgent;
 import com.fuyunwang.chuoyue.system.service.ITbAgentService;
@@ -9,6 +10,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -33,5 +35,9 @@ public class TbAgentController {
         return ResponseResult.createBySuccess("获取成功",tbAgent);
     }
 
-
+    @RequestMapping(value = "/getbypage")
+    public ResponseResult<IPage<TbAgent>> getUsersByPage(@RequestParam("pagenum")Integer pagenum, @RequestParam("pagesize")Integer pagesize){
+        IPage<TbAgent> result=iTbAgentService.getUsersByPage(pagenum,pagesize);
+        return ResponseResult.createBySuccess("获取成功",result);
+    }
 }

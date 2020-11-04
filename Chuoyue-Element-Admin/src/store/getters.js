@@ -20,6 +20,8 @@ const getters = {
   deviceList: state => state.department.deviceList,
   alarmResults: state => state.alarm.records,
   alarmTotal: state => state.alarm.total,
-  currentSolvedDepartment: state => state.alarm.currentSolvedDepartment
+  currentSolvedDepartment: state => state.alarm.currentSolvedDepartment,
+  userListTotal: state => state.user.userListTotal,
+  userList: state => state.user.userList
 }
 export default getters

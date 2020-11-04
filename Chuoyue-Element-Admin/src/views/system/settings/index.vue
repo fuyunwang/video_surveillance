@@ -13,15 +13,12 @@
           end-placeholder="结束日期"
           :default-time="['00:00:00', '23:59:59']">
         </el-date-picker>
-        <el-button icon="el-icon-plus" type="primary" >
-          添加
-        </el-button>
-        <el-button icon="el-icon-delete" type="danger">
-          删除
+        <el-button icon="el-icon-search" type="primary" @click="handleAdd">
+          查询
         </el-button>
       </el-row>
-      <el-card style="margin-top:20px">
-        <el-form
+      <el-card style="margin-top:40px">
+        <!--<el-form
           ref="form"
           :inline="true"
           @submit.native.prevent>
@@ -36,7 +33,7 @@
               查询
             </el-button>
           </el-form-item>
-        </el-form>
+        </el-form>-->
 
         <el-table :data="devices" stripe border>
           <el-table-column type="index" label="#"></el-table-column>

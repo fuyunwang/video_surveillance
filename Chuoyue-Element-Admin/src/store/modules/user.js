@@ -1,4 +1,4 @@
-import { login, logout, getInfo } from '@/api/user'
+import { login, logout, getInfo, getUsersByPage } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import router, { resetRouter } from '@/router'
 
@@ -8,7 +8,9 @@ const state = {
   avatar: '',
   introduction: '',
   roles: [],
-  menus: []
+  menus: [],
+  userList: [],
+  userListTotal: 0
 }
 
 const mutations = {
@@ -29,6 +31,12 @@ const mutations = {
   },
   SET_MENUS: (state, menus) => {
     state.menus = menus
+  },
+  SET_USER_LIST: (state, userList) => {
+    state.userList = userList
+  },
+  SET_USER_LIST_TOTAL: (state, userListTotal) => {
+    state.userListTotal = userListTotal
   }
 }
 
@@ -82,7 +90,17 @@ const actions = {
       })
     })
   },
-
+  getUserByPage({ commit }, data) {
+    return new Promise((resolve, reject) => {
+      getUsersByPage(data).then(response => {
+        const { records, total } = response.data
+        commit('SET_USER_LIST', records)
+        commit('SET_USER_LIST_TOTAL', total)
+      }).catch(error => {
+        reject(error)
+      })
+    })
+  },
   // user logout
   logout({ commit, state, dispatch }) {
     return new Promise((resolve, reject) => {

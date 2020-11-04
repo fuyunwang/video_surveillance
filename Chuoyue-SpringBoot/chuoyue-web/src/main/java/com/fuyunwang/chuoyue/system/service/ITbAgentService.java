@@ -1,5 +1,6 @@
 package com.fuyunwang.chuoyue.system.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.fuyunwang.chuoyue.system.entity.TbAgent;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITbAgentService extends IService<TbAgent> {
     TbAgent getAllAgentInfoById(Integer id);
+    IPage<TbAgent> getUsersByPage(Integer pagenum, Integer pagesize);
 }

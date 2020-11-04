@@ -30,6 +30,27 @@ export function getInfo(token) {
   })
 }
 
+export function getUsersByPage(data) {
+  return request({
+    url: 'tb-agent/getbypage',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    data: {
+      pagenum: data.pagenum,
+      pagesize: data.pagesize
+    },
+    transformRequest: [function(data) {
+      let ret = ''
+      for (const it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+      }
+      return ret
+    }]
+  })
+}
+
 export function logout() {
   return request({
     url: '/logout',
