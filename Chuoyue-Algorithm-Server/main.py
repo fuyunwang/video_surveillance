@@ -68,6 +68,14 @@ def video_show_person():
     cur.execute("update tb_department set status=1 where screenShot = {}".format("'"+video_url+"'"))
     i = 0
     beforeNum = 0
+
+    # 保存为MP4
+    fps = int(capture.get(cv2.CAP_PROP_FPS))
+    width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 保存视频的编码
+    out = cv2.VideoWriter('F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/video/output.mp4', fourcc, fps, (width, height))
+
     try:
         while True:
             # 读取某一帧
@@ -80,16 +88,18 @@ def video_show_person():
             frame = Image.fromarray(np.uint8(frame))
             # 进行检测
             tmp = yolo.detect_image(frame, False)
+            frame = np.array(tmp[0])
+            # RGBtoBGR满足opencv显示格式
+            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+            # 保存视频
+            out.write(frame)
             if tmp[1] > 0 and tmp[1] > beforeNum:
-                frame = np.array(tmp[0])
-                # RGBtoBGR满足opencv显示格式
-                frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
                 # 保存图片
                 i += 1
-                cv2.imwrite('{}{}.jpg'.format('F:/video_surveillance/chuoyue-algorithm-server/static/video/' + detect_type, i), frame)
+                cv2.imwrite('{}{}.jpg'.format('F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/static/video/' + detect_type, i), frame)
                 key = detect_type+str(i)+'.jpg'
                 token = q.upload_token(bucket_name, key)
-                localfile = 'F:/video_surveillance/chuoyue-algorithm-server/static/video/'+detect_type+str(i)+'.jpg'
+                localfile = 'F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/static/video/'+detect_type+str(i)+'.jpg'
                 ret, info = put_file(token, key, localfile)
                 data_url = base_url+detect_type+str(i)+'.jpg'
                 cur.execute("select * from tb_department where screenShot = {}".format("'"+video_url+"'"))
@@ -99,6 +109,8 @@ def video_show_person():
                 conn.commit()
                 print(info)
             beforeNum = tmp[1]
+
+        out.release()
 
         result = {
             'status': 20000,
