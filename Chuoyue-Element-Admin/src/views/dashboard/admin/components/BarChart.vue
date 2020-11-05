@@ -27,7 +27,8 @@ export default {
   },
   data() {
     return {
-      chart: null
+      chart: null,
+      chartX: []
     }
   },
   mounted() {
@@ -62,7 +63,7 @@ export default {
         },
         xAxis: [{
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          data: this.chartX,
           axisTick: {
             alignWithLabel: true
           }
