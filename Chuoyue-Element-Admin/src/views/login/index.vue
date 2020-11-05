@@ -77,7 +77,7 @@ export default {
     }
     return {
       loginForm: {
-        username: 'wangww',
+        username: 'administrator',
         password: 'wangxiaohao',
         code: ''
       },

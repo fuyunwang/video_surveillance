@@ -28,10 +28,27 @@
         },
         data() {
             return {
-                chart: null
+                chart: null,
+                chartX: []
             }
         },
-        mounted() {
+        created() {
+          const day6=this.getDayofWeek(-6)
+          const day5=this.getDayofWeek(-5)
+          const day4=this.getDayofWeek(-4)
+          const day3=this.getDayofWeek(-3)
+          const day2=this.getDayofWeek(-2)
+          const day1=this.getDayofWeek(-1)
+          const day=this.getDayofWeek(0)
+          this.chartX.push(day6)
+          this.chartX.push(day5)
+          this.chartX.push(day4)
+          this.chartX.push(day3)
+          this.chartX.push(day2)
+          this.chartX.push(day1)
+          this.chartX.push(day)
+        },
+      mounted() {
             this.initChart()
         },
         beforeDestroy() {
@@ -42,6 +59,20 @@
             this.chart = null
         },
         methods: {
+            getDayofWeek(day) {
+              var dd = new Date()
+              dd.setDate(dd.getDate() + (day)) // 获取p_count天后的日期
+              var y = dd.getFullYear()
+              var m = dd.getMonth() + 1 // 获取当前月份的日期
+              if (m < 10) {
+                m = '0' + m
+              }
+              var d = dd.getDate()
+              if (d < 10) {
+                d = '0' + d
+              }
+              return y+'-'+m+'-'+d
+            },
             initChart() {
                 this.chart = echarts.init(document.getElementById(this.id))
 
@@ -71,7 +102,7 @@
                         itemWidth: 14,
                         itemHeight: 5,
                         itemGap: 13,
-                        data: ['CMCC', 'CTCC', 'CUCC'],
+                        data: ['Industries', 'Medical', 'Education'],
                         right: '4%',
                         textStyle: {
                             fontSize: 12,
@@ -93,7 +124,7 @@
                                 color: '#57617B'
                             }
                         },
-                        data: ['13:00', '13:05', '13:10', '13:15', '13:20', '13:25', '13:30', '13:35', '13:40', '13:45', '13:50', '13:55']
+                        data: this.chartX
                     }],
                     yAxis: [{
                         type: 'value',
@@ -119,7 +150,7 @@
                         }
                     }],
                     series: [{
-                        name: 'CMCC',
+                        name: 'Industries',
                         type: 'line',
                         smooth: true,
                         symbol: 'circle',
@@ -151,9 +182,9 @@
 
                             }
                         },
-                        data: [220, 182, 191, 134, 150, 120, 110, 125, 145, 122, 165, 122]
+                        data: [80, 70, 55, 72, 30, 20, 15]
                     }, {
-                        name: 'CTCC',
+                        name: 'Medical',
                         type: 'line',
                         smooth: true,
                         symbol: 'circle',
@@ -185,9 +216,9 @@
 
                             }
                         },
-                        data: [120, 110, 125, 145, 122, 165, 122, 220, 182, 191, 134, 150]
+                        data: [50, 70, 60, 90, 34, 40, 80]
                     }, {
-                        name: 'CUCC',
+                        name: 'Education',
                         type: 'line',
                         smooth: true,
                         symbol: 'circle',
@@ -218,7 +249,7 @@
                                 borderWidth: 12
                             }
                         },
-                        data: [220, 182, 125, 145, 122, 191, 134, 150, 120, 110, 165, 122]
+                        data: [20, 30, 50, 44, 60, 15, 77]
                     }]
                 })
             }

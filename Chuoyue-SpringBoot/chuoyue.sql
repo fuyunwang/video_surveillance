@@ -140,7 +140,7 @@ CREATE TABLE `tb_department`  (
 -- ----------------------------
 -- Records of tb_department
 -- ----------------------------
-INSERT INTO `tb_department` VALUES (1, '测试组1', '2020-11-04 19:01:16', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 0, '17861423310', 'person');
+INSERT INTO `tb_department` VALUES (1, '测试组1', '2020-11-05 20:47:44', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 1, '17861423310', 'person');
 INSERT INTO `tb_department` VALUES (2, '测试组2', '2020-11-04 19:01:14', '安全绳检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/new_safety.mp4', 0, '18952437510', 'safety');
 INSERT INTO `tb_department` VALUES (3, '测试组3', '2020-11-04 19:00:35', '吸烟检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '15552220331', '');
 INSERT INTO `tb_department` VALUES (4, '测试组4', '2020-11-04 19:00:47', '打电话检测', '设备1', '', 0, '18913024586', '');
@@ -164,11 +164,19 @@ CREATE TABLE `tb_department_solved`  (
   `departmentId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `deviceName`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_department_solved
 -- ----------------------------
+INSERT INTO `tb_department_solved` VALUES (1, '测试组1', '2020-11-05 20:48:50', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person1.jpg', 1, '解决', '讲讲价', 1);
+INSERT INTO `tb_department_solved` VALUES (2, '测试组1', '2020-11-05 20:49:22', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person2.jpg', 1, '解决', '讲讲价', 1);
+INSERT INTO `tb_department_solved` VALUES (3, '测试组1', '2020-11-05 20:49:37', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person3.jpg', 1, '解决', '讲讲价', 1);
+INSERT INTO `tb_department_solved` VALUES (4, '测试组1', '2020-11-05 20:49:41', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person4.jpg', 1, '解决', '讲讲价', 1);
+INSERT INTO `tb_department_solved` VALUES (5, '测试组1', '2020-11-05 20:49:47', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person5.jpg', 1, '解决', '讲讲价', 1);
+INSERT INTO `tb_department_solved` VALUES (6, '测试组1', '2020-11-05 20:49:50', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person6.jpg', 1, '解决', '讲讲价', 1);
+INSERT INTO `tb_department_solved` VALUES (7, '测试组1', '2020-11-05 20:49:53', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person7.jpg', 1, '解决', '讲讲价', 1);
+INSERT INTO `tb_department_solved` VALUES (8, '测试组1', '2020-11-05 20:49:55', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person8.jpg', 1, '解决', '讲讲价', 1);
 
 -- ----------------------------
 -- Table structure for tb_device

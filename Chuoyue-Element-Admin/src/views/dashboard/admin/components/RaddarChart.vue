@@ -95,18 +95,17 @@ export default {
           },
           data: [
             {
-              value: [8000, 18000, 15000, 5000, 5000, 5000],
-              name: 'Medical'
-            },
-            {
               value: [14000, 10000, 18000, 5000, 18000, 18000],
               name: 'Industries'
             },
             {
+              value: [8000, 18000, 15000, 5000, 5000, 5000],
+              name: 'Medical'
+            },
+            {
               value: [10000, 18000, 5000, 18000, 5000, 5000],
               name: 'Education'
-            },
-
+            }
           ],
           animationDuration: animationDuration
         }]
