@@ -36,6 +36,18 @@ export default {
       this.initChart()
     })
   },
+  created() {
+    const day4 = this.getDayofWeek(-4)
+    const day3 = this.getDayofWeek(-3)
+    const day2 = this.getDayofWeek(-2)
+    const day1 = this.getDayofWeek(-1)
+    const day = this.getDayofWeek(0)
+    this.chartX.push(day4)
+    this.chartX.push(day3)
+    this.chartX.push(day2)
+    this.chartX.push(day1)
+    this.chartX.push(day)
+  },
   beforeDestroy() {
     if (!this.chart) {
       return
@@ -44,6 +56,20 @@ export default {
     this.chart = null
   },
   methods: {
+    getDayofWeek(day) {
+      var dd = new Date()
+      dd.setDate(dd.getDate() + (day)) // 获取p_count天后的日期
+      var y = dd.getFullYear()
+      var m = dd.getMonth() + 1 // 获取当前月份的日期
+      if (m < 10) {
+          m = '0' + m
+      }
+      var d = dd.getDate()
+      if (d < 10) {
+          d = '0' + d
+      }
+      return m+'-'+d
+    },
     initChart() {
       this.chart = echarts.init(this.$el, 'macarons')
 
@@ -75,25 +101,25 @@ export default {
           }
         }],
         series: [{
-          name: 'pageA',
+          name: 'Industries',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data: [79, 52, 200, 334, 390, 330, 220],
+          data: [10, 8, 9, 12, 11, 10],
           animationDuration
         }, {
-          name: 'pageB',
+          name: 'Medical',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data: [80, 52, 200, 334, 390, 330, 220],
+          data: [8, 5, 10, 5, 10, 12],
           animationDuration
         }, {
-          name: 'pageC',
+          name: 'Education',
           type: 'bar',
           stack: 'vistors',
           barWidth: '60%',
-          data: [30, 52, 200, 334, 390, 330, 220],
+          data: [5, 5, 10, 7, 12, 14],
           animationDuration
         }]
       })
