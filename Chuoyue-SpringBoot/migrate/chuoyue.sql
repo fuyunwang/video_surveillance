@@ -93,7 +93,7 @@ INSERT INTO `tb_agent` VALUES (25, '0', '1721693585@qq.com', '372330111198888', 
 INSERT INTO `tb_agent` VALUES (26, '0', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'hhh号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-04-04 09:55:44');
 INSERT INTO `tb_agent` VALUES (27, '0', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower1.jpg', 'mmm号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-10-04 09:55:44');
 INSERT INTO `tb_agent` VALUES (28, '你会的越多,你不会的越多', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/snow2.jpg', 'mmm号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 27, 0, 3, '2020-10-31 09:55:44');
-INSERT INTO `tb_agent` VALUES (29, '万事起于忽微,量变引起质变', '2375872953@qq.com', NULL, 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar1.jpg', 'administrator', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195301', NULL, NULL, 0, 2, '2020-11-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (29, '万事起于忽微,量变引起质变', '2375872953@qq.com', NULL, 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar1.jpg', 'administrator', '$2a$10$QsFPNqmWIQszmZq95NOR3u8IX9NPVRN3.4Me8Q2b88KSPvRQ8cK7i', '17864195301', NULL, NULL, 0, 2, '2020-11-04 09:55:44');
 INSERT INTO `tb_agent` VALUES (30, '莫道君行早,更有早行人', '1836361620@qq.com', NULL, 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar2.jpg', 'BeautifulSoup2020', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '18954157220', NULL, NULL, 0, 4, '2020-11-02 09:55:44');
 
 -- ----------------------------
