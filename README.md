@@ -59,3 +59,13 @@ SpringBoot+SpringSecurity+MyBatis-Plus
 1. sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 2. sudo chmod +x /usr/local/bin/docker-compose
 3. sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+## IDEA配置Docker插件
+1. 远程服务器 vi /lib/systemd/system/docker.service
+2. [Service] 
+   
+   ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
+3. systemctl daemon-reload 
+4. systemctl restart docker.service
+5. 192.168.1.100:2375/info
+
