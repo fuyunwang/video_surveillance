@@ -120,7 +120,11 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>${druid.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.27-SNAPSHOT</version>
+        </dependency>
         <!--RocketMQ-->
 <!--        <dependency>-->
 <!--            <groupId>org.apache.rocketmq</groupId>-->

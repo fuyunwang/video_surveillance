@@ -18,4 +18,9 @@ public class GlobalConstant {
         String SELECTED_ALGORITHM="selected_algorithm";
         String ALGORITHM_PREFIX="algorithm:";
     }
+
+    public interface File{
+        String UPLOAD_EMPTY_ERROR="上传文件不能为空";
+        String UPLOAD_FAILURE="文件上传失败";
+    }
 }
