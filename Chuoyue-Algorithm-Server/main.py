@@ -7,23 +7,23 @@ import threading
 import subprocess as sp
 from yolo import YOLO
 from PIL import Image
-from qiniu import Auth, put_file, etag
-import qiniu.config
+# from qiniu import Auth, put_file, etag
+# import qiniu.config
 import json
 import pymysql
 from flask_cors import CORS
 from datetime import datetime
-
+from fdfs_client.client import get_tracker_conf, Fdfs_client
 
 app = Flask(__name__)
 CORS(app, resources=r'/*')
 
 # qiniu 相关
-q = Auth('KvYtKCG1D3bpwb8O36HcZR0DdVOFU5q9qIyB1Tp4', 'rOXLGzS6QaCLIFYkkDuWpv49_x5m_wb-sFgC_9Zo')
-bucket_name = 'chuoyue-video-surveillance'
+# q = Auth('KvYtKCG1D3bpwb8O36HcZR0DdVOFU5q9qIyB1Tp4', 'rOXLGzS6QaCLIFYkkDuWpv49_x5m_wb-sFgC_9Zo')
+# bucket_name = 'chuoyue-video-surveillance'
 
 # mysql 相关
-base_url = 'http://qi2c9qbdt.hb-bkt.clouddn.com/'
+base_url = 'http://127.0.0.1:9902/driving/file/upload'
 conn= pymysql.connect(
         host='localhost',
         port= 3306,
@@ -34,6 +34,9 @@ conn= pymysql.connect(
         )
 cur = conn.cursor()
 # yolo = YOLO()
+
+tracker_conf = get_tracker_conf('F:\\videoprojects\\video_surveillance\\Chuoyue-Algorithm-Server\\fast_client.conf')
+client = Fdfs_client(tracker_conf)
 
 @app.route('/')
 def index():
@@ -70,11 +73,11 @@ def video_show_person():
     beforeNum = 0
 
     # 保存为MP4
-    fps = int(capture.get(cv2.CAP_PROP_FPS))
-    width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 保存视频的编码
-    out = cv2.VideoWriter('F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/video/output.mp4', fourcc, fps, (width, height))
+    # fps = int(capture.get(cv2.CAP_PROP_FPS))
+    # width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    # height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    # fourcc = cv2.VideoWriter_fourcc(*'mp4v')  # 保存视频的编码
+    # out = cv2.VideoWriter('F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/video/output.mp4', fourcc, fps, (width, height))
 
     try:
         while True:
@@ -92,25 +95,31 @@ def video_show_person():
             # RGBtoBGR满足opencv显示格式
             frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
             # 保存视频
-            out.write(frame)
+            # out.write(frame)
             if tmp[1] > 0 and tmp[1] > beforeNum:
                 # 保存图片
                 i += 1
-                cv2.imwrite('{}{}.jpg'.format('F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/static/video/' + detect_type, i), frame)
+                cv2.imwrite('{}{}.jpg'.format('F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/static/video/' + detect_type, i), frame)
                 key = detect_type+str(i)+'.jpg'
-                token = q.upload_token(bucket_name, key)
-                localfile = 'F:/work/laboratory/video_surveillance/Chuoyue-Algorithm-Server/static/video/'+detect_type+str(i)+'.jpg'
-                ret, info = put_file(token, key, localfile)
-                data_url = base_url+detect_type+str(i)+'.jpg'
+                # token = q.upload_token(bucket_name, key)
+                localfile = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/static/video/'+detect_type+str(i)+'.jpg'
+                # ret, info = put_file(token, key, localfile)
+
+                # 文件上传，结果返回：{'Group name': b'group1', 'Remote file_id': b'group1/M00/00/00/wKgf3F5MAe2AV_23AAAADL_GVeU370.txt', 'Status': 'Upload successed.', 'Local file name': 'test.txt', 'Uploaded size': '12B', 'Storage IP': b'192.168.31.220'}
+                result = client.upload_by_filename(localfile)
+                print(result)
+                res_temp=str(result['Remote file_id'])[2:]
+                data_url = 'http://120.27.20.141:8888/'+res_temp[:len(res_temp)-1]
+                print(data_url)
                 cur.execute("select * from tb_department where screenShot = {}".format("'"+video_url+"'"))
                 all = cur.fetchall()
                 cur.execute("insert into tb_department_solved(departmentName,alarmTime,incidentType,deviceName,screenShot,contact,note,departmentId) values("+"'"+all[0][1]+"'"
                             +","+"'"+datetime.strftime(datetime.now(), '%Y-%m-%d %H:%M:%S')+"'"+","+"'"+all[0][3]+"'"+","+"'"+all[0][4]+"'"+","+"'"+data_url+"'"+","+"'2375872953@qq.com'"+","+"'未处理'"+","+str(all[0][0])+")")
                 conn.commit()
-                print(info)
+                # print(info)
             beforeNum = tmp[1]
 
-        out.release()
+        # out.release()
 
         result = {
             'status': 20000,
@@ -243,6 +252,6 @@ class Live:
 
 
 if __name__ == '__main__':
-    live = Live(0, 'rtmp://192.168.1.100:1935/live/home')
-    live.run()
+    # live = Live(0, 'rtmp://192.168.1.100:1935/live/home')
+    # live.run()
     app.run(debug=True)

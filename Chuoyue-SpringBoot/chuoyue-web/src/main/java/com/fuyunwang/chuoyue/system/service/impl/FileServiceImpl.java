@@ -1,6 +1,6 @@
 package com.fuyunwang.chuoyue.system.service.impl;
 
-import com.fuyunwang.chuoyue.common.utils.FastDfsClientUtil;
+import com.fuyunwang.chuoyue.FastDfsClientUtil;
 import com.fuyunwang.chuoyue.system.service.FileService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.fuyunwang.chuoyue.common.utils;
+package com.fuyunwang.chuoyue;
 
 import com.fuyunwang.chuoyue.common.base.GlobalConstant;
 import com.fuyunwang.chuoyue.common.pojo.FastDfsFile;

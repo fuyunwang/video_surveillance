@@ -118,7 +118,8 @@
 </template>
 
 <script>
-import { VabPlayerMp4 } from '@/plugins/vabPlayer.js'
+import { VabPlayerMp4 } from 'zx-player'
+// import { VabPlayerMp4 } from '@/plugins/vabPlayer.js'
 import { mapGetters } from 'vuex'
 import { Loading } from 'element-ui'
 import axios from 'axios'
@@ -132,7 +133,7 @@ export default {
     return {
       config1: {
         id: '12',
-        url: 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4',
+        url: 'http://120.27.20.141/ming/111.mp4',
         volume: 1,
         autoplay: true
       },

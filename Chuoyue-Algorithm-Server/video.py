@@ -47,7 +47,7 @@ while True:
         # frame = cv2.putText(frame, "fps= %.2f" % fps, (0, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
         # 保存图片
-        cv2.imwrite('F:/video_surveillance/chuoyue-algorithm-server/static/video' + '/' + str(i) + '.jpg', frame)
+        cv2.imwrite('F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/static/video' + '/' + str(i) + '.jpg', frame)
         print(i)
         # 显示视频
         cv2.imshow("video", frame)

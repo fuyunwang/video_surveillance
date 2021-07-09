@@ -27,7 +27,10 @@ spring:
         max-idle: 8
         min-idle: 0
       shutdown-timeout: 100
-
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 mybatis-plus:
   mapper-locations: classpath*:com/fuyunwang/chuoyue/**/xml/*Mapper.xml
   configuration:

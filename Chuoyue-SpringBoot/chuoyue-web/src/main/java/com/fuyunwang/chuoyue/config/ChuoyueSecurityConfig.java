@@ -113,6 +113,7 @@ public class ChuoyueSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*/api-docs").permitAll()
                 .antMatchers("/doc.html").permitAll()
                 .antMatchers("/druid/**").permitAll()
+                .antMatchers("/file/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS,"/**").permitAll()
                 .antMatchers("/captcha","/cyLogin","logout").permitAll()
                 .antMatchers("/**/anon").permitAll()
