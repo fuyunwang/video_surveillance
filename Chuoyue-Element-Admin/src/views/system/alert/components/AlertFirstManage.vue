@@ -18,12 +18,12 @@
         <el-table-column label="设备名称" prop="deviceName" ></el-table-column>
         <el-table-column show-overflow-tooltip label="播放视频" >
           <template slot-scope="scope">
-            <el-button @click="handlePlayer(scope.row.id)">点击播放视频{{scope.row.note}}</el-button>
+            <el-button @click="handlePlayer(scope.row.id)">安全绳检测</el-button>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="150px">
           <template slot-scope="scope">
-            <span style="margin-left: 10px">{{scope.row.status === 1 ? '已处理' : '未处理'}}</span>
+            <span style="margin-left: 10px">{{scope.row.status === 0 ? '已处理' : '未处理'}}</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="100px">
