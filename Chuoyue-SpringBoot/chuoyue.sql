@@ -16,23 +16,81 @@
 
 DROP DATABASE IF EXISTS `chuoyue`;
 create database `chuoyue` default character set utf8mb4 collate utf8mb4_general_ci;
+use `chuoyue`;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-USE `chuoyue`;
+
+-- ----------------------------
+-- Table structure for books
+-- ----------------------------
+DROP TABLE IF EXISTS `books`;
+CREATE TABLE `books`  (
+  `book_name` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `price` double NULL DEFAULT NULL,
+  `author` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_books_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of books
+-- ----------------------------
+INSERT INTO `books` VALUES ('深度学习推荐系统', 65.6, 'Gopher', 1, '2021-04-06 09:45:28.738', '2021-04-06 09:45:28.738', NULL);
+INSERT INTO `books` VALUES ('Kubernetes权威指南', 80, 'FuyunWang', 2, '2021-04-06 09:45:28.738', '2021-04-06 09:45:28.738', NULL);
+INSERT INTO `books` VALUES ('Docker容器云', 70, 'BeautifulSoup', 3, '2021-04-06 09:45:28.738', '2021-04-06 09:45:28.738', NULL);
+INSERT INTO `books` VALUES ('深度学习推荐系统', 65.6, 'Gopher', 4, '2021-04-06 09:45:29.882', '2021-04-06 09:45:29.882', NULL);
+INSERT INTO `books` VALUES ('Kubernetes权威指南', 80, 'FuyunWang', 5, '2021-04-06 09:45:29.882', '2021-04-06 09:45:29.882', NULL);
+INSERT INTO `books` VALUES ('Docker容器云', 70, 'BeautifulSoup', 6, '2021-04-06 09:45:29.882', '2021-04-06 09:45:29.882', NULL);
+INSERT INTO `books` VALUES ('深度学习推荐系统', 65.6, 'Gopher', 7, '2021-04-06 09:45:30.050', '2021-04-06 09:45:30.050', NULL);
+INSERT INTO `books` VALUES ('Kubernetes权威指南', 80, 'FuyunWang', 8, '2021-04-06 09:45:30.050', '2021-04-06 09:45:30.050', NULL);
+INSERT INTO `books` VALUES ('Docker容器云', 70, 'BeautifulSoup', 9, '2021-04-06 09:45:30.050', '2021-04-06 09:45:30.050', NULL);
+INSERT INTO `books` VALUES ('深度学习推荐系统', 65.6, 'Gopher', 10, '2021-04-06 09:45:30.179', '2021-04-06 09:45:30.179', NULL);
+INSERT INTO `books` VALUES ('Kubernetes权威指南', 80, 'FuyunWang', 11, '2021-04-06 09:45:30.179', '2021-04-06 09:45:30.179', NULL);
+INSERT INTO `books` VALUES ('Docker容器云', 70, 'BeautifulSoup', 12, '2021-04-06 09:45:30.179', '2021-04-06 09:45:30.179', NULL);
+INSERT INTO `books` VALUES ('深度学习推荐系统', 65.6, 'Gopher', 13, '2021-04-06 09:45:30.326', '2021-04-06 09:45:30.326', NULL);
+INSERT INTO `books` VALUES ('Kubernetes权威指南', 80, 'FuyunWang', 14, '2021-04-06 09:45:30.326', '2021-04-06 09:45:30.326', NULL);
+INSERT INTO `books` VALUES ('Docker容器云', 70, 'BeautifulSoup', 15, '2021-04-06 09:45:30.326', '2021-04-06 09:45:30.326', NULL);
+INSERT INTO `books` VALUES ('深度学习推荐系统', 65.6, 'Gopher', 16, '2021-04-06 09:45:30.474', '2021-04-06 09:45:30.474', NULL);
+INSERT INTO `books` VALUES ('Kubernetes权威指南', 80, 'FuyunWang', 17, '2021-04-06 09:45:30.474', '2021-04-06 09:45:30.474', NULL);
+INSERT INTO `books` VALUES ('Docker容器云', 70, 'BeautifulSoup', 18, '2021-04-06 09:45:30.474', '2021-04-06 09:45:30.474', NULL);
+
+-- ----------------------------
+-- Table structure for roles
+-- ----------------------------
+DROP TABLE IF EXISTS `roles`;
+CREATE TABLE `roles`  (
+  `rolename` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `remark` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL,
+  `user_id` bigint(20) UNSIGNED NULL DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `created_at` datetime(3) NULL DEFAULT NULL,
+  `updated_at` datetime(3) NULL DEFAULT NULL,
+  `deleted_at` datetime(3) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_roles_deleted_at`(`deleted_at`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of roles
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tb_acl
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_acl`;
 CREATE TABLE `tb_acl`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `acl_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `acl_url` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `operator` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `acl_remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `type` int(0) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
+  `type` int(11) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -56,7 +114,7 @@ INSERT INTO `tb_acl` VALUES (25, NULL, '/chuoyue/tb-department/**', NULL, NULL, 
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_agent`;
 CREATE TABLE `tb_agent`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `agent_motto` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_email` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_idcard` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -65,9 +123,9 @@ CREATE TABLE `tb_agent`  (
   `agent_password` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_phone` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `agent_school` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `parent_id` int(0) NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `role_id` int(0) NULL DEFAULT NULL,
+  `parent_id` int(11) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
+  `role_id` int(11) NULL DEFAULT NULL,
   `create_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0),
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FK87oi6qqndbhjr95l34sq1t7dv`(`role_id`) USING BTREE
@@ -76,11 +134,11 @@ CREATE TABLE `tb_agent`  (
 -- ----------------------------
 -- Records of tb_agent
 -- ----------------------------
-INSERT INTO `tb_agent` VALUES (1, '1', 'beautifulsoup@163.com', '372330000007777663220', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower5.jpg', 'FuyunWang', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195200', 'SDNU', 0, 0, 1, '2020-10-20 09:55:44');
-INSERT INTO `tb_agent` VALUES (9, '能工摩型,巧匠窃意', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/snow1.jpg', 'wangxiaohao', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 0, 2, '2020-11-01 09:55:44');
-INSERT INTO `tb_agent` VALUES (10, '15', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower2.jpg', 'wangshu', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 0, 2, '2020-05-29 09:55:44');
-INSERT INTO `tb_agent` VALUES (11, '0', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'beautifulsoup', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 10, 0, 3, '2018-06-17 09:55:44');
-INSERT INTO `tb_agent` VALUES (12, '11', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'gopher', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (1, '1111', 'beautifulsoup@163.com', '372330000007777663220', 'https://sf3-ttcdn-tos.pstatp.com/img/user-avatar/9187a91e7b4dc8cd55473af9b62fc8ee~300x300.image', 'FuyunWang', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195200', 'SDNU', 0, 0, 1, '2020-10-20 09:55:44');
+INSERT INTO `tb_agent` VALUES (9, '能工摩型,巧匠窃意', 'beautifulsoup@126.com', '372230000000000', 'https://sf3-ttcdn-tos.pstatp.com/img/user-avatar/26beefa70b4785fb7c84a38a9b440ea4~300x300.image', 'wangxiaohao', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 0, 2, '2020-11-01 09:55:44');
+INSERT INTO `tb_agent` VALUES (10, '15', 'beautifulsoup@126.com', '372230000000000', 'https://sf3-ttcdn-tos.pstatp.com/img/user-avatar/9187a91e7b4dc8cd55473af9b62fc8ee~300x300.image', 'wangshu', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 0, 2, '2020-05-29 09:55:44');
+INSERT INTO `tb_agent` VALUES (11, '0', 'beautifulsoup@126.com', '372230000000000', 'https://sf6-ttcdn-tos.pstatp.com/img/user-avatar/d5909b97177d58b77d02a83a620abd18~300x300.image', 'beautifulsoup', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 10, 0, 3, '2018-06-17 09:55:44');
+INSERT INTO `tb_agent` VALUES (12, '11', 'beautifulsoup@126.com', '372230000000000', 'https://sf6-ttcdn-tos.pstatp.com/img/user-avatar/5512fffff169e1820834dcc9a3bbc98e~300x300.image', 'gopher', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 0, 3, '2018-06-17 09:55:44');
 INSERT INTO `tb_agent` VALUES (13, '10', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'zhudunru', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 9, 1, 3, '2018-06-17 09:55:44');
 INSERT INTO `tb_agent` VALUES (14, '0', 'beautifulsoup@126.com', '372230000000000', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'libai', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195552', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
 INSERT INTO `tb_agent` VALUES (15, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'wangbo', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2018-06-17 09:55:44');
@@ -96,17 +154,17 @@ INSERT INTO `tb_agent` VALUES (24, '0', '1721693585@qq.com', '372330111198888', 
 INSERT INTO `tb_agent` VALUES (25, '0', '1721693585@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'fff号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-03-26 09:55:44');
 INSERT INTO `tb_agent` VALUES (26, '0', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower3.jpg', 'hhh号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-04-04 09:55:44');
 INSERT INTO `tb_agent` VALUES (27, '0', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/flower1.jpg', 'mmm号', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 1, 1, 2, '2019-10-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (28, '你会的越多,你不会的越多', '2152521764@qq.com', '372330111198888', 'http://qi2c9qbdt.hb-bkt.clouddn.com/snow2.jpg', 'mmm号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 27, 0, 3, '2020-10-31 09:55:44');
-INSERT INTO `tb_agent` VALUES (29, '万事起于忽微,量变引起质变', '2375872953@qq.com', NULL, 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar1.jpg', 'administrator', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195301', NULL, NULL, 0, 2, '2020-11-04 09:55:44');
-INSERT INTO `tb_agent` VALUES (30, '莫道君行早,更有早行人', '1836361620@qq.com', NULL, 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar2.jpg', 'BeautifulSoup2020', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '18954157220', NULL, NULL, 0, 4, '2020-11-02 09:55:44');
+INSERT INTO `tb_agent` VALUES (28, '你会的越多,你不会的越多', '2152521764@qq.com', '372330111198888', 'https://sf3-ttcdn-tos.pstatp.com/img/user-avatar/732186508929940c0ea6978021bc9f76~300x300.image', 'mmm号-1', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '17864195555', '山东师范大学', 27, 0, 3, '2020-10-31 09:55:44');
+INSERT INTO `tb_agent` VALUES (29, '万事起于忽微,量变引起质变', '2375872953@qq.com', NULL, 'https://sf6-ttcdn-tos.pstatp.com/img/user-avatar/d5909b97177d58b77d02a83a620abd18~300x300.image', 'administrator', '$2a$10$Cs/oIvshvAI85WFY9VB7e.jV2WNwwse3/f98pzOYrpdRi89mqBwBO', '17864195301', NULL, NULL, 0, 2, '2020-11-04 09:55:44');
+INSERT INTO `tb_agent` VALUES (30, '莫道君行早,更有早行人', '1836361620@qq.com', NULL, 'https://sf6-ttcdn-tos.pstatp.com/img/user-avatar/5512fffff169e1820834dcc9a3bbc98e~300x300.image', 'BeautifulSoup2020', '$2a$10$Dm3mr0P5NBDP8E4Wl1sYQe/jbEhFhsYPp3OArMDYZ4V6FWBEl0m3i', '18954157220', NULL, NULL, 0, 4, '2020-11-02 09:55:44');
 
 -- ----------------------------
 -- Table structure for tb_agent_role
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_agent_role`;
 CREATE TABLE `tb_agent_role`  (
-  `agent_id` int(0) NOT NULL,
-  `role_id` int(0) NOT NULL
+  `agent_id` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -124,13 +182,13 @@ INSERT INTO `tb_agent_role` VALUES (11, 1);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_department`;
 CREATE TABLE `tb_department`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
   `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
   `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
   `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
   `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
-  `status` int(0) NOT NULL COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `status` int(11) NOT NULL COMMENT '状态（0 未处理 1 已处理 3 误报警）',
   `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系人',
   `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '备注',
   PRIMARY KEY (`id`) USING BTREE,
@@ -140,31 +198,31 @@ CREATE TABLE `tb_department`  (
 -- ----------------------------
 -- Records of tb_department
 -- ----------------------------
-INSERT INTO `tb_department` VALUES (1, '测试组1', '2020-11-05 23:50:01', '人员检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/person_detect.mp4', 0, '17861423310', 'person');
-INSERT INTO `tb_department` VALUES (2, '测试组2', '2020-11-04 19:01:14', '安全绳检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/new_safety.mp4', 0, '18952437510', 'safety');
-INSERT INTO `tb_department` VALUES (3, '测试组3', '2020-11-05 23:49:19', '吸烟检测', '设备1', 'http://qi2c9qbdt.hb-bkt.clouddn.com/napianhai.mp4', 0, '15552220331', 'smoking');
-INSERT INTO `tb_department` VALUES (4, '测试组4', '2020-11-05 23:49:23', '打电话检测', '设备1', '', 0, '18913024586', 'phoning');
-INSERT INTO `tb_department` VALUES (5, '测试组5', '2020-11-05 23:49:35', '电机检测', '设备1', '', 0, '19854157620', 'electric');
-INSERT INTO `tb_department` VALUES (6, '测试组6', '2020-11-05 23:49:41', '火焰', '设备1', '', 0, '13422109987', 'flame');
+INSERT INTO `tb_department` VALUES (1, '测试组1', '2021-07-16 09:41:48', '火焰检测', '设备1', 'http://120.27.20.141:8888/group1/M00/00/01/rBlBrmDw2nKAActgARA1mLl0_S8331.mp4', 0, '17861423310', 'fire');
+INSERT INTO `tb_department` VALUES (2, '测试组2', '2021-07-16 09:41:49', '安全绳检测', '设备1', 'http://120.27.20.141:8888/group1/M00/00/00/rBlBrmDnsLmAC5dzAaWAMa783SA633.mp4', 0, '18952437510', 'safety');
+INSERT INTO `tb_department` VALUES (3, '测试组3', '2021-07-16 09:41:51', '吸烟检测', '设备1', '', 0, '15552220331', 'smoking');
+INSERT INTO `tb_department` VALUES (4, '测试组4', '2021-07-16 09:41:53', '打电话检测', '设备1', '', 0, '18913024586', 'phoning');
+INSERT INTO `tb_department` VALUES (5, '测试组5', '2021-07-16 09:41:58', '电机检测', '设备1', '', 0, '19854157620', 'electric');
+INSERT INTO `tb_department` VALUES (6, '测试组6', '2021-07-16 09:41:55', '人员检测', '设备1', '', 0, '13422109987', 'flame');
 
 -- ----------------------------
 -- Table structure for tb_department_solved
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_department_solved`;
 CREATE TABLE `tb_department_solved`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '部门名',
   `alarmTime` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '报警时间',
   `incidentType` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '事件类型',
   `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
   `screenShot` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '抓拍图',
-  `status` int(0) NOT NULL DEFAULT 0 COMMENT '状态（0 未处理 1 已处理 3 误报警）',
+  `status` int(11) NOT NULL DEFAULT 0 COMMENT '状态（0 未处理 1 已处理 3 误报警）',
   `contact` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系人',
   `note` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `departmentId` int(0) NULL DEFAULT NULL,
+  `departmentId` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `deviceName`(`deviceName`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 154 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of tb_department_solved
@@ -175,16 +233,16 @@ CREATE TABLE `tb_department_solved`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_device`;
 CREATE TABLE `tb_device`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '主键',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `deviceName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备名称',
   `deviceUserName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备用户名',
   `deviceIp` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '设备IP地址',
   `RTSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'RTSP端口',
   `gateway` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '网关',
-  `status` int(0) NOT NULL COMMENT '状态（0正常 1异常）',
+  `status` int(11) NOT NULL COMMENT '状态（0正常 1异常）',
   `departmentName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '组织',
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
-  `state` int(0) NULL DEFAULT NULL COMMENT '状态',
+  `state` int(11) NULL DEFAULT NULL COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `deviceNmae`(`deviceName`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
@@ -192,7 +250,7 @@ CREATE TABLE `tb_device`  (
 -- ----------------------------
 -- Records of tb_device
 -- ----------------------------
-INSERT INTO `tb_device` VALUES (1, '人员检测设备', 'administrator', '192.168.1.100', '26101', '人员检测', 0, '测试组1', '门口', 0);
+INSERT INTO `tb_device` VALUES (1, '人员检测设备', 'administrator', '192.168.1.100', '26101', '人员检测', 0, '测试组1', '门口', 1);
 INSERT INTO `tb_device` VALUES (2, '安全绳检测设备', 'administrator', '192.168.1.101', '554', '安全绳检测', 0, '测试组2', '过道', 0);
 INSERT INTO `tb_device` VALUES (3, '吸烟检测设备', 'administrator', '192.168.1.102', '554', '吸烟检测', 0, '测试组3', '楼梯', 0);
 INSERT INTO `tb_device` VALUES (4, '打电话检测设备', 'administrator', '192.168.1.103', '554', '打电话检测', 0, '测试组4', '后墙', NULL);
@@ -202,12 +260,12 @@ INSERT INTO `tb_device` VALUES (4, '打电话检测设备', 'administrator', '19
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_menu_info`;
 CREATE TABLE `tb_menu_info`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单名称',
   `menu_path` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '菜单路径',
-  `orders` int(0) NULL DEFAULT 1 COMMENT '顺序',
-  `parent_id` int(0) NULL DEFAULT 0 COMMENT '父级id,为0表示为根父级',
-  `auth_type` int(0) NULL DEFAULT 3 COMMENT '权限类型,0是只有超管才能看到,1是高管可以看到,2是中管可以看到,3是所有人都可以看到',
+  `orders` int(11) NULL DEFAULT 1 COMMENT '顺序',
+  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级id,为0表示为根父级',
+  `auth_type` int(11) NULL DEFAULT 3 COMMENT '权限类型,0是只有超管才能看到,1是高管可以看到,2是中管可以看到,3是所有人都可以看到',
   `component` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `redirect` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '',
   PRIMARY KEY (`id`) USING BTREE
@@ -238,10 +296,10 @@ INSERT INTO `tb_menu_info` VALUES (23, '直播检测', 'live', 1, 22, 3, 'system
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_menu_info_meta`;
 CREATE TABLE `tb_menu_info_meta`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `icon` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  `menu_id` int(0) NULL DEFAULT 0,
+  `menu_id` int(11) NULL DEFAULT 0,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 12 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -264,12 +322,12 @@ INSERT INTO `tb_menu_info_meta` VALUES (11, '直播检测', 'component', 23);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role`;
 CREATE TABLE `tb_role`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `operator` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `role_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
-  `type` int(0) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
+  `type` int(11) NULL DEFAULT NULL,
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = MyISAM AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -287,9 +345,9 @@ INSERT INTO `tb_role` VALUES (4, NULL, NULL, 'test1', NULL, NULL, NULL);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_role_acl`;
 CREATE TABLE `tb_role_acl`  (
-  `role_id` int(0) NOT NULL,
-  `acl_id` int(0) NOT NULL
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
+  `role_id` int(11) NOT NULL,
+  `acl_id` int(11) NOT NULL
+) ENGINE = MyISAM CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Fixed;
 
 -- ----------------------------
 -- Records of tb_role_acl
@@ -321,9 +379,9 @@ INSERT INTO `tb_role_acl` VALUES (2, 25);
 -- ----------------------------
 DROP TABLE IF EXISTS `tb_student`;
 CREATE TABLE `tb_student`  (
-  `id` int(0) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `operator` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `status` int(0) NULL DEFAULT NULL,
+  `status` int(11) NULL DEFAULT NULL,
   `student_id` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `student_img` varchar(1024) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `student_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

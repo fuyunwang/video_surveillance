@@ -180,7 +180,7 @@ class Live:
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         # ffmpeg command
-        self.command = ['F:\\work\laboratory\\ffmpeg-4.3.1-win64-static\\bin\\ffmpeg.exe',
+        self.command = ['F:\\videoprojects\\ffmpeg\\bin\\ffmpeg.exe',
                         '-y',
                         '-f', 'rawvideo',
                         '-vcodec', 'rawvideo',
@@ -252,6 +252,6 @@ class Live:
 
 
 if __name__ == '__main__':
-    # live = Live(0, 'rtmp://192.168.1.100:1935/live/home')
-    # live.run()
+    live = Live(0, 'rtmp://127.0.0.1:1935/live/home')
+    live.run()
     app.run(debug=True)

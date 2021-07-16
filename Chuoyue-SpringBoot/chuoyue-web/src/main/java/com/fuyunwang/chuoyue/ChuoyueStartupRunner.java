@@ -1,6 +1,8 @@
 package com.fuyunwang.chuoyue;
 
+import com.fuyunwang.chuoyue.quartz.SampleScheduler;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -9,8 +11,11 @@ import org.springframework.stereotype.Component;
 @Component
 @Order(value = 1)
 public class ChuoyueStartupRunner implements CommandLineRunner {
+    @Autowired
+    public SampleScheduler scheduleJobs;
     @Override
     public void run(String... args) throws Exception {
-        log.info("初始化任务");
+        scheduleJobs.scheduleJobs();
+        log.info(">>>>>>>>>>>>>>>定时任务开始执行<<<<<<<<<<<<<");
     }
 }

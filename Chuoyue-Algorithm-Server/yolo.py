@@ -55,6 +55,10 @@ class YOLO(object):
         if self.detect_type == 'safety':
             self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/yolo4_safety.pth'
             self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/new_classes_safty.txt'
+        else:
+            self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.pth'
+            self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.txt'
+
         classes_path = os.path.expanduser(self.classes_path)
         with open(classes_path) as f:
             class_names = f.readlines()
@@ -87,6 +91,9 @@ class YOLO(object):
         if self.detect_type == 'safety':
             self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/yolo4_safety.pth'
             self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/new_classes_safty.txt'
+        else:
+            self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.pth'
+            self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.txt'
         state_dict = torch.load(self.model_path, map_location=device)
         self.net.load_state_dict(state_dict)
 
@@ -101,14 +108,7 @@ class YOLO(object):
         for i in range(3):
             self.yolo_decodes.append(
                 DecodeBox(self.anchors[i], len(self.class_names), (self.model_image_size[1], self.model_image_size[0])))
-        # if self.detect_type == 'person':
-        #     self._defaults['model_path'] = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.pth'
-        #     self._defaults[
-        #         'classes_path'] = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/coco_classess.txt'
-        # if self.detect_type == 'safety':
-        #     self._defaults['model_path'] = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/yolo4_safety.pth'
-        #     self._defaults[
-        #         'classes_path'] = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/new_classes_safty.txt'
+
         print('{} model, anchors, and classes loaded.'.format(self.model_path))
         # 画框设置不同的颜色
         hsv_tuples = [(x / len(self.class_names), 1., 1.)
@@ -172,6 +172,44 @@ class YOLO(object):
         for i, c in enumerate(top_label):
             predicted_class = self.class_names[c]
             if predicted_class == self.detect_type:
+            # if predicted_class == 'person':
+                judge += 1
+                score = top_conf[i]
+
+                top, left, bottom, right = boxes[i]
+                top = top - 5
+                left = left - 5
+                bottom = bottom + 5
+                right = right + 5
+
+                top = max(0, np.floor(top + 0.5).astype('int32'))
+                left = max(0, np.floor(left + 0.5).astype('int32'))
+                bottom = min(np.shape(image)[0], np.floor(bottom + 0.5).astype('int32'))
+                right = min(np.shape(image)[1], np.floor(right + 0.5).astype('int32'))
+
+                # 画框框
+                label = '{} {:.2f}'.format(predicted_class, score)
+                draw = ImageDraw.Draw(image)
+                label_size = draw.textsize(label, font)
+                label = label.encode('utf-8')
+                if ifPrint:
+                    print(label)
+
+                if top - label_size[1] >= 0:
+                    text_origin = np.array([left, top - label_size[1]])
+                else:
+                    text_origin = np.array([left, top + 1])
+
+                for i in range(thickness):
+                    draw.rectangle(
+                        [left + i, top + i, right - i, bottom - i],
+                        outline=self.colors[self.class_names.index(predicted_class)])
+                draw.rectangle(
+                    [tuple(text_origin), tuple(text_origin + label_size)],
+                    fill=self.colors[self.class_names.index(predicted_class)])
+                draw.text(text_origin, str(label, 'UTF-8'), fill=(0, 0, 0), font=font)
+                del draw
+            else:
                 judge += 1
                 score = top_conf[i]
 

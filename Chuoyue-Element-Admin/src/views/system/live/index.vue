@@ -35,7 +35,7 @@ export default {
         html5: { hls: { withCredentials: false } },
         sources: [{ // 流配置，数组形式，会根据兼容顺序自动切换
           type: 'rtmp/mp4',
-          src: 'rtmp://192.168.1.100:1935/live/home'
+          src: 'rtmp://127.0.0.1:1935/live/home'
         }, {
           withCredentials: false,
           type: 'application/x-mpegURL',
