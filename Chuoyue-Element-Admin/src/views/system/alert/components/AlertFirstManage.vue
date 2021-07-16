@@ -224,7 +224,7 @@ export default {
       startLoading()
 
       const { data: res } = await axios({
-        url: 'http://127.0.0.1:5000/video_detect/person',
+        url: 'http://127.0.0.1:7000/video_detect/person',
         method: 'post',
         data: {
           video_url: this.config1.url,

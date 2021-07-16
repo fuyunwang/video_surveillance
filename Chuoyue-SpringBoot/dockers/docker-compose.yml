@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  chuoyue:
+    build:
+      context: application
+      dockerfile: Dockerfile
+    container_name: chuoyue
+    volumes:
+      - "/Chuoyue-SpringBoot/log:/log"
+    ports:
+      - 10086:10086

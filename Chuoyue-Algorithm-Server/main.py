@@ -254,4 +254,4 @@ class Live:
 if __name__ == '__main__':
     live = Live(0, 'rtmp://127.0.0.1:1935/live/home')
     live.run()
-    app.run('0.0.0.0',debug=True)
+    app.run(debug=True)
