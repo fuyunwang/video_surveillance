@@ -49,9 +49,9 @@ class YOLO(object):
     #   获得所有的分类
     # ---------------------------------------------------#
     def _get_class(self):
-        if self.detect_type == 'person':
-            self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.pth'
-            self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.txt'
+        if self.detect_type == 'fire':
+            self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/fire_detection.pth'
+            self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/fire_detection.txt'
         if self.detect_type == 'safety':
             self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/yolo4_safety.pth'
             self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/new_classes_safty.txt'
@@ -81,9 +81,9 @@ class YOLO(object):
         # 加快模型训练的效率
         print('Loading weights into state dict...')
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        if self.detect_type == 'person':
-            self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.pth'
-            self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/person.txt'
+        if self.detect_type == 'fire':
+            self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/fire_detection.pth'
+            self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/fire_detection.txt'
         if self.detect_type == 'safety':
             self.model_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/yolo4_safety.pth'
             self.classes_path = 'F:/videoprojects/video_surveillance/Chuoyue-Algorithm-Server/model_data/new_classes_safty.txt'

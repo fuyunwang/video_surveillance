@@ -90,7 +90,7 @@ export default {
         return {
           name: '',
           email: '',
-          avatar: 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar1.jpg',
+          avatar: 'http://120.27.20.141:8888/group1/M00/00/01/rBlBrmDw3_aAI-rRAADNEjshRBc488.jpg',
           role: ''
         }
       }

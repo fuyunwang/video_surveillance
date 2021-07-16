@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       title: 'Chuoyue—绰约',
-      logo: 'http://qi2c9qbdt.hb-bkt.clouddn.com/avatar1.jpg'
+      logo: 'http://120.27.20.141:8888/group1/M00/00/01/rBlBrmDw3_aAI-rRAADNEjshRBc488.jpg'
     }
   }
 }

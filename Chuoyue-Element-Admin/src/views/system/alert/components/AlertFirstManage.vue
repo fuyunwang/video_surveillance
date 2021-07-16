@@ -18,7 +18,7 @@
         <el-table-column label="设备名称" prop="deviceName" ></el-table-column>
         <el-table-column show-overflow-tooltip label="播放视频" >
           <template slot-scope="scope">
-            <el-button @click="handlePlayer(scope.row.id)">安全绳检测</el-button>
+            <el-button @click="handlePlayer(scope.row.id)">{{scope.row.incidentType}}</el-button>
           </template>
         </el-table-column>
         <el-table-column label="状态" width="150px">
